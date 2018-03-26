@@ -1,0 +1,47 @@
+----------------------------------------------------------------------------
+3.12.2017 - v 0.0.0.0.0.0.1
+    1. İngilizce ve Türkçe string.xml lerinin bir kısmı yazıldı.
+    2. TO-DO list güncellendi.
+
+
+24.01.2018 - v 0.0.0.0.0.0.2
+    1. Hidden Drawer iconları güncellendi ve son haline getirildi.
+    2. Yuvarlak profil fotoğrafının olduğu yerin arka planı mavi renk ile güncellendi.
+
+30.01.2018 - v 0.0.0.0.0.0.8
+    1. Settings kısmına 'UniPost', 'Notifications', 'Safety and Privacy', 'Data & Sync' ayarları eklendi.
+    2. pref_data_sync eklendi.
+    3. pref_notifications eklendi.
+    4. pref_safety_and_privacy eklendi.
+    5. pref_headers eklendi.
+    6. pref_general eklendi.
+    Eksikler olması muhtemel.
+    7. Oluşturulan stringler TR.xml'e de eklendi.
+
+
+12.02.2018 - v 0.0.0.0.0.0.9
+    1. pref_profile eklendi.
+    2. pref_profile XML içindeki android:key kısımları karmaşa olmasın diye silindi.Veri tutmak için onları düzgün keyler ile güncellemek lazım.   (KEYLER EKLENDİ)
+    3. Change profile picture kısmı şuan nasıl yapılması gerektiği bilinmediğinden dolayı SwitchPreference olarak bırakıldı.
+    3. SettingsActivity.java ya yeni fragment classları eklenip;
+        generalFragment --> uniPostFragment'a güncellendi.
+    4. pref_profile simgesini değiştir. gerçi tüm ayar simgelerini bi gözden geçir.
+    5. Edit Text Hints Eklendi.
+!!! 6. Doğum günü için DatePicker Eklenmesi gerekiyor
+    7. Values/strings.xml içine keyler eklendi ama gerek var mı bilmiyorum.
+    8. Oluşturulan stringler TR.xml'e de eklendi.
+
+
+19.02.2018 - v 0.0.0.0.0.1.0
+    1. Ayarlar içindeki; Profil, Unipost ve Güvenlik simgeleri güncellendi.
+    2. Fragmentlar için yazılan kod komple değişti.
+    3. FeedFragment, ProfileFragment, LecturesFragment ve MessagesFragmentlar eklendi ve PagerAdapter ile birbirine bağlandı.
+    4. Değişen kod ile fragment eklemek daha kolay hale geldi.
+    5. Versiyon kısmı fragment yerine activity'e dönüştürüldü.
+    6. Artık 4 ana fragment arasında swipe yapılabiliyor.
+
+
+----------------------------------------------------------------------------
+
+
+

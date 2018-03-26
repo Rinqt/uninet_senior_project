@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/profileSettingsLayout">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:summary="@string/pref_description_changeProfilePhoto"
+        android:title="@string/pref_title_changeProfilePhoto" />
+
+    <EditTextPreference
+        android:summary="@string/pref_description_phoneNumber"
+        android:title="@string/pref_title_phoneNumber"
+        android:hint="@string/hint_phone_number"
+        android:key="@string/key_phone_number"
+        android:inputType="number"/>
+
+    <EditTextPreference
+        android:summary="@string/pref_description_mailAddress"
+        android:title="@string/pref_title_mailAddress"
+        android:hint="@string/hint_mail_address"
+        android:key="@string/key_mail_address"/>
+
+    <EditTextPreference
+        android:summary="@string/pref_description_webPage"
+        android:title="@string/pref_title_webPage"
+        android:hint="@string/hint_web_page"
+        android:key="@string/key_web_page"/>
+
+    <ListPreference
+        android:defaultValue="None"
+        android:entries="@array/pref_list_relationship_status"
+        android:entryValues="@array/pref_list_relationship_status"
+        android:key="@string/key_relationship_status"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_relationshipStatus"
+        android:summary="@string/pref_description_relationshipStatus"/>
+
+
+
+
+</PreferenceScreen>

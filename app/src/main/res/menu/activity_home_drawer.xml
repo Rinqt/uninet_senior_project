@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_timeTable"
+            android:icon="@mipmap/timetable_icon"
+            android:title="@string/timeTable" />
+        <item
+            android:id="@+id/nav_transcript"
+            android:icon="@mipmap/transcript_icon"
+            android:title="@string/transcript" />
+        <item
+            android:id="@+id/nav_diningList"
+            android:icon="@mipmap/dining_icon"
+            android:title="@string/diningList" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@mipmap/settings_icon"
+            android:title="@string/settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@mipmap/logout_icon"
+            android:title="@string/logout" />
+    </group>
+
+    <item android:title="@string/about">
+        <menu>
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/contact" />
+            <item
+                android:id="@+id/nav_version"
+                android:icon="@mipmap/version_icon"
+                android:title="@string/version_hidden_drawer" />
+        </menu>
+    </item>
+
+</menu>

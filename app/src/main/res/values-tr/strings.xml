@@ -1,0 +1,189 @@
+<resources>
+    <string name="app_name">UniNet</string>
+    <string name="welcome_text">UniNete Hoşgeldiniz</string>
+
+    <string name="navigation_drawer_open">Drawer\'ı Aç</string>
+    <string name="navigation_drawer_close">Drawer\'ı Kapat</string>
+    <string name="search_title">Kişi ara..</string>
+
+    <string name="action_settings">Ayarlar</string>
+
+    <!--Login-->
+    <string name="userName">Kullanıcı Adı</string>
+    <string name="password">Şifre</string>
+    <string name="login">Giriş</string>
+    <string name="forgotPassword">Şifremi Unuttum!</string>
+    <!--Login END-->
+
+    <!--Logout-->
+    <string name="logoutTitle">Çıkış</string>
+    <string name="logoutMessage">Bizi terk etmek istediğine emin misin?</string>
+    <string name="logoutPositiveAnswer">Evet :(</string>
+    <string name="logoutNegativeAnswer">Asla!</string>
+    <string name="logoutThanks">Burada kaldığın için teşekkürler! :)</string>
+
+    <!--Logout END-->
+
+    <!--Menu-->
+    <string name="home">Anasayfa</string>
+    <string name="profile">Profil</string>
+    <string name="lectures">Lectures</string>
+    <string name="messages">Mesajlar</string>
+    <!--Menu END-->
+
+    <!--Lectures-->
+    <string name="addLecture">Ders Ekle</string>
+    <string name="assignments">Ödevler</string>
+    <string name="search">Ders Ara</string>
+    <!--Lectures END-->
+
+    <!--Messages-->
+    <string name="newMessage">Yeni Mesaj</string>
+    <string name="newEntry">Mesajınızı buraya yazınız…</string>
+    <string name="searchUser">Ara</string>
+    <!--Messages END-->
+
+    <!--New Post-->
+    <string name="newPost">Ne düşünüyorsun?</string>
+    <!--New Post END-->
+
+    <!--Profile-->
+    <string name="editProfile">Profili Düzenle</string>
+    <string name="friends">Arkadaşlar</string>
+    <string name="photos">Fotoğraflar</string>
+    <string name="privacySettings">Gizlilik Ayarları</string>
+    <string name="deletePost">Sil</string>
+    <!--Profile END-->
+
+    <!--Hidden Drawer-->
+    <string name="timeTable">Ders Programı</string>
+    <string name="transcript">Transkript</string>
+    <string name="diningList">Yemek Listesi</string>
+    <string name="settings">Ayarlar</string>
+    <string name="logout">Çıkış</string>
+    <string name="about">Hakkımızda</string>
+    <string name="contact">Bize Ulaşın!</string>
+    <string name="version">earlyDevelopment 0.0.0.0.0.1.4 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.0.1.4 </string>
+    <!--Hidden Drawer END-->
+
+    <!-- Strings related to Settings -->
+    <!-- Settings for Profile -->
+    <string name="title_activity_profile">Profil</string>
+    <string name="pref_header_profile">Profil</string>
+    <string name="pref_title_changeProfilePhoto">Profil Fotoğrafını Değiştir</string>
+    <string name="pref_description_changeProfilePhoto">Yeni profil fotoğrafı seç</string>
+    <string name="pref_title_phoneNumber">Telefon Numarası</string>
+    <string name="pref_description_phoneNumber">Telefon numaranızı ekleyiniz</string>
+    <string name="pref_title_mailAddress">Mail Adresi</string>
+    <string name="pref_description_mailAddress">Mail adresinizi ekleyiniz</string>
+    <string name="pref_title_webPage">Web Sayfası</string>
+    <string name="pref_description_webPage">Web sitenizin adresini giriniz</string>
+    <string name="pref_title_hobbies">Hobiler</string>
+    <string name="pref_description_hobbies">Hobilerinizi giriniz</string>
+    <string name="pref_title_relationshipStatus">İlişki Durumu</string>
+    <string name="pref_description_relationshipStatus">İlişki durumunuzu giriniz</string>
+    <string name="pref_title_setBirthday">Doğum Günü</string>
+    <string name="pref_description_setBirthday">Doğum gününüzü giriniz</string>
+
+    <string-array name="pref_list_relationship_status">
+        <item>Bekar</item>
+        <item>İlişkisi Var</item>
+        <item>Karmaşık İlişki İçinde</item>
+        <item>Evli</item>
+        <item>Godoş :D</item>
+        <item>---</item>
+    </string-array>
+    <!-- Settings for Profile END -->
+
+    <!-- Settings for UniPost -->
+    <string name="pref_header_uniPost">UniPost</string>
+    <string name="pref_title_protectUniPosts">UniPost Gizliliği</string>
+    <string name="pref_description_protectUniPosts">Sadece arkadaş listeniz UniPostları görebilir</string>
+    <string name="pref_title_location">Lokasyon</string>
+    <string name="pref_description_location">Tüm kullanıcılar UniPostları nereden attığınızı görebilir</string>
+    <!-- Settings for UniPost END -->
+
+    <!-- Settings for Version -->
+    <string name="title_activity_version">Versiyon</string>
+    <!-- Settings for Version END -->
+
+    <!-- Settings for Notifications -->
+    <string name="pref_header_notifications">Bildirimler</string>
+    <string name="pref_title_new_message_notifications">Yeni mesaj bildirimleri</string>
+    <string name="pref_title_ringtone">Zil Sesi</string>
+    <string name="pref_ringtone_silent">Sessiz</string>
+    <string name="pref_title_vibrate">Titreşim</string>
+    <!-- Settings for Notifications END -->
+
+
+    <!-- Settings for Safety and Privacy -->
+    <string name="pref_header_safetyAndPrivacy">Güvenlik Ayarları</string>
+    <string name="pref_title_messageReceive">Herkesten bana mesaj gönderebilir</string>
+    <string name="pref_description_messageReceive">Arkadaş listenizde olmasa bile kullanıcılar size mesaj yollayabilir</string>
+    <string name="pref_title_blockedUsers">Engellenenler</string>
+    <string name="pref_description_blockedUser">Engellenmiş kullanıcı listesi</string>
+    <string name="pref_title_birthday">Doğum günü</string>
+    <string name="pref_description_birthday">Doğum günümü profilde göster</string>
+    <!-- Settings for Safety and Privacy END -->
+
+    <!-- Settings for Data & Sync -->
+    <string name="pref_header_data_sync">Veri &amp; Senkronizasyon</string>
+    <string name="pref_title_sync_frequency">Senkronizasyon aralığı</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 dakika</item>
+        <item>30 dakika</item>
+        <item>1 saat</item>
+        <item>3 saat</item>
+        <item>6 saat</item>
+        <item>Hiçbir zaman</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+    <string name="pref_title_system_sync_settings">Telefon Senkronizasyon Ayarları</string>
+    <!-- Settings for Data & Sync END -->
+
+
+    <!-- Edit Text Hints -->
+    <string name="hint_birthday">GG.AA.YYYY</string>
+    <string name="hint_phone_number">XXX XXX XXXX</string>
+    <string name="hint_web_page">websitem.com.tr</string>
+    <string name="hint_mail_address">mailadresim@mail.com</string>
+    <string name="hint_login_user_name">Okul Numarası</string>
+    <string name="hint_login_user_password">Şifre</string>
+    <!-- Edit Text Hints END -->
+
+    <string name="title_activity_dining">Yemek Listesi</string>
+    <string name="title_activity_transcript">Transkript</string>
+    <string name="title_activity_time_table">Haftalık Program</string>
+
+
+    <!-- Buttons -->
+    <string name="description_profile_photo">Profil Fotoğrafı</string>
+    <string name="btn_title_set_profile">Profil Ayarları</string>
+    <string name="btn_title_friends">Arkadaşlar</string>
+    <string name="btn_title_photos">Fotoğraflar</string>
+    <string name="btn_title_privacy">Gizlilik</string>
+    <!-- Buttons END -->
+
+</resources>

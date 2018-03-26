@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="com.seniorproject.uninet.uninet.SettingsActivity$ProfilePreferenceFragment"
+        android:icon="@drawable/ic_profile_black_24dp"
+        android:title="@string/pref_header_profile" />
+    <header
+        android:fragment="com.seniorproject.uninet.uninet.SettingsActivity$UniPostPreferenceFragment"
+        android:icon="@drawable/ic_uni_post_black_24dp"
+        android:title="@string/pref_header_uniPost" />
+
+    <header
+        android:fragment="com.seniorproject.uninet.uninet.SettingsActivity$NotificationPreferenceFragment"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/pref_header_notifications" />
+
+    <header
+        android:fragment="com.seniorproject.uninet.uninet.SettingsActivity$SafetyAndPrivacy"
+        android:icon="@drawable/ic_safety_and_privacy_black_24dp"
+        android:title="@string/pref_header_safetyAndPrivacy" />
+
+    <header
+        android:fragment="com.seniorproject.uninet.uninet.SettingsActivity$DataSyncPreferenceFragment"
+        android:icon="@drawable/ic_sync_black_24dp"
+        android:title="@string/pref_header_data_sync" />
+
+</preference-headers>
