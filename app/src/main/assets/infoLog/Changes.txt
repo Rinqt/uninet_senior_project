@@ -44,6 +44,7 @@
     1. Çıkış yaptıktan sonra geri butonu ile anasayfaya gelme sorunu giderildi. (loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);)
     2. kullanıcı adı ve şifre " admin ", " admin " olarak güncellendi.
     3. Profil Fragmentdaki butonlardan direkt olarak istenilen ayarlara gidilebiliyor. (Intent ve putExtra Kullanıldı.)
+    4. Kullanıcı Profil kısmında attığı postlara uzun basarak post menüsüne ulaşabilir.
 ----------------------------------------------------------------------------
 
 

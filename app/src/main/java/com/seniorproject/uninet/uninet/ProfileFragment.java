@@ -1,19 +1,22 @@
 package com.seniorproject.uninet.uninet;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 /**
@@ -29,11 +32,10 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    final CharSequence[] unipostOptions = {"Copy UniPost Text"};
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private static FragmentManager fragmentManager;
     private OnFragmentInteractionListener mListener;
 
     // Buttons
@@ -45,7 +47,6 @@ public class ProfileFragment extends Fragment {
 
     // unipost_list_view
     private ListView unipost_list;
-
 
 
     public ProfileFragment() {
@@ -84,6 +85,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // Declaration
         setProfileButton = getActivity().findViewById(R.id.set_profile_button);
         friendsButton = getActivity().findViewById(R.id.friends_button);
         photosButton = getActivity().findViewById(R.id.photos_button);
@@ -92,6 +94,36 @@ public class ProfileFragment extends Fragment {
 
         unipost_list = getActivity().findViewById(R.id.unipost_list_view);
         unipost_list.setAdapter(new ListViewAdapter(getActivity().getApplicationContext()));
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+
+        //Postlar için LongPress Alert Dialog
+        unipost_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("Long click check", "Item Index " + i);
+
+                alertDialog.setItems(unipostOptions, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int whichOption) {
+
+                        switch (whichOption)
+                        {
+                            case 0:
+                                Toast.makeText(getContext(), "Deneme", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
+
+                alertDialog.show();
+
+
+                return false;
+            }
+        });
+
+
 
         setProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
