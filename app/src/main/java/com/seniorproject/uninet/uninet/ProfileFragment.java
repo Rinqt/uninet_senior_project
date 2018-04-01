@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,7 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private static FragmentManager fragmentManager;
     private OnFragmentInteractionListener mListener;
 
     // Buttons
@@ -94,9 +96,10 @@ public class ProfileFragment extends Fragment {
         setProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingsIntent = new Intent(getActivity(), SettingsActivity.ProfilePreferenceFragment.class);
-                startActivity(settingsIntent.setFlags(0));
-
+                Intent settingsIntent = new Intent(getActivity(), SettingsActivity.class);
+                settingsIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.ProfilePreferenceFragment.class.getName() );
+                settingsIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+                startActivity(settingsIntent);
             }
         });
 
@@ -118,13 +121,13 @@ public class ProfileFragment extends Fragment {
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Class içindeki Fragmentı çağırmayı putExtra ile yapıyoruz.
                 Intent privacyIntent = new Intent(getActivity(), SettingsActivity.class);
+                privacyIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.SafetyAndPrivacy.class.getName() );
+                privacyIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
                 startActivity(privacyIntent);
-
             }
         });
-
-
     }
 
     @Override

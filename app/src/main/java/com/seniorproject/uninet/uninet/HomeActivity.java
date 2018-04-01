@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -101,12 +102,14 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         toggle.syncState();
+
     }
 
     @Override
@@ -141,6 +144,8 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+
         int id = item.getItemId();
 
         if (id == R.id.nav_timeTable) {
@@ -179,6 +184,8 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+
+
     private void setupTabIcons() // 4 ana tabin iconu ayarlama
     {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -206,7 +213,6 @@ public class HomeActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_search, menu);
-
         return true;
     }
 

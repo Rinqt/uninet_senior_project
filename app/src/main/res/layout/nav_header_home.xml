@@ -13,11 +13,13 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/drawerProfilePhoto"
         android:layout_width="71dp"
         android:layout_height="81dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/awesome_kaan" />
+        app:srcCompat="@mipmap/awesome_kaan"
+        android:clickable="true"
+        android:focusable="true"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
