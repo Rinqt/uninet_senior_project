@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -44,6 +46,7 @@ public class ProfileFragment extends Fragment {
     Button photosButton;
     Button privacyButton;
     SettingsActivity settingsActivity;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     // unipost_list_view
     private ListView unipost_list;
@@ -90,6 +93,7 @@ public class ProfileFragment extends Fragment {
         friendsButton = getActivity().findViewById(R.id.friends_button);
         photosButton = getActivity().findViewById(R.id.photos_button);
         privacyButton = getActivity().findViewById(R.id.privacy_button);
+        swipeRefreshLayout = getActivity().findViewById(R.id.unipostSwiper);
 
 
         unipost_list = getActivity().findViewById(R.id.unipost_list_view);
@@ -111,19 +115,31 @@ public class ProfileFragment extends Fragment {
                         {
                             case 0:
                                 Toast.makeText(getContext(), "Deneme", Toast.LENGTH_LONG).show();
-
                         }
                     }
                 });
-
                 alertDialog.show();
-
-
                 return false;
             }
         });
 
+            // uniPostların olduğu list view refreshToSwipe özelliği ile çakıkıyordu.
+            // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
+            unipost_list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(firstVisibleItem == 0 && isListAtTop()){
+                    swipeRefreshLayout.setEnabled(true);
+                }else{
+                    swipeRefreshLayout.setEnabled(false);
+                }
+            }
+        });
 
         setProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +165,22 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
+                refreshPosts();
+            }
+        });
+
+
+
+
+
+
+
 
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,4 +250,18 @@ public class ProfileFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private void refreshPosts()
+    {
+        Toast.makeText(getContext(), "Refreshed.", Toast.LENGTH_LONG).show();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    // To check if we are at top of the UniPost List.
+    private boolean isListAtTop()
+    {
+        if(unipost_list.getChildCount() == 0) return true;
+        return unipost_list.getChildAt(0).getTop() == 0;
+    }
+
 }

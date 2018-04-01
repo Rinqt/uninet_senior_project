@@ -7,6 +7,8 @@
     <string name="search_title">Kişi ara..</string>
 
     <string name="action_settings">Ayarlar</string>
+    <string name="menu_refresh">Yenilemek İçin Kaydır</string>
+
 
     <!--Login-->
     <string name="userName">Kullanıcı Adı</string>

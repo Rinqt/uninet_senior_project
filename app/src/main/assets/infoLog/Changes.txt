@@ -45,6 +45,10 @@
     2. kullanıcı adı ve şifre " admin ", " admin " olarak güncellendi.
     3. Profil Fragmentdaki butonlardan direkt olarak istenilen ayarlara gidilebiliyor. (Intent ve putExtra Kullanıldı.)
     4. Kullanıcı Profil kısmında attığı postlara uzun basarak post menüsüne ulaşabilir.
+
+4.04.2018
+    1. Swipe to Refresh özelliği Profil Kısmı için eklendi.
+
 ----------------------------------------------------------------------------
 
 
