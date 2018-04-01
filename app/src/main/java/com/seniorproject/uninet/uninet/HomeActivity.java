@@ -65,6 +65,10 @@ public class HomeActivity extends AppCompatActivity
         //Session
         sessionChecker = new SessionChecker(this);
 
+        if(!sessionChecker.loggedIn()){
+            logout();
+        }
+
 
         viewPager = findViewById(R.id.viewPager);
         setupViewPager(viewPager);
@@ -220,7 +224,9 @@ public class HomeActivity extends AppCompatActivity
                 sessionChecker.setUserLoggedIn(false);
                 sessionChecker.editor.clear().commit();
                 Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(loginIntent);
+                finish();
             }
         });
 

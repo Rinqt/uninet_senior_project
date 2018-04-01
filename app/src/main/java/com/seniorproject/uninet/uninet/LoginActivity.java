@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void attemptLogin() {
 
-        if (Objects.equals(universityNumber.getText().toString(), "15070006054") && Objects.equals(userPassword.getText().toString(), "awesomekaan")) {
+        if (Objects.equals(universityNumber.getText().toString(), "admin") && Objects.equals(userPassword.getText().toString(), "admin")) {
             Log.i("attemptLogin", "Inside of attemptLogin()");
             sessionChecker.setUserLoggedIn(true); // User Session
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
