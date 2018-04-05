@@ -1,6 +1,5 @@
 package com.seniorproject.uninet.uninet;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -76,9 +75,9 @@ public class ListViewAdapter extends BaseAdapter {
         View uniPost = layoutInflater.inflate(R.layout.post_template, viewGroup, false);
 
         TextView userName = uniPost.findViewById(R.id.user_name);
-        TextView date = uniPost.findViewById(R.id.unipost_date);
-        TextView description = uniPost.findViewById(R.id.unipost_text);
-        ImageView userPhoto = uniPost.findViewById(R.id.profile_picture);
+        TextView date = uniPost.findViewById(R.id.user_name);
+        TextView description = uniPost.findViewById(R.id.user_name);
+        ImageView userPhoto = uniPost.findViewById(R.id.user_name);
 
 
         UniPost temp = list.get(i);
