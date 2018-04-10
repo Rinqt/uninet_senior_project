@@ -177,6 +177,13 @@
     <string name="hint_login_user_password">Şifre</string>
     <!-- Edit Text Hints END -->
 
+    <!-- android:keys -->
+    <string name="key_phone_number">key_phone_number</string>
+    <string name="key_mail_address">key_mail_address</string>
+    <string name="key_relationship_status">key_relationship_status</string>
+    <string name="key_birthday">key_birthday</string>
+    <string name="key_web_page">key_web_page</string>
+
     <string name="title_activity_dining">Yemek Listesi</string>
     <string name="title_activity_transcript">Transkript</string>
     <string name="title_activity_time_table">Haftalık Program</string>

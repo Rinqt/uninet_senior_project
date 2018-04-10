@@ -1,5 +1,6 @@
 package com.seniorproject.uninet.uninet;
 
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
+
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
+
 import java.util.List;
 
 /**
@@ -40,6 +45,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
+
+    static ProfileInfoStudent profileInfoStudent;
+
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
@@ -109,7 +117,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      *
      * @see #sBindPreferenceSummaryToValueListener
      */
-    private static void bindPreferenceSummaryToValue(Preference preference) {
+    private static void bindPreferenceSummaryToValue(Preference preference, String value) {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
@@ -118,7 +126,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+                        .getString(preference.getKey(), value));
 
 
     }
@@ -149,6 +157,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
             return true;
         }
+
         return super.onMenuItemSelected(featureId, item);
     }
 
@@ -199,11 +208,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
 
+            profileInfoStudent = DatabaseMethods.GetProfileInfoStudent("1");
 
-            bindPreferenceSummaryToValue(findPreference("key_phone_number"));
-            bindPreferenceSummaryToValue(findPreference("key_mail_address"));
-            bindPreferenceSummaryToValue(findPreference("key_relationship_status"));
-            bindPreferenceSummaryToValue(findPreference("key_web_page"));
+            bindPreferenceSummaryToValue(findPreference("key_phone_number"), profileInfoStudent.phoneNumber);
+            bindPreferenceSummaryToValue(findPreference("key_mail_address"), profileInfoStudent.email);
+            bindPreferenceSummaryToValue(findPreference("key_relationship_status"), profileInfoStudent.relationship);
+            bindPreferenceSummaryToValue(findPreference("key_web_page"), profileInfoStudent.webPage);
             //bindPreferenceSummaryToValue(findPreference("example_list"));
         }
 
@@ -214,6 +224,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
             }
+
             return super.onOptionsItemSelected(item);
         }
     }
@@ -260,7 +271,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"), "");
         }
 
         @Override
@@ -324,7 +335,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+            bindPreferenceSummaryToValue(findPreference("sync_frequency"), "");
         }
 
         @Override
