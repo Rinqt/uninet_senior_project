@@ -22,6 +22,7 @@
         android:key="@string/key_mail_address"/>
 
     <EditTextPreference
+        android:id="@+id/webPage"
         android:summary="@string/pref_description_webPage"
         android:title="@string/pref_title_webPage"
         android:hint="@string/hint_web_page"

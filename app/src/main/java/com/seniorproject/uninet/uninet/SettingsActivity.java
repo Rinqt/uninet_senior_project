@@ -12,15 +12,14 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.text.TextUtils;
-import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -45,6 +44,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
+
+            // Girilen valuelar stringValue içinde
+            Log.i("Key value set to:", stringValue);
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in
@@ -117,6 +119,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 PreferenceManager
                         .getDefaultSharedPreferences(preference.getContext())
                         .getString(preference.getKey(), ""));
+
+
     }
 
     @Override
@@ -194,6 +198,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
+
 
             bindPreferenceSummaryToValue(findPreference("key_phone_number"));
             bindPreferenceSummaryToValue(findPreference("key_mail_address"));

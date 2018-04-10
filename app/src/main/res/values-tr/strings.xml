@@ -15,6 +15,8 @@
     <string name="password">Şifre</string>
     <string name="login">Giriş</string>
     <string name="forgotPassword">Şifremi Unuttum!</string>
+    <string name="wrong_login">Kullanıcı adı ya da şifre yanlış!</string>
+    <string name="no_internet_permission">İnternet Erişim İzni Bulunamadı.</string>
     <!--Login END-->
 
     <!--Logout-->

@@ -28,15 +28,14 @@ import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
-
     private AutoCompleteTextView universityNumber;
     private EditText userPassword;
 
     //Session
     private SessionChecker sessionChecker;
+
+    // Keyboard hider
+    InputMethodManager keyboardHider;
 
 
     @Override
@@ -47,7 +46,10 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         universityNumber = findViewById(R.id.user_name);
         userPassword = findViewById(R.id.user_password);
+
         final Button loginButton = findViewById(R.id.login_button);
+
+        keyboardHider = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         //Session
         sessionChecker = new SessionChecker(this);
@@ -65,8 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.loginScreenLinearLayout).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 return true;
             }
         });
@@ -106,21 +108,32 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin() {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
-                == PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_GRANTED)
+        {
             Log.i("PERMISSION", "Internet Permission found.");
-        }
 
-        if (DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString()).equals("1")) {
-            Log.i("attemptLogin", "Inside of attemptLogin()");
-            sessionChecker.setUserLoggedIn(true); // User Session
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_LONG).show();
-        } else
-            {
-                Log.i("wrongInput", "Wrong Input");
+
+            if (DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString()).equals("1")) {
+                Log.i("attemptLogin", universityNumber.getText().toString() + userPassword.getText().toString() + "tries to sneak to app.");
+
+                sessionChecker.setUserLoggedIn(true); // User Session
+
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_LONG).show();
 
             }
+            else
+            {
+                keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                Toast.makeText(getApplicationContext(), R.string.wrong_login, Toast.LENGTH_LONG).show();
+                Log.i("wrongInput", "Wrong Input");
+            }
+        }
+
+        else
+            Toast.makeText(getApplicationContext(), R.string.no_internet_permission, Toast.LENGTH_LONG).show();
 
     }
 
