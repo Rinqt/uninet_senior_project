@@ -1,5 +1,7 @@
 package com.seniorproject.uninet.uninet.DatabaseClasses;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,6 +19,7 @@ public class DatabaseMethods {
             e.printStackTrace();
         }
 
+        Log.i("LoginCheck", result.toString());
         return result;
     }
 
@@ -41,7 +44,9 @@ public class DatabaseMethods {
             e.printStackTrace();
         }
 
+        Log.i("GetUserNamePic", result.toString());
         return result;
+
     }
 
     public static List<UserListingInfo> SearchUser(String name){

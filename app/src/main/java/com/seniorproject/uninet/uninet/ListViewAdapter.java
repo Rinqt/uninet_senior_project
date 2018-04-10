@@ -35,19 +35,19 @@ public class ListViewAdapter extends BaseAdapter {
     ArrayList<UniPost> list; // Currently empty.
 
     ListViewAdapter(Context c) {
-       context = c;
-       list = new ArrayList<UniPost>();
+        context = c;
+        list = new ArrayList<UniPost>();
 
-       Resources res = c.getResources();
-       String name = "Kaan YÖŞ";
-       String[] date = res.getStringArray(R.array.date);
-       String[] descriptions = res.getStringArray(R.array.post);
-       int userPhoto = R.mipmap.awesome_kaan;
+        Resources res = c.getResources();
+        String name = "Kaan YÖŞ";
+        String[] date = res.getStringArray(R.array.date);
+        String[] descriptions = res.getStringArray(R.array.post);
+        int userPhoto = R.mipmap.awesome_kaan;
 
-       for (int i = 0; i < 5; i++)
-       {
-           list.add(new UniPost(name, date[i], descriptions[i], userPhoto));
-       }
+        for (int i = 0; i < 5; i++)
+        {
+            list.add(new UniPost(name, date[i], descriptions[i], userPhoto));
+        }
     }
 
     @Override
@@ -75,9 +75,9 @@ public class ListViewAdapter extends BaseAdapter {
         View uniPost = layoutInflater.inflate(R.layout.post_template, viewGroup, false);
 
         TextView userName = uniPost.findViewById(R.id.user_name);
-        TextView date = uniPost.findViewById(R.id.user_name);
-        TextView description = uniPost.findViewById(R.id.user_name);
-        ImageView userPhoto = uniPost.findViewById(R.id.user_name);
+        TextView date = uniPost.findViewById(R.id.unipost_date);
+        TextView description = uniPost.findViewById(R.id.unipost_text);
+        ImageView userPhoto = uniPost.findViewById(R.id.profile_picture);
 
 
         UniPost temp = list.get(i);

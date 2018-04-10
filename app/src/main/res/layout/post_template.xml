@@ -1,83 +1,51 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/unipost_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/feed_bg"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/awesome_kaan" />
 
-        android:layout_marginLeft="@dimen/feed_item_margin"
-        android:layout_marginRight="@dimen/feed_item_margin"
-        android:layout_marginTop="@dimen/feed_item_margin"
-        android:background="@drawable/bg_parent_rounded_corner"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/feed_item_padding_top_bottom"
-        android:paddingTop="@dimen/feed_item_padding_top_bottom" >
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Kaan YÖŞ"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/profile_picture"
+        app:layout_constraintTop_toTopOf="@+id/profile_picture" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/feed_item_padding_left_right"
-            android:paddingRight="@dimen/feed_item_padding_left_right" >
+    <TextView
+        android:id="@+id/unipost_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="28.02.2018 at 19:15"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="@+id/user_name"
+        app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/profilePic"
-                android:layout_width="@dimen/feed_item_profile_pic"
-                android:layout_height="@dimen/feed_item_profile_pic"
-                android:scaleType="fitCenter" >
-            </com.android.volley.toolbox.NetworkImageView>
+    <TextView
+        android:id="@+id/unipost_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="8dp"
+        android:text=""
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/profile_picture"
+        app:layout_constraintTop_toBottomOf="@+id/profile_picture" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/feed_item_profile_info_padd" >
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/feed_item_profile_name"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/timestamp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/timestamp"
-                    android:textSize="@dimen/feed_item_timestamp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/txtStatusMsg"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingLeft="@dimen/feed_item_status_pad_left_right"
-            android:paddingRight="@dimen/feed_item_status_pad_left_right"
-            android:paddingTop="@dimen/feed_item_status_pad_top" />
-
-        <TextView
-            android:id="@+id/txtUrl"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:linksClickable="true"
-            android:paddingBottom="10dp"
-            android:paddingLeft="@dimen/feed_item_status_pad_left_right"
-            android:paddingRight="@dimen/feed_item_status_pad_left_right"
-            android:textColorLink="@color/link" />
-
-        <info.androidhive.listviewfeed.FeedImageView
-            android:id="@+id/feedImage1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:scaleType="fitXY"
-            android:visibility="visible" />
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
