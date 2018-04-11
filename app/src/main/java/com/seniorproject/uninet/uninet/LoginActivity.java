@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         {
             Log.i("PERMISSION", "Internet Permission found.");
 
+            //change to commit
             String loginCheck = DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString());
             if (!loginCheck.equals("")) {
                 LoggedInUser.UserId = loginCheck.split(",")[0];
