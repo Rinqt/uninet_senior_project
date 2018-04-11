@@ -208,6 +208,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // updated to reflect the new value, per the Android Design
             // guidelines.
 
+            //TODO: Find a way to send UserId here
             profileInfoStudent = DatabaseMethods.GetProfileInfoStudent("1");
 
             bindPreferenceSummaryToValue(findPreference("key_phone_number"), profileInfoStudent.phoneNumber);

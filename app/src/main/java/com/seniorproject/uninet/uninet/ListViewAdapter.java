@@ -9,7 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kaany on 28.02.2018.
@@ -44,9 +48,13 @@ public class ListViewAdapter extends BaseAdapter {
         String[] descriptions = res.getStringArray(R.array.post);
         int userPhoto = R.mipmap.awesome_kaan;
 
-        for (int i = 0; i < 5; i++)
+        //TODO: Find a way to send UserId here
+        List<Post> userPosts = DatabaseMethods.GetPosts(LoggedInUser.UserId);
+
+        for (int i = 0; i < userPosts.size(); i++)
         {
-            list.add(new UniPost(name, date[i], descriptions[i], userPhoto));
+            //TODO: Resolve the picture issue, add information that will stay hidden
+            list.add(new UniPost(userPosts.get(i).name, userPosts.get(i).postDate, userPosts.get(i).postText, userPhoto));
         }
     }
 

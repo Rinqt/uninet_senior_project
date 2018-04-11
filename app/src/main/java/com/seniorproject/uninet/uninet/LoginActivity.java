@@ -112,9 +112,15 @@ public class LoginActivity extends AppCompatActivity {
         {
             Log.i("PERMISSION", "Internet Permission found.");
 
+            String loginCheck = DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString());
+            if (!loginCheck.equals("")) {
+                LoggedInUser.UserId = loginCheck.split(",")[0];
+                if(loginCheck.split(",")[1].equals("False"))
+                    LoggedInUser.StudentId = DatabaseMethods.GetStudentId(LoggedInUser.UserId);
+                else
+                    LoggedInUser.TeacherId = DatabaseMethods.GetTeacherId(LoggedInUser.UserId);
 
-            if (DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString()).equals("1")) {
-                Log.i("attemptLogin", universityNumber.getText().toString() + userPassword.getText().toString() + "tries to sneak to app.");
+                Log.i("attemptLogin",  LoggedInUser.TeacherId + "tries to sneak to app.");
 
                 sessionChecker.setUserLoggedIn(true); // User Session
 
