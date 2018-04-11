@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via universityNumber/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
+     * If there are form errors (invalid number, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
             if (DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString()).equals("1")) {
-                Log.i("attemptLogin", universityNumber.getText().toString() + userPassword.getText().toString() + "tries to sneak to app.");
+                Log.i("login_activity_log:", universityNumber.getText().toString() + " tries to log in.");
 
                 sessionChecker.setUserLoggedIn(true); // User Session
 
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
             {
                 keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 Toast.makeText(getApplicationContext(), R.string.wrong_login, Toast.LENGTH_LONG).show();
-                Log.i("wrongInput", "Wrong Input");
+                Log.i("login_activity_log:", "Wrong Input");
             }
         }
 
@@ -142,13 +142,7 @@ public class LoginActivity extends AppCompatActivity {
         return email.contains("@");
     }
 
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
-
-    /**
+     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */

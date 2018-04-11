@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -219,10 +218,10 @@ public class HomeActivity extends AppCompatActivity
     private void logout()
     {
         AlertDialog.Builder logoutAlertDialog = new AlertDialog.Builder(this);
-        logoutAlertDialog.setTitle(getString(R.string.logoutTitle));
-        logoutAlertDialog.setMessage(getString(R.string.logoutMessage));
+        logoutAlertDialog.setTitle(getString(R.string.logout_title));
+        logoutAlertDialog.setMessage(getString(R.string.logout_message));
 
-        logoutAlertDialog.setPositiveButton(getString(R.string.logoutPositiveAnswer), new DialogInterface.OnClickListener() {
+        logoutAlertDialog.setPositiveButton(getString(R.string.logout_positive_answer), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //Close the dialog box and app
@@ -236,11 +235,11 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        logoutAlertDialog.setNegativeButton(getString(R.string.logoutNegativeAnswer), new DialogInterface.OnClickListener() {
+        logoutAlertDialog.setNegativeButton(getString(R.string.logout_negative_answer), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                Toast.makeText(HomeActivity.this, getString(R.string.logoutThanks), Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeActivity.this, getString(R.string.logout_thanks), Toast.LENGTH_LONG).show();
 
             }
         });

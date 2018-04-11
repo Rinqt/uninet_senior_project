@@ -9,23 +9,21 @@
     <string name="action_settings">Ayarlar</string>
     <string name="menu_refresh">Yenilemek İçin Kaydır</string>
 
-
     <!--Login-->
-    <string name="userName">Kullanıcı Adı</string>
+    <string name="user_name">Kullanıcı Adı</string>
     <string name="password">Şifre</string>
     <string name="login">Giriş</string>
-    <string name="forgotPassword">Şifremi Unuttum!</string>
+    <string name="forgot_password">Şifremi Unuttum!</string>
     <string name="wrong_login">Kullanıcı adı ya da şifre yanlış!</string>
     <string name="no_internet_permission">İnternet Erişim İzni Bulunamadı.</string>
     <!--Login END-->
 
     <!--Logout-->
-    <string name="logoutTitle">Çıkış</string>
-    <string name="logoutMessage">Bizi terk etmek istediğine emin misin?</string>
-    <string name="logoutPositiveAnswer">Evet :(</string>
-    <string name="logoutNegativeAnswer">Asla!</string>
-    <string name="logoutThanks">Burada kaldığın için teşekkürler! :)</string>
-
+    <string name="logout_title">Çıkış</string>
+    <string name="logout_message">Bizi terk etmek istediğine emin misin?</string>
+    <string name="logout_positive_answer">Evet :(</string>
+    <string name="logout_negative_answer">Asla!</string>
+    <string name="logout_thanks">Burada kaldığın için teşekkürler! :)</string>
     <!--Logout END-->
 
     <!--Menu-->
@@ -36,33 +34,33 @@
     <!--Menu END-->
 
     <!--Lectures-->
-    <string name="addLecture">Ders Ekle</string>
+    <string name="add_lecture">Ders Ekle</string>
     <string name="assignments">Ödevler</string>
-    <string name="search">Ders Ara</string>
+    <string name="search_lecture">Ders Ara</string>
     <!--Lectures END-->
 
     <!--Messages-->
-    <string name="newMessage">Yeni Mesaj</string>
-    <string name="newEntry">Mesajınızı buraya yazınız…</string>
-    <string name="searchUser">Ara</string>
+    <string name="new_message">Yeni Mesaj</string>
+    <string name="new_entry">Mesajınızı buraya yazınız…</string>
+    <string name="search_user">Ara</string>
     <!--Messages END-->
 
     <!--New Post-->
-    <string name="newPost">Ne düşünüyorsun?</string>
+    <string name="new_post">Ne düşünüyorsun?</string>
     <!--New Post END-->
 
     <!--Profile-->
-    <string name="editProfile">Profili Düzenle</string>
+    <string name="edit_profile">Profili Düzenle</string>
     <string name="friends">Arkadaşlar</string>
     <string name="photos">Fotoğraflar</string>
-    <string name="privacySettings">Gizlilik Ayarları</string>
-    <string name="deletePost">Sil</string>
+    <string name="privacy_settings">Gizlilik Ayarları</string>
+    <string name="delete_post">Sil</string>
     <!--Profile END-->
 
     <!--Hidden Drawer-->
-    <string name="timeTable">Ders Programı</string>
+    <string name="time_table">Ders Programı</string>
     <string name="transcript">Transkript</string>
-    <string name="diningList">Yemek Listesi</string>
+    <string name="dining_list">Yemek Listesi</string>
     <string name="settings">Ayarlar</string>
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
@@ -83,8 +81,6 @@
     <string name="pref_description_mailAddress">Mail adresinizi ekleyiniz</string>
     <string name="pref_title_webPage">Web Sayfası</string>
     <string name="pref_description_webPage">Web sitenizin adresini giriniz</string>
-    <string name="pref_title_hobbies">Hobiler</string>
-    <string name="pref_description_hobbies">Hobilerinizi giriniz</string>
     <string name="pref_title_relationshipStatus">İlişki Durumu</string>
     <string name="pref_description_relationshipStatus">İlişki durumunuzu giriniz</string>
     <string name="pref_title_setBirthday">Doğum Günü</string>
@@ -95,12 +91,12 @@
         <item>İlişkisi Var</item>
         <item>Karmaşık İlişki İçinde</item>
         <item>Evli</item>
-        <item>Godoş :D</item>
         <item>---</item>
     </string-array>
     <!-- Settings for Profile END -->
 
     <!-- Settings for UniPost -->
+    <string name="title_activity_settings">UniPost Ayarları</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">UniPost Gizliliği</string>
     <string name="pref_description_protectUniPosts">Sadece arkadaş listeniz UniPostları görebilir</string>
@@ -119,7 +115,6 @@
     <string name="pref_ringtone_silent">Sessiz</string>
     <string name="pref_title_vibrate">Titreşim</string>
     <!-- Settings for Notifications END -->
-
 
     <!-- Settings for Safety and Privacy -->
     <string name="pref_header_safetyAndPrivacy">Güvenlik Ayarları</string>
@@ -142,6 +137,7 @@
         <item>6 saat</item>
         <item>Hiçbir zaman</item>
     </string-array>
+
     <string-array name="pref_sync_frequency_values">
         <item>15</item>
         <item>30</item>
@@ -167,7 +163,6 @@
     <string name="pref_title_system_sync_settings">Telefon Senkronizasyon Ayarları</string>
     <!-- Settings for Data & Sync END -->
 
-
     <!-- Edit Text Hints -->
     <string name="hint_birthday">GG.AA.YYYY</string>
     <string name="hint_phone_number">XXX XXX XXXX</string>
@@ -183,11 +178,14 @@
     <string name="key_relationship_status">key_relationship_status</string>
     <string name="key_birthday">key_birthday</string>
     <string name="key_web_page">key_web_page</string>
+    <!-- android:keys END -->
 
+    <!-- Activity Names -->
+    <string name="title_activity_login">Giriş</string>
     <string name="title_activity_dining">Yemek Listesi</string>
     <string name="title_activity_transcript">Transkript</string>
     <string name="title_activity_time_table">Haftalık Program</string>
-
+    <!-- Activity Names END -->
 
     <!-- Buttons -->
     <string name="description_profile_photo">Profil Fotoğrafı</string>

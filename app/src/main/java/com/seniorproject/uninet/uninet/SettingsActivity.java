@@ -22,7 +22,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
-
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
 
@@ -214,7 +213,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("key_mail_address"), profileInfoStudent.email);
             bindPreferenceSummaryToValue(findPreference("key_relationship_status"), profileInfoStudent.relationship);
             bindPreferenceSummaryToValue(findPreference("key_web_page"), profileInfoStudent.webPage);
-            //bindPreferenceSummaryToValue(findPreference("example_list"));
         }
 
         @Override
