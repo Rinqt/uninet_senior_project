@@ -55,6 +55,9 @@
     1. Server bağlantılı Login check eklendi.
     2. Girilen key valuelar stringValue içinde
 
+11.04.2018
+    1. string xml dosyaları düzenlendi.
+
 
 
 
