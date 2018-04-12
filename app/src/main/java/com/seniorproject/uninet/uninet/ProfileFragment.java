@@ -50,6 +50,7 @@ public class ProfileFragment extends Fragment {
 
     // unipost_list_view
     private ListView unipost_list;
+    private ListViewAdapter listViewAdapter;
 
 
     public ProfileFragment() {
@@ -93,11 +94,13 @@ public class ProfileFragment extends Fragment {
         friendsButton = getActivity().findViewById(R.id.friends_button);
         photosButton = getActivity().findViewById(R.id.photos_button);
         privacyButton = getActivity().findViewById(R.id.privacy_button);
-        swipeRefreshLayout = getActivity().findViewById(R.id.unipostSwiper);
+        swipeRefreshLayout = getActivity().findViewById(R.id.uni_post_swiper);
 
 
-        unipost_list = getActivity().findViewById(R.id.unipost_list_view);
-        unipost_list.setAdapter(new ListViewAdapter(getActivity().getApplicationContext()));
+        unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
+        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 0);
+        unipost_list.setAdapter(listViewAdapter);
+
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
 
@@ -123,7 +126,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-            // uniPostların olduğu list view refreshToSwipe özelliği ile çakıkıyordu.
+            // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
             // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
             unipost_list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -253,6 +256,9 @@ public class ProfileFragment extends Fragment {
 
     private void refreshPosts()
     {
+        listViewAdapter.notifyDataSetChanged();
+        unipost_list.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 0));
+
         Toast.makeText(getContext(), "Refreshed.", Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }

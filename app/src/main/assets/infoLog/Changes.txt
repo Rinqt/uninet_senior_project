@@ -55,8 +55,11 @@
     1. Server bağlantılı Login check eklendi.
     2. Girilen key valuelar stringValue içinde
 
-11.04.2018
+11.04.2018 v 0.0.0.0.1.5.0
     1. string xml dosyaları düzenlendi.
+    2. Login check güncellendi.
+    3. Post template güncellendi.
+    4. Profile ve Feed Screen'a dinamik post eklendi
 
 
 

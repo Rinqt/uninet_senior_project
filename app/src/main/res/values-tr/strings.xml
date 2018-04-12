@@ -65,8 +65,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.0.0.1.5 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.0.1.5 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.1.5.0 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.1.5.0 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->

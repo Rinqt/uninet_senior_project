@@ -1,13 +1,21 @@
 package com.seniorproject.uninet.uninet;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 
 /**
@@ -24,10 +32,17 @@ public class FeedFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // unipost_list_view
+    private ListView unipost_feed;
+    private ListViewAdapter listViewAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
+    final CharSequence[] unipostOptions = {"Copy UniPost Text"};
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,9 +82,68 @@ public class FeedFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        swipeRefreshLayout = getActivity().findViewById(R.id.feed_list_swiper);
+
+        unipost_feed = getActivity().findViewById(R.id.uni_post_feed_list);
+        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 1);
+        unipost_feed.setAdapter(listViewAdapter);
+
+
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+
+        //Postlar için LongPress Alert Dialog
+        unipost_feed.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.i("Long click check", "Item Index " + i);
+
+                alertDialog.setItems(unipostOptions, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int whichOption) {
+
+                        switch (whichOption)
+                        {
+                            case 0:
+                                Toast.makeText(getContext(), "Deneme", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                alertDialog.show();
+                return false;
+            }
+        });
+
+        // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
+        // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
+        unipost_feed.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(firstVisibleItem == 0 && isListAtTop()){
+                    swipeRefreshLayout.setEnabled(true);
+                }else{
+                    swipeRefreshLayout.setEnabled(false);
+                }
+            }
+        });
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
+                refreshPosts();
+            }
+        });
+
 
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,7 +191,21 @@ public class FeedFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void refreshPosts()
+    {
+        listViewAdapter.notifyDataSetChanged();
+        unipost_feed.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 1));
 
+        Toast.makeText(getContext(), "Refreshed.", Toast.LENGTH_LONG).show();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    // To check if we are at top of the UniPost List.
+    private boolean isListAtTop()
+    {
+        if(unipost_feed.getChildCount() == 0) return true;
+        return unipost_feed.getChildAt(0).getTop() == 0;
+    }
     //-----------------------------
 
 }
