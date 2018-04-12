@@ -15,7 +15,7 @@
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="wrong_login">Username or Password is wrong!</string>
-    <string name="no_internet_permission">No Internet Permission found.</string>
+    <string name="no_internet_connection">Check Internet Connection.</string>
     <!--Login END-->
 
     <!--Logout-->

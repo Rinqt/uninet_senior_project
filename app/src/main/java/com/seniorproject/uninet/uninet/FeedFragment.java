@@ -3,8 +3,10 @@ package com.seniorproject.uninet.uninet;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +40,9 @@ public class FeedFragment extends Fragment {
     private ListViewAdapter listViewAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     final CharSequence[] unipostOptions = {"Copy UniPost Text"};
+
+    // Declaration of the layout
+    ImageView profilePhoto;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,6 +89,8 @@ public class FeedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         swipeRefreshLayout = getActivity().findViewById(R.id.feed_list_swiper);
+        profilePhoto = getActivity().findViewById(R.id.other_user_profile_photo);
+
 
         unipost_feed = getActivity().findViewById(R.id.uni_post_feed_list);
         listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 1);
@@ -139,6 +147,8 @@ public class FeedFragment extends Fragment {
                 refreshPosts();
             }
         });
+
+
 
 
 

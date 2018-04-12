@@ -208,7 +208,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // guidelines.
 
             //TODO: Find a way to send UserId here
-            profileInfoStudent = DatabaseMethods.GetProfileInfoStudent("1");
+            profileInfoStudent = DatabaseMethods.GetProfileInfoStudent(LoggedInUser.UserId);
 
             bindPreferenceSummaryToValue(findPreference("key_phone_number"), profileInfoStudent.phoneNumber);
             bindPreferenceSummaryToValue(findPreference("key_mail_address"), profileInfoStudent.email);

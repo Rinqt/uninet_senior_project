@@ -1,8 +1,11 @@
 package com.seniorproject.uninet.uninet;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +39,11 @@ public class LoginActivity extends AppCompatActivity {
 
     // Keyboard hider
     InputMethodManager keyboardHider;
+
+
+
+
+
 
 
     @Override
@@ -105,42 +113,53 @@ public class LoginActivity extends AppCompatActivity {
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private void attemptLogin() {
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
-                == PackageManager.PERMISSION_GRANTED)
+    private void attemptLogin()
+    {
+        if (isThereANetwork())
         {
-            Log.i("PERMISSION", "Internet Permission found.");
-
-            String loginCheck = DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString());
-            if (!loginCheck.equals("")) {
-                LoggedInUser.UserId = loginCheck.split(",")[0];
-                if(loginCheck.split(",")[1].equals("False"))
-                    LoggedInUser.StudentId = DatabaseMethods.GetStudentId(LoggedInUser.UserId);
-                else
-                    LoggedInUser.TeacherId = DatabaseMethods.GetTeacherId(LoggedInUser.UserId);
-
-                Log.i("attemptLogin",  LoggedInUser.TeacherId + "tries to sneak to app.");
-
-                sessionChecker.setUserLoggedIn(true); // User Session
-
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
-
-                Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_LONG).show();
-
-            }
-            else
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
+                    == PackageManager.PERMISSION_GRANTED)
             {
-                keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                Toast.makeText(getApplicationContext(), R.string.wrong_login, Toast.LENGTH_LONG).show();
-                Log.i("wrongInput", "Wrong Input");
+                Log.i("PERMISSION", "Internet Permission found.");
+
+                String loginCheck = DatabaseMethods.LoginCheck(universityNumber.getText().toString(), userPassword.getText().toString());
+                if (!loginCheck.equals(""))
+                {
+                    LoggedInUser.UserId = loginCheck.split(",")[0];
+                    if(loginCheck.split(",")[1].equals("False"))
+                        LoggedInUser.StudentId = DatabaseMethods.GetStudentId(LoggedInUser.UserId);
+                    else
+                        LoggedInUser.TeacherId = DatabaseMethods.GetTeacherId(LoggedInUser.UserId);
+
+                    Log.i("attemptLogin",  LoggedInUser.TeacherId + "tries to sneak to app.");
+
+                    sessionChecker.setUserLoggedIn(true); // User Session
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+
+                    Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    Toast.makeText(getApplicationContext(), R.string.wrong_login, Toast.LENGTH_SHORT).show();
+                    Log.i("wrongInput", "Wrong Input");
+                }
             }
         }
-
         else
-            Toast.makeText(getApplicationContext(), R.string.no_internet_permission, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+    }
 
+    // Check if there is an internet connection
+    private boolean isThereANetwork() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        Log.i("isNetworkAvailable", " Network Status: " + activeNetworkInfo);
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private boolean isEmailValid(String email) {
