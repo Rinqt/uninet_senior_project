@@ -3,10 +3,8 @@ package com.seniorproject.uninet.uninet;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -89,7 +87,6 @@ public class FeedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         swipeRefreshLayout = getActivity().findViewById(R.id.feed_list_swiper);
-        profilePhoto = getActivity().findViewById(R.id.other_user_profile_photo);
 
 
         unipost_feed = getActivity().findViewById(R.id.uni_post_feed_list);

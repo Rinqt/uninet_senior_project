@@ -1,6 +1,7 @@
 package com.seniorproject.uninet.uninet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +21,17 @@ import java.util.List;
 class UniPost
 {
 
-    public String uniPostId, userName, timeStamp, description;
+    public String uniPostId, userName, timeStamp, description, userID;
     private byte[] profilePicture, postImage;
 
-    public UniPost(String uniPostId, String userName, byte[] profilePicture, byte[] postImage, String timeStamp, String description) {
+    public UniPost(String uniPostId, String userName, byte[] profilePicture, byte[] postImage, String timeStamp, String description, String userID) {
         this.uniPostId = uniPostId;
         this.userName = userName;
         this.profilePicture = profilePicture;
         this.postImage = postImage;
         this.timeStamp = timeStamp;
         this.description = description;
+        this.userID = userID;
     }
 
     public String getUniPostId() {
@@ -84,13 +86,14 @@ class UniPost
 }
 public class ListViewAdapter extends BaseAdapter {
 
-
+    int posts;
     Context context;
     ArrayList<UniPost> list; // Currently empty.
 
     ListViewAdapter(Context c, int posts) {
         context = c;
         list = new ArrayList<UniPost>();
+        this.posts = posts;
 
         if (posts == 0)
         {
@@ -99,7 +102,7 @@ public class ListViewAdapter extends BaseAdapter {
             for (int i = userPosts.size() - 1 ; i >= 0; i--)
             {
                 //TODO: Resolve the picture issue, add information that will stay hidden
-                list.add(new UniPost(userPosts.get(i).postId, userPosts.get(i).name, userPosts.get(i).smallProfilePicture, userPosts.get(i).smallProfilePicture, userPosts.get(i).postDate, userPosts.get(i).postText));
+                list.add(new UniPost(userPosts.get(i).postId, userPosts.get(i).name, userPosts.get(i).smallProfilePicture, userPosts.get(i).smallProfilePicture, userPosts.get(i).postDate, userPosts.get(i).postText, LoggedInUser.UserId));
             }
 
         }
@@ -110,7 +113,7 @@ public class ListViewAdapter extends BaseAdapter {
             for (int i = newsFeed.size() - 1 ; i >= 0; i--)
             {
                 //TODO: Resolve the picture issue, add information that will stay hidden
-                list.add(new UniPost(newsFeed.get(i).postId, newsFeed.get(i).name, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).postDate, newsFeed.get(i).postText));
+                list.add(new UniPost(newsFeed.get(i).postId, newsFeed.get(i).name, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).postDate, newsFeed.get(i).postText, newsFeed.get(i).userId));
             }
         }
     }
@@ -145,6 +148,42 @@ public class ListViewAdapter extends BaseAdapter {
         TextView description = uniPost.findViewById(R.id.uni_post_description);
         ImageView userPhoto = uniPost.findViewById(R.id.profile_picture);
         ImageView postPicture = uniPost.findViewById(R.id.uni_post_image);
+
+        if (posts == 0)
+        {
+            userName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //context.startActivity(new Intent(context, HomeActivity.class));
+                }
+            });
+
+            userPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //context.startActivity(new Intent(context, HomeActivity.class));
+                }
+            });
+        }
+        else if (posts == 1)
+        {
+            userName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.startActivity(new Intent(context, OtherUserProfileActivity.class));
+                }
+            });
+
+            userPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.startActivity(new Intent(context, OtherUserProfileActivity.class));
+                }
+            });
+        }
+
+
+
 
 
         UniPost temp = list.get(i);
