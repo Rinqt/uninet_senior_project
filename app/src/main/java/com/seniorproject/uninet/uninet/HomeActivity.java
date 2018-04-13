@@ -78,10 +78,6 @@ public class HomeActivity extends AppCompatActivity
         LoggedInUser.TeacherId = teacherId.equals("null") ? null : teacherId;
         LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
 
-        userId = LoggedInUser.UserId;
-        teacherId = LoggedInUser.TeacherId;
-        studentId = LoggedInUser.StudentId;
-
         viewPager = findViewById(R.id.viewPager);
         setupViewPager(viewPager);
 
@@ -239,6 +235,9 @@ public class HomeActivity extends AppCompatActivity
                 dialogInterface.dismiss();
                 sessionChecker.setUserLoggedIn(false);
                 sessionChecker.setLoginInfo("");
+                LoggedInUser.UserId = null;
+                LoggedInUser.TeacherId = null;
+                LoggedInUser.StudentId = null;
                 sessionChecker.editor.clear().commit();
                 Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
