@@ -45,9 +45,12 @@
     <string name="search_user">Search</string>
     <!--Messages END-->
 
-    <!--New Post-->
-    <string name="new_post">New Post</string>
-    <!--New Post END-->
+    <!--Post-->
+    <string name="new_post">What\'s on your mind?</string>
+    <string name="refresh_successful">Refreshed</string>
+    <string name="refresh_failed">Refresh Failed!</string>
+    <string name="share_post">Share</string>
+    <!--Post END-->
 
     <!--Profile-->
     <string name="edit_profile">Edit Profile</string>
@@ -65,8 +68,8 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.0.1.5.0 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.1.5.0 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.1.5.1 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.1.5.1 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->
@@ -192,7 +195,9 @@
     <string name="btn_title_set_profile">Set Profile</string>
     <string name="btn_title_friends">Friends</string>
     <string name="btn_title_photos">Photos</string>
-    <string name="btn_title_privacy">Privacy</string>
+    <string name="btn_title_about_user">About User</string>
+    <string name="btn_title_mutual_friends">Mutual Friends</string>
+    <string name="btn_title_delete_friend">Delete Friend</string>
     <!-- Buttons END -->
 
     <!-- BURAYA KADAR TR XML İLE BİREBİR AYNI -->

@@ -97,6 +97,13 @@
 
         </activity>
 
+        <activity
+            android:name=".SendNewPostActivity"
+            android:label="New UniPost"
+            android:parentActivityName=".HomeActivity">
+
+        </activity>
+
 
     </application>
 

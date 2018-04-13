@@ -45,9 +45,12 @@
     <string name="search_user">Ara</string>
     <!--Messages END-->
 
-    <!--New Post-->
+    <!--Post-->
     <string name="new_post">Ne düşünüyorsun?</string>
-    <!--New Post END-->
+    <string name="refresh_successful">Yenilendi</string>
+    <string name="refresh_failed">Hata!</string>
+    <string name="share_post">Paylaş</string>
+    <!--Post END-->
 
     <!--Profile-->
     <string name="edit_profile">Profili Düzenle</string>
@@ -65,8 +68,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.0.1.5.0 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.1.5.0 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.1.5.1 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.1.5.1 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->
@@ -193,6 +196,9 @@
     <string name="btn_title_friends">Arkadaşlar</string>
     <string name="btn_title_photos">Fotoğraflar</string>
     <string name="btn_title_privacy">Gizlilik</string>
+    <string name="btn_title_about_user">Hakkında</string>
+    <string name="btn_title_mutual_friends">Ortak Arkadaşlar</string>
+    <string name="btn_title_delete_friend">Arkadaşlıktan Çıkar</string>
     <!-- Buttons END -->
 
 </resources>

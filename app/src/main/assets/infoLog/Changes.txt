@@ -61,6 +61,13 @@
     3. Post template güncellendi.
     4. Profile ve Feed Screen'a dinamik post eklendi
 
+14.04.2018 v 0.0.0.0.1.5.1
+    1. Relationship Status Fixed
+    2. Login Fixed.
+    3. New Post Design Added.
+    4. Users can see other users profile. (Still in development)
+
+
 
 
 

@@ -203,7 +203,7 @@ public class FeedFragment extends Fragment {
         listViewAdapter.notifyDataSetChanged();
         unipost_feed.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 1));
 
-        Toast.makeText(getContext(), "Refreshed.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }
 

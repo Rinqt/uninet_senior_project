@@ -91,6 +91,11 @@ public class ListViewAdapter extends BaseAdapter {
     ArrayList<UniPost> list; // Currently empty.
 
     ListViewAdapter(Context c, int posts) {
+        /*
+        * use post = 0 to get user posts
+        * use post = 1 to get feed screen posts
+        * use post = 2 to get clicked user's posts
+         */
         context = c;
         list = new ArrayList<UniPost>();
         this.posts = posts;
@@ -107,6 +112,16 @@ public class ListViewAdapter extends BaseAdapter {
 
         }
         else if (posts == 1)
+        {
+            //TODO: Find a way to send UserId here
+            List<Post> newsFeed = DatabaseMethods.GetNewsFeed(LoggedInUser.UserId);
+            for (int i = newsFeed.size() - 1 ; i >= 0; i--)
+            {
+                //TODO: Resolve the picture issue, add information that will stay hidden
+                list.add(new UniPost(newsFeed.get(i).postId, newsFeed.get(i).name, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).postDate, newsFeed.get(i).postText, newsFeed.get(i).userId));
+            }
+        }
+        else if (posts == 2)
         {
             //TODO: Find a way to send UserId here
             List<Post> newsFeed = DatabaseMethods.GetNewsFeed(LoggedInUser.UserId);

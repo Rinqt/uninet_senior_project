@@ -6,9 +6,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true"
-    android:paddingTop="96dp"
     android:background="@color/feed_bg"
-    tools:context="com.seniorproject.uninet.uninet.ProfileFragment">
+    tools:context="com.seniorproject.uninet.uninet.OtherUserProfileActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/other_user_profile_swiper"
@@ -30,24 +29,24 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/description_profile_photo"
-                android:src="@mipmap/university_logo"
+                android:src="@mipmap/dining_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/other_user_profile_button_holder"
-                android:layout_width="266dp"
+                android:layout_width="299dp"
                 android:layout_height="80dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/profile_divider"
+                app:layout_constraintBottom_toTopOf="@+id/other_user_profile_profile_divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/other_user_profile_profile_photo"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
-                    android:id="@+id/other_user_profile_photos_button"
-                    android:layout_width="120dp"
+                    android:id="@+id/other_user_profile_mutual_friends_button"
+                    android:layout_width="145dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/profile_button"
@@ -56,15 +55,15 @@
                     android:shadowDx="0"
                     android:shadowDy="0"
                     android:shadowRadius="5"
-                    android:text="@string/btn_title_photos"
+                    android:text="@string/btn_title_mutual_friends"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/other_user_profile_set_profile_button"
-                    app:layout_constraintTop_toBottomOf="@+id/other_user_profile_set_profile_button" />
+                    app:layout_constraintStart_toStartOf="@+id/other_user_profile_set_photos_button"
+                    app:layout_constraintTop_toBottomOf="@+id/other_user_profile_set_photos_button" />
 
                 <Button
-                    android:id="@+id/other_user_profile_set_profile_button"
-                    android:layout_width="120dp"
+                    android:id="@+id/other_user_profile_set_photos_button"
+                    android:layout_width="145dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="24dp"
@@ -74,13 +73,13 @@
                     android:shadowDx="0"
                     android:shadowDy="0"
                     android:shadowRadius="5"
-                    android:text="@string/btn_title_set_profile"
+                    android:text="@string/btn_title_photos"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp" />
 
                 <Button
-                    android:id="@+id/other_user_profile_privacy_button"
-                    android:layout_width="120dp"
+                    android:id="@+id/other_user_profile_delete_friend_button"
+                    android:layout_width="145dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
@@ -90,18 +89,18 @@
                     android:shadowDx="0"
                     android:shadowDy="0"
                     android:shadowRadius="5"
-                    android:text="@string/btn_title_privacy"
+                    android:text="@string/btn_title_delete_friend"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/other_user_profile_photos_button"
-                    app:layout_constraintTop_toBottomOf="@+id/other_user_profile_friends_button" />
+                    app:layout_constraintStart_toEndOf="@+id/other_user_profile_mutual_friends_button"
+                    app:layout_constraintTop_toBottomOf="@+id/other_user_profile_about_user_button" />
 
                 <Button
-                    android:id="@+id/other_user_profile_friends_button"
-                    android:layout_width="120dp"
+                    android:id="@+id/other_user_profile_about_user_button"
+                    android:layout_width="145dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="16dp"
                     android:background="@drawable/profile_button_reverse"
@@ -110,12 +109,12 @@
                     android:shadowDx="0"
                     android:shadowDy="0"
                     android:shadowRadius="5"
-                    android:text="@string/btn_title_friends"
+                    android:text="@string/btn_title_about_user"
                     android:textColor="#FFFFFF"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/other_user_profile_photos_button" />
+                    app:layout_constraintStart_toEndOf="@+id/other_user_profile_mutual_friends_button" />
             </android.support.constraint.ConstraintLayout>
 
 
@@ -134,7 +133,7 @@
 
             <ListView
 
-                android:id="@+id/uni_post_list_view"
+                android:id="@+id/other_user_uni_post_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"

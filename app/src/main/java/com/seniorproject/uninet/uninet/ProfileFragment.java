@@ -259,7 +259,7 @@ public class ProfileFragment extends Fragment {
         listViewAdapter.notifyDataSetChanged();
         unipost_list.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 0));
 
-        Toast.makeText(getContext(), "Refreshed.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }
 
