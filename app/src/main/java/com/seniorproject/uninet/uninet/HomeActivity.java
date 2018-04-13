@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity
         setupTabIcons();
 
 
-        getApplication().getResources().getConfiguration().setLocale(Locale.forLanguageTag("tr"));
+        //getApplication().getResources().getConfiguration().setLocale(Locale.forLanguageTag("tr"));
         Log.i("AHAHAHAHAHAH", Locale.getDefault().toString());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

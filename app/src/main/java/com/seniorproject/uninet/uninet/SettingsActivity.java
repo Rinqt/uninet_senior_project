@@ -26,6 +26,7 @@ import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -55,7 +56,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Girilen valuelar stringValue içinde
             Log.i("Key value set to:", stringValue);
 
+            String language = Locale.getDefault().getLanguage();
             if (preference instanceof ListPreference) {
+                if(language.equals("en")){
+                    if(stringValue.equals("Bekar"))
+                        stringValue = "Single";
+                    else if(stringValue.equals("İlişkisi Var"))
+                        stringValue = "In a Relationship";
+                    else if(stringValue.equals("Karmaşık İlişki İçinde"))
+                        stringValue = "Complicated";
+                    else if(stringValue.equals("Evli"))
+                        stringValue = "Married";
+                }
                 // For list preferences, look up the correct display value in
                 // the preference's 'entries' list.
                 ListPreference listPreference = (ListPreference) preference;
@@ -122,10 +134,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         // Trigger the listener immediately with the preference's
         // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), value));
+        if(value.equals("Bekar") || value.equals("İlişkisi Var") || value.equals("Karmaşık İlişki İçinde") || value.equals("Evli") || value.equals("---"))
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference, value);
+        else{
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    PreferenceManager
+                            .getDefaultSharedPreferences(preference.getContext())
+                            .getString(preference.getKey(), value));
+        }
 
 
     }
