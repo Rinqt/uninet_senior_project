@@ -85,10 +85,6 @@ public class HomeActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
-
-        //getApplication().getResources().getConfiguration().setLocale(Locale.forLanguageTag("tr"));
-        Log.i("AHAHAHAHAHAH", Locale.getDefault().toString());
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

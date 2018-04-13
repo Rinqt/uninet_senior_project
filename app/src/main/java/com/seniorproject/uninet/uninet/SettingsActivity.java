@@ -58,7 +58,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             String language = Locale.getDefault().getLanguage();
             if (preference instanceof ListPreference) {
-                if(language.equals("en")){
+                if(language.equals("en") && !stringValue.equals("---")){
                     if(stringValue.equals("Bekar"))
                         stringValue = "Single";
                     else if(stringValue.equals("İlişkisi Var"))
