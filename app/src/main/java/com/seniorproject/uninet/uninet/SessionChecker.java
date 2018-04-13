@@ -24,6 +24,16 @@ public class SessionChecker {
         editor.commit();
     }
 
+    public void setLoginInfo(String loginInfo){
+        editor.putString("UserLoginInfo", loginInfo);
+        editor.commit();
+    }
+
+    public String GetLoginInfo()
+    {
+        return prefs.getString("UserLoginInfo", "");
+    }
+
     public boolean loggedIn()
     {
         return prefs.getBoolean("UserLoggedIn", false);

@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.i("attemptLogin",  LoggedInUser.TeacherId + "tries to sneak to app.");
 
                     sessionChecker.setUserLoggedIn(true); // User Session
+                    sessionChecker.setLoginInfo(LoggedInUser.UserId + "," + LoggedInUser.TeacherId + "," + LoggedInUser.StudentId);
 
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);

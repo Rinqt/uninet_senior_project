@@ -69,6 +69,18 @@ public class HomeActivity extends AppCompatActivity
             logout();
         }
 
+        String loginInfo = sessionChecker.GetLoginInfo();
+        String userId  = loginInfo.split(",")[0];
+        String teacherId  = loginInfo.split(",")[1];
+        String studentId  = loginInfo.split(",")[2];
+
+        LoggedInUser.UserId = userId;
+        LoggedInUser.TeacherId = teacherId.equals("null") ? null : teacherId;
+        LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
+
+        userId = LoggedInUser.UserId;
+        teacherId = LoggedInUser.TeacherId;
+        studentId = LoggedInUser.StudentId;
 
         viewPager = findViewById(R.id.viewPager);
         setupViewPager(viewPager);
@@ -226,6 +238,7 @@ public class HomeActivity extends AppCompatActivity
                 //Close the dialog box and app
                 dialogInterface.dismiss();
                 sessionChecker.setUserLoggedIn(false);
+                sessionChecker.setLoginInfo("");
                 sessionChecker.editor.clear().commit();
                 Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
