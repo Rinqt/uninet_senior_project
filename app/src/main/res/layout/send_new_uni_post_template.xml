@@ -56,7 +56,17 @@
 
         </LinearLayout>
 
-
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="10"
+            android:text="@string/upload_picture"
+            android:paddingLeft="@dimen/feed_item_padding_left_right"
+            android:paddingRight="@dimen/feed_item_padding_left_right"
+            android:layout_marginLeft="@dimen/feed_item_padding_left_right"
+            android:layout_marginRight="@dimen/feed_item_padding_left_right"/>
 
 
     </LinearLayout>
