@@ -1017,7 +1017,7 @@ public class DatabaseMethods {
         String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetLunchSchedule";
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
-            JSONArray jsonArray = jsonResult.getJSONArray("GetLunchSchedule");
+            JSONArray jsonArray = jsonResult.getJSONArray("GetLunchScheduleResult");
             for(int i = 0; i < jsonArray.length(); i++){
                 JSONObject lunch = jsonArray.getJSONObject(i);
                 LunchSchedule tempLunch = new LunchSchedule();
