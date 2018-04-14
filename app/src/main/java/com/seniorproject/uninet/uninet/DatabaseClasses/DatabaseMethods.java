@@ -5,6 +5,8 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -748,8 +750,8 @@ public class DatabaseMethods {
         }
     }
 
-    public static void SendPost(String userId, String postText, String location, String picturesList){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendPost/"+userId+"/"+postText+"/"+location+"/"+picturesList;
+    public static void SendPost(String userId, String postText, String location, String picturesList) {
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendPost/"+userId+"/"+ postText +"/"+ location +"/"+picturesList;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
