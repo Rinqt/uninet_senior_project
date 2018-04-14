@@ -185,14 +185,18 @@ public class ListViewAdapter extends BaseAdapter {
             userName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, OtherUserProfileActivity.class));
+                    Intent otherUserProfileIntent = new Intent(context, OtherUserProfileActivity.class);
+                    otherUserProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(otherUserProfileIntent);
                 }
             });
 
             userPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    context.startActivity(new Intent(context, OtherUserProfileActivity.class));
+                    Intent otherUserProfileIntent = new Intent(context, OtherUserProfileActivity.class);
+                    otherUserProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(otherUserProfileIntent);
                 }
             });
         }

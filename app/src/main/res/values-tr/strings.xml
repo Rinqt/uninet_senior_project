@@ -50,6 +50,7 @@
     <string name="refresh_successful">Yenilendi</string>
     <string name="refresh_failed">Hata!</string>
     <string name="share_post">Paylaş</string>
+    <string name="upload_picture">Resim yükle</string>
     <!--Post END-->
 
     <!--Profile-->
