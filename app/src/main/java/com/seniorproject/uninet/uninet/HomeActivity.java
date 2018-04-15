@@ -1,6 +1,7 @@
 package com.seniorproject.uninet.uninet;
 
 
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -40,6 +42,8 @@ public class HomeActivity extends AppCompatActivity
     SessionChecker sessionChecker;
 
     ActionBarDrawerToggle toggle;
+
+    private String[] myFragmentTags = {"MyFeedFragment", "MyProfileFragment", "MyLecturesFragment", "MyMessagesFragment"};
 
     private int[] tabIcons = {
             R.mipmap.home_icon,
@@ -79,6 +83,25 @@ public class HomeActivity extends AppCompatActivity
         viewPager = findViewById(R.id.viewPager);
         setupViewPager(viewPager);
 
+        //New post refresh change
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            //TODO: refresh only when needed
+            @Override
+            public void onPageSelected(int position) {
+                RefreshCurrentPage();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -90,7 +113,8 @@ public class HomeActivity extends AppCompatActivity
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         //.setAction("Action", null).show();
                 Intent sendNewPostIntent = new Intent(getApplicationContext(), SendNewPostActivity.class);
-                startActivity(sendNewPostIntent);
+                //New post refresh change
+                startActivityForResult(sendNewPostIntent, 1);
             }
         });
 
@@ -105,6 +129,30 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+    }
+
+    //New post refresh change
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        //1 is send new post
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                RefreshCurrentPage();
+            }
+        }
+    }
+
+    //New post refresh change
+    private  void RefreshCurrentPage(){
+        int item = viewPager.getCurrentItem();
+        android.support.v4.app.Fragment page = getSupportFragmentManager().findFragmentByTag(myFragmentTags[item]);
+
+        if(page != null){
+            if(item == 0)
+                ((FeedFragment)page).refreshPosts();
+            else if(item == 1)
+                ((ProfileFragment)page).refreshPosts();
+        }
     }
 
     @Override
@@ -208,13 +256,26 @@ public class HomeActivity extends AppCompatActivity
         tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
+    //New post refresh change
     // Create fragments
     private void setupViewPager(ViewPager viewPager) {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FeedFragment());
-        adapter.addFragment(new ProfileFragment());
-        adapter.addFragment(new LecturesFragment());
-        adapter.addFragment(new MessagesFragment());
+
+        FeedFragment feed = new FeedFragment();
+        adapter.addFragment(feed);
+        getSupportFragmentManager().beginTransaction().add(feed, "MyFeedFragment");
+
+        ProfileFragment profile = new ProfileFragment();
+        adapter.addFragment(profile);
+        getSupportFragmentManager().beginTransaction().add(profile, "MyProfileFragment");
+
+        LecturesFragment lectures = new LecturesFragment();
+        adapter.addFragment(lectures);
+        getSupportFragmentManager().beginTransaction().add(lectures, "MyLecturesFragment");
+
+        MessagesFragment messages = new MessagesFragment();
+        adapter.addFragment(messages);
+        getSupportFragmentManager().beginTransaction().add(messages, "MyMessagesFragment");
         viewPager.setAdapter(adapter);
     }
 

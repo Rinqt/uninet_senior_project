@@ -89,6 +89,8 @@ public class SendNewPostActivity extends AppCompatActivity implements
                 try {
                     DatabaseMethods.SendPost(LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
                     Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+                    //New post refresh change
+                    setResult(RESULT_OK);
                     finish();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

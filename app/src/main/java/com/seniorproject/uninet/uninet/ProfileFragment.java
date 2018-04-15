@@ -286,7 +286,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void refreshPosts()
+    protected void refreshPosts()
     {
         postListAdapter.notifyDataSetChanged();
 
