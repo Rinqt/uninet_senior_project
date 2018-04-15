@@ -14,9 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -32,17 +38,18 @@ public class FeedFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    final CharSequence[] unipostOptions = {"Copy UniPost Text"};
+
+    String whoIsTheUser;
+    SwipeRefreshLayout swipeRefreshLayout;
+
 
     // unipost_list_view
     private ListView unipost_feed;
-    private ListViewAdapter listViewAdapter;
-    SwipeRefreshLayout swipeRefreshLayout;
-    final CharSequence[] unipostOptions = {"Copy UniPost Text"};
+    PostListAdapter postListAdapter;
+    ArrayList<UniPosts> uniPosts;
 
 
-
-    // Declaration of the layout
-    ImageView profilePhoto;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -88,12 +95,16 @@ public class FeedFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        whoIsTheUser = LoggedInUser.UserId;
+
+        // Declaration
         swipeRefreshLayout = getActivity().findViewById(R.id.feed_list_swiper);
-
-
         unipost_feed = getActivity().findViewById(R.id.uni_post_feed_list);
-        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 1, LoggedInUser.UserId);
-        unipost_feed.setAdapter(listViewAdapter);
+
+        addDataToList();
+
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
+        unipost_feed.setAdapter(postListAdapter);
 
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -200,10 +211,35 @@ public class FeedFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
+    private void addDataToList()
+    {
+        List<Post> feedScreenPosts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        uniPosts = new ArrayList<>();
+
+
+        for (int i = feedScreenPosts.size() - 1 ; i >= 0; i--)
+        {
+            uniPosts.add(new UniPosts(whoIsTheUser, feedScreenPosts.get(i).postId,
+                    feedScreenPosts.get(i).name,
+                    feedScreenPosts.get(i).postDate,
+                    feedScreenPosts.get(i).postText,
+                    feedScreenPosts.get(i).location,
+                    feedScreenPosts.get(i).smallProfilePicture,
+                    feedScreenPosts.get(i).smallProfilePicture));
+        }
+    }
+
+
     private void refreshPosts()
     {
-        listViewAdapter.notifyDataSetChanged();
-        unipost_feed.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 1, LoggedInUser.UserId));
+        postListAdapter.notifyDataSetChanged();
+
+        addDataToList();
+
+
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
+        unipost_feed.setAdapter(postListAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);

@@ -9,7 +9,11 @@ public class Lunch {
     }
 
     public String getLunchName() {
-        return lunchName;
+        if (lunchName != null)
+        {
+            return lunchName;
+        } else
+            return  "No Luch Found.";
     }
 
     public void setLunchName(String lunchName) {

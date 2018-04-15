@@ -21,6 +21,12 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
     private  Context mContext;
     private int mResource;
 
+    static class ViewHolder {
+        TextView friendName;
+        TextView friendMessage;
+        ImageView friendProfilePhoto;
+    }
+
     public MessagesListAdapter(@NonNull Context context, int resource, @NonNull List<Messages> objects) {
         super(context, resource, objects);
         mContext = context;
@@ -31,22 +37,34 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        String friendName = getItem(position).getFriendUserName();
-        String friendMessage = getItem(position).getLastMessage();
-        byte[] friendProfilePhoto = getItem(position).getFriendSmallProfilePicture();
+        ViewHolder messagesViewHolder;
+        String name = getItem(position).getFriendUserName();
+        String message = getItem(position).getLastMessage();
+        byte[] picture = getItem(position).getFriendSmallProfilePicture();
 
-        Messages messages = new Messages(friendName, friendMessage, friendProfilePhoto );
+        if (convertView == null)
+        {
+            LayoutInflater messagesInflater = LayoutInflater.from(mContext);
+            convertView = messagesInflater.inflate(mResource, parent, false);
 
-        LayoutInflater messagesInflater = LayoutInflater.from(mContext);
-        convertView = messagesInflater.inflate(mResource, parent, false);
+            messagesViewHolder = new ViewHolder();
 
-        TextView friendUserName = convertView.findViewById(R.id.friend_user_name);
-        TextView friendLastMessage = convertView.findViewById(R.id.friend_last_message);
-        ImageView friendPhoto = convertView.findViewById(R.id.friend_profile_picture);
+            messagesViewHolder.friendName = convertView.findViewById(R.id.friend_user_name);
+            messagesViewHolder.friendMessage = convertView.findViewById(R.id.friend_last_message);
+            messagesViewHolder.friendProfilePhoto = convertView.findViewById(R.id.friend_profile_picture);
 
-        friendUserName.setText(friendName);
-        friendLastMessage.setText(friendMessage);
-        friendPhoto.setImageResource(R.mipmap.messages_icon);
+            convertView.setTag(messagesInflater);
+        }
+        else
+        {
+            messagesViewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        messagesViewHolder.friendName.setText(name);
+        messagesViewHolder.friendMessage.setText(message);
+        messagesViewHolder.friendProfilePhoto.setImageResource(R.mipmap.messages_icon);
+        //messagesViewHolder.friendProfilePhoto.setImageResource(picture[position]);
+
 
         return convertView;
 
