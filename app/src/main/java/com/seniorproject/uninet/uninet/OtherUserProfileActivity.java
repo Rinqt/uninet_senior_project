@@ -25,7 +25,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.other_user_profile_swiper);
 
         userPosts = findViewById(R.id.other_user_uni_post_list_view);
-        userPostsAdapter = new ListViewAdapter(this, 2);
+        userPostsAdapter = new ListViewAdapter(this, 0, "1");
         userPosts.setAdapter(userPostsAdapter);
 
 
@@ -60,7 +60,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     private void refreshPosts()
     {
         userPostsAdapter.notifyDataSetChanged();
-        userPosts.setAdapter(new ListViewAdapter(getApplicationContext(), 1));
+        userPosts.setAdapter(new ListViewAdapter(getApplicationContext(), 0, "1"));
 
         Toast.makeText(this, R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);

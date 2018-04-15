@@ -29,12 +29,12 @@
             android:divider="@null"
             android:orientation="vertical"
             android:scrollbars="vertical"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
 
         </android.support.v4.widget.SwipeRefreshLayout>
