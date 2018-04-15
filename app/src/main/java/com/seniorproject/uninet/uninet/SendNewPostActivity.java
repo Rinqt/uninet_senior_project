@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
 import java.util.List;
@@ -85,6 +85,8 @@ public class SendNewPostActivity extends AppCompatActivity implements
                 if(userLocation.equals("") || userLocation.equals(null))
                     userLocation = "None";
                 DatabaseMethods.SendPost(LoggedInUser.UserId, postText, userLocation, null);
+                Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+
 
             }
         });

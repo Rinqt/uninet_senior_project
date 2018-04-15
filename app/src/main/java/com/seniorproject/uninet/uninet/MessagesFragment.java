@@ -34,6 +34,7 @@ public class MessagesFragment extends Fragment {
 
 
     SwipeRefreshLayout swipeRefreshLayout;
+    String whoIsTheUser;
 
     // messages_list
     private ListView messagesList;
@@ -88,22 +89,11 @@ public class MessagesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Declaration
+        whoIsTheUser = LoggedInUser.UserId;
         swipeRefreshLayout = getActivity().findViewById(R.id.messages_swiper);
         messagesList = getActivity().findViewById(R.id.messages_list);
 
-
-        List<Conversation> conversations = DatabaseMethods.GetConversations(LoggedInUser.UserId);
-        messages = new ArrayList<>();
-
-        for (int i = conversations.size() - 1 ; i >= 0; i--)
-        {
-            //TODO: Resolve the picture issue, add information that will stay hidden
-            messages.add(new Messages(conversations.get(i).name, conversations.get(i).userMessage, conversations.get(i).smallProfilePicture));
-            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
-            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
-            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
-
-        }
+        addDataToList();
 
         messagesListAdapter = new MessagesListAdapter(getContext().getApplicationContext(), R.layout.messages_list_template, messages);
         messagesList.setAdapter(messagesListAdapter);
@@ -189,10 +179,32 @@ public class MessagesFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void addDataToList()
+    {
+        List<Conversation> conversations = DatabaseMethods.GetConversations(whoIsTheUser);
+        messages = new ArrayList<>();
+
+
+        for (int i = conversations.size() - 1 ; i >= 0; i--)
+        {
+            messages.add(new Messages(conversations.get(i).name, conversations.get(i).userMessage, conversations.get(i).smallProfilePicture));
+            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
+            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
+            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
+
+        }
+    }
+
     private void refreshPosts()
     {
         messagesListAdapter.notifyDataSetChanged();
-        messagesList.setAdapter(new MessagesListAdapter(getActivity().getApplicationContext(), R.layout.messages_list_template, messages));
+
+        addDataToList();
+
+        messagesListAdapter = new MessagesListAdapter(getContext().getApplicationContext(), R.layout.messages_list_template, messages);
+        messagesList.setAdapter(messagesListAdapter);
+
+
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }

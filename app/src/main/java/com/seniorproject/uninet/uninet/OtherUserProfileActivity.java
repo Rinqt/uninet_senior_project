@@ -9,10 +9,19 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class OtherUserProfileActivity extends AppCompatActivity {
 
     private ListView userPosts;
-    private ListViewAdapter userPostsAdapter;
+    private PostListAdapter postListAdapter;
+    private ArrayList<UniPosts> uniPosts;
+    private String whoIsTheUser;
     private SwipeRefreshLayout swipeRefreshLayout;
 
 
@@ -22,13 +31,28 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_user_profile);
 
+        // Declaration
+        whoIsTheUser = getIntent().getStringExtra("UserID");
         swipeRefreshLayout = findViewById(R.id.other_user_profile_swiper);
-
         userPosts = findViewById(R.id.other_user_uni_post_list_view);
-        userPostsAdapter = new ListViewAdapter(this, 0, "1");
-        userPosts.setAdapter(userPostsAdapter);
 
+        List<Post> postList = DatabaseMethods.GetPosts(whoIsTheUser);
+        uniPosts = new ArrayList<>();
 
+        for (int i = postList.size() - 1 ; i >= 0; i--)
+        {
+            //TODO: Am i missing post Picture or DatabaseMethods.GetPosts is not returning post Picture?
+            uniPosts.add(new UniPosts(whoIsTheUser, postList.get(i).postId,
+                    postList.get(i).name,
+                    postList.get(i).postDate,
+                    postList.get(i).postText,
+                    postList.get(i).location,
+                    postList.get(i).smallProfilePicture,
+                    postList.get(i).smallProfilePicture));
+        }
+
+        postListAdapter = new PostListAdapter(this, 0, R.layout.uni_post_template, uniPosts);
+        userPosts.setAdapter(postListAdapter);
 
         // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
         // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
@@ -59,8 +83,8 @@ public class OtherUserProfileActivity extends AppCompatActivity {
 
     private void refreshPosts()
     {
-        userPostsAdapter.notifyDataSetChanged();
-        userPosts.setAdapter(new ListViewAdapter(getApplicationContext(), 0, "1"));
+        postListAdapter.notifyDataSetChanged();
+        userPosts.setAdapter(new PostListAdapter(this, 0, R.layout.uni_post_template, uniPosts));
 
         Toast.makeText(this, R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
@@ -72,4 +96,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         if(userPosts.getChildCount() == 0) return true;
         return userPosts.getChildAt(0).getTop() == 0;
     }
+
+
+
 }

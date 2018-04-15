@@ -20,6 +20,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,12 +52,15 @@ public class ProfileFragment extends Fragment {
     Button friendsButton;
     Button photosButton;
     Button privacyButton;
-    SettingsActivity settingsActivity;
+
+    String whoIsTheUser;
     SwipeRefreshLayout swipeRefreshLayout;
 
-    // unipost_list_view
+    // unipost_list
     private ListView unipost_list;
-    private ListViewAdapter listViewAdapter;
+    PostListAdapter postListAdapter;
+    ArrayList<UniPosts> uniPosts;
+
 
 
     public ProfileFragment() {
@@ -89,17 +99,21 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        whoIsTheUser = LoggedInUser.UserId;
+
         // Declaration
         setProfileButton = getActivity().findViewById(R.id.set_profile_button);
         friendsButton = getActivity().findViewById(R.id.friends_button);
         photosButton = getActivity().findViewById(R.id.photos_button);
         privacyButton = getActivity().findViewById(R.id.privacy_button);
         swipeRefreshLayout = getActivity().findViewById(R.id.uni_post_swiper);
-
-
         unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
-        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 0, LoggedInUser.UserId);
-        unipost_list.setAdapter(listViewAdapter);
+
+        addDataToList();
+
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.uni_post_template, uniPosts);
+        unipost_list.setAdapter(postListAdapter);
+
 
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -210,8 +224,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_profile, container, false);
 
     }
 
@@ -254,10 +267,33 @@ public class ProfileFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
+    private void addDataToList()
+    {
+        List<Post> feedScreenPosts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        uniPosts = new ArrayList<>();
+
+
+        for (int i = feedScreenPosts.size() - 1 ; i >= 0; i--)
+        {
+            uniPosts.add(new UniPosts(whoIsTheUser, feedScreenPosts.get(i).postId,
+                    feedScreenPosts.get(i).name,
+                    feedScreenPosts.get(i).postDate,
+                    feedScreenPosts.get(i).postText,
+                    feedScreenPosts.get(i).location,
+                    feedScreenPosts.get(i).smallProfilePicture,
+                    feedScreenPosts.get(i).smallProfilePicture));
+        }
+    }
+
     private void refreshPosts()
     {
-        listViewAdapter.notifyDataSetChanged();
-        unipost_list.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 0, LoggedInUser.UserId));
+        postListAdapter.notifyDataSetChanged();
+
+        addDataToList();
+
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
+        unipost_list.setAdapter(postListAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);

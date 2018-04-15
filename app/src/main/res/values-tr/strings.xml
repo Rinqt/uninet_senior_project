@@ -51,6 +51,7 @@
     <string name="refresh_failed">Hata!</string>
     <string name="share_post">Paylaş</string>
     <string name="upload_picture">Resim yükle</string>
+    <string name="successful_post">UniPost başarıl ile yollandı</string>
     <!--Post END-->
 
     <!--Profile-->

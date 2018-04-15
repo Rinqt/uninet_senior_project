@@ -19,6 +19,10 @@ public class DiningListAdapter extends ArrayAdapter<Lunch> {
     private Context mContext;
     private int mResource;
 
+    static class ViewHolder {
+        TextView food;
+    }
+
     public DiningListAdapter(@NonNull Context context, int resource, @NonNull List<Lunch> objects) {
         super(context, resource, objects);
         mContext = context;
@@ -29,16 +33,30 @@ public class DiningListAdapter extends ArrayAdapter<Lunch> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
+        ViewHolder diningViewHolder;
         String food = getItem(position).getLunchName();
 
-        LayoutInflater lunchInflator = LayoutInflater.from(mContext);
-        convertView = lunchInflator.inflate(mResource, parent, false);
+        if (convertView ==  null)
+        {
+            LayoutInflater lunchInflater = LayoutInflater.from(mContext);
+            convertView = lunchInflater.inflate(mResource, parent, false);
 
-        TextView foodName = convertView.findViewById(R.id.food_name);
+            diningViewHolder = new ViewHolder();
+            diningViewHolder.food = convertView.findViewById(R.id.food_name);
 
-        foodName.setText(food);
+            convertView.setTag(diningViewHolder);
+        }
+        else
+            diningViewHolder = (ViewHolder) convertView.getTag();
+
+        diningViewHolder.food.setText(food);
 
         return convertView;
 
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 }
