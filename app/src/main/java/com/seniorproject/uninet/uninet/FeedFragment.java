@@ -39,6 +39,8 @@ public class FeedFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     final CharSequence[] unipostOptions = {"Copy UniPost Text"};
 
+
+
     // Declaration of the layout
     ImageView profilePhoto;
 
@@ -90,7 +92,7 @@ public class FeedFragment extends Fragment {
 
 
         unipost_feed = getActivity().findViewById(R.id.uni_post_feed_list);
-        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 1);
+        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 1, LoggedInUser.UserId);
         unipost_feed.setAdapter(listViewAdapter);
 
 
@@ -201,7 +203,7 @@ public class FeedFragment extends Fragment {
     private void refreshPosts()
     {
         listViewAdapter.notifyDataSetChanged();
-        unipost_feed.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 1));
+        unipost_feed.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 1, LoggedInUser.UserId));
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);

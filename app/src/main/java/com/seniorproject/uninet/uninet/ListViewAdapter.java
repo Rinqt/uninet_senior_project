@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.LunchSchedule;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 
 import java.util.ArrayList;
@@ -21,10 +22,10 @@ import java.util.List;
 class UniPost
 {
 
-    public String uniPostId, userName, timeStamp, description, userID;
+    private String uniPostId, userName, timeStamp, description, userID, location;
     private byte[] profilePicture, postImage;
 
-    public UniPost(String uniPostId, String userName, byte[] profilePicture, byte[] postImage, String timeStamp, String description, String userID) {
+    public UniPost(String uniPostId, String userName, byte[] profilePicture, byte[] postImage, String timeStamp, String description, String userID, String location) {
         this.uniPostId = uniPostId;
         this.userName = userName;
         this.profilePicture = profilePicture;
@@ -32,6 +33,23 @@ class UniPost
         this.timeStamp = timeStamp;
         this.description = description;
         this.userID = userID;
+        this.location = location;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getUniPostId() {
@@ -43,7 +61,7 @@ class UniPost
     }
 
     public String getUserName() {
-        return "Kaan YÖŞ";
+        return userName;
     }
 
     public void setUserName(String userName) {
@@ -67,7 +85,7 @@ class UniPost
     }
 
     public String getTimeStamp() {
-        return "11.04.2018";
+        return timeStamp;
     }
 
     public void setTimeStamp(String timeStamp) {
@@ -75,27 +93,26 @@ class UniPost
     }
 
     public String getDescription() {
-        return "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore " +
-                "et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
-                "ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit ";
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 }
+
+
 public class ListViewAdapter extends BaseAdapter {
 
     int posts;
     Context context;
     ArrayList<UniPost> list; // Currently empty.
 
-    ListViewAdapter(Context c, int posts) {
+    ListViewAdapter(Context c, int posts, String whoIsTheUser) {
         /*
         * use post = 0 to get user posts
         * use post = 1 to get feed screen posts
-        * use post = 2 to get clicked user's posts
-         */
+        */
         context = c;
         list = new ArrayList<UniPost>();
         this.posts = posts;
@@ -103,11 +120,11 @@ public class ListViewAdapter extends BaseAdapter {
         if (posts == 0)
         {
             //TODO: Find a way to send UserId here
-            List<Post> userPosts = DatabaseMethods.GetPosts(LoggedInUser.UserId);
+            List<Post> userPosts = DatabaseMethods.GetPosts(whoIsTheUser);
             for (int i = userPosts.size() - 1 ; i >= 0; i--)
             {
                 //TODO: Resolve the picture issue, add information that will stay hidden
-                list.add(new UniPost(userPosts.get(i).postId, userPosts.get(i).name, userPosts.get(i).smallProfilePicture, userPosts.get(i).smallProfilePicture, userPosts.get(i).postDate, userPosts.get(i).postText, LoggedInUser.UserId));
+                list.add(new UniPost(userPosts.get(i).postId, userPosts.get(i).name, userPosts.get(i).smallProfilePicture, userPosts.get(i).smallProfilePicture, userPosts.get(i).postDate, userPosts.get(i).postText, whoIsTheUser, userPosts.get(i).location));
             }
 
         }
@@ -118,17 +135,17 @@ public class ListViewAdapter extends BaseAdapter {
             for (int i = newsFeed.size() - 1 ; i >= 0; i--)
             {
                 //TODO: Resolve the picture issue, add information that will stay hidden
-                list.add(new UniPost(newsFeed.get(i).postId, newsFeed.get(i).name, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).postDate, newsFeed.get(i).postText, newsFeed.get(i).userId));
+                list.add(new UniPost(newsFeed.get(i).postId, newsFeed.get(i).name, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).postDate, newsFeed.get(i).postText, newsFeed.get(i).userId, newsFeed.get(i).location));
             }
         }
         else if (posts == 2)
         {
             //TODO: Find a way to send UserId here
-            List<Post> newsFeed = DatabaseMethods.GetNewsFeed(LoggedInUser.UserId);
-            for (int i = newsFeed.size() - 1 ; i >= 0; i--)
+            List<LunchSchedule> diningList = DatabaseMethods.GetLunchSchedule();
+            for (int i = diningList.size() - 1 ; i >= 0; i--)
             {
-                //TODO: Resolve the picture issue, add information that will stay hidden
-                list.add(new UniPost(newsFeed.get(i).postId, newsFeed.get(i).name, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).smallProfilePicture, newsFeed.get(i).postDate, newsFeed.get(i).postText, newsFeed.get(i).userId));
+                //TODO: Add Dining List
+
             }
         }
     }
@@ -202,14 +219,13 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
 
-
-
-
         UniPost temp = list.get(i);
 
-        userName.setText(temp.userName);
-        date.setText(temp.timeStamp);
-        description.setText(temp.description);
+        String dateWithLocation = temp.getTimeStamp() + " || " + temp.getLocation();
+
+        userName.setText(temp.getUserName());
+        date.setText(dateWithLocation);
+        description.setText(temp.getDescription());
         userPhoto.setImageResource(R.mipmap.awesome_kaan);
         postPicture.setImageResource(R.mipmap.ic_launcher_round);
 

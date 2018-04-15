@@ -98,7 +98,7 @@ public class ProfileFragment extends Fragment {
 
 
         unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
-        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 0);
+        listViewAdapter = new ListViewAdapter(getActivity().getApplicationContext(), 0, LoggedInUser.UserId);
         unipost_list.setAdapter(listViewAdapter);
 
 
@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment {
 
             // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
             // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
-            unipost_list.setOnScrollListener(new AbsListView.OnScrollListener() {
+        unipost_list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -257,7 +257,7 @@ public class ProfileFragment extends Fragment {
     private void refreshPosts()
     {
         listViewAdapter.notifyDataSetChanged();
-        unipost_list.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 0));
+        unipost_list.setAdapter(new ListViewAdapter(getActivity().getApplicationContext(), 0, LoggedInUser.UserId));
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);

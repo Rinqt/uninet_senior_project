@@ -3,10 +3,23 @@ package com.seniorproject.uninet.uninet;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.seniorproject.uninet.uninet.Adapters.MessagesListAdapter;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Conversation;
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,6 +31,16 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class MessagesFragment extends Fragment {
+
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    // messages_list
+    private ListView messagesList;
+    private MessagesListAdapter messagesListAdapter;
+    private ArrayList<Messages> messages;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -58,6 +81,66 @@ public class MessagesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // Declaration
+        swipeRefreshLayout = getActivity().findViewById(R.id.messages_swiper);
+        messagesList = getActivity().findViewById(R.id.messages_list);
+
+
+        List<Conversation> conversations = DatabaseMethods.GetConversations(LoggedInUser.UserId);
+        messages = new ArrayList<>();
+
+        for (int i = conversations.size() - 1 ; i >= 0; i--)
+        {
+            //TODO: Resolve the picture issue, add information that will stay hidden
+            messages.add(new Messages(conversations.get(i).name, conversations.get(i).userMessage, conversations.get(i).smallProfilePicture));
+            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
+            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
+            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
+
+        }
+
+        messagesListAdapter = new MessagesListAdapter(getContext().getApplicationContext(), R.layout.messages_list_template, messages);
+        messagesList.setAdapter(messagesListAdapter);
+
+
+        // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
+        // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
+        messagesList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if(firstVisibleItem == 0 && isListAtTop()){
+                    swipeRefreshLayout.setEnabled(true);
+                }else{
+                    swipeRefreshLayout.setEnabled(false);
+                }
+            }
+        });
+
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i("TAG", "[MessagesFragment]onRefresh called from SwipeRefreshLayout");
+                refreshPosts();
+            }
+        });
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -104,5 +187,20 @@ public class MessagesFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void refreshPosts()
+    {
+        messagesListAdapter.notifyDataSetChanged();
+        messagesList.setAdapter(new MessagesListAdapter(getActivity().getApplicationContext(), R.layout.messages_list_template, messages));
+        Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    // To check if we are at top of the UniPost List.
+    private boolean isListAtTop()
+    {
+        if(messagesList.getChildCount() == 0) return true;
+        return messagesList.getChildAt(0).getTop() == 0;
     }
 }

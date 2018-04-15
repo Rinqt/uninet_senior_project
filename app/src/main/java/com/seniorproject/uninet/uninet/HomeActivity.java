@@ -22,11 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
-import com.seniorproject.uninet.uninet.DatabaseClasses.LunchSchedule;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -61,7 +57,7 @@ public class HomeActivity extends AppCompatActivity
         final Toolbar myToolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle(R.string.app_name);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 
         //Session
@@ -158,28 +154,40 @@ public class HomeActivity extends AppCompatActivity
             Intent timeTableIntent = new Intent(this, TimeTableActivity.class);
             startActivity(timeTableIntent);
 
-        } else if (id == R.id.nav_transcript) {
+        }
+        else if (id == R.id.nav_transcript)
+        {
             Intent transcriptIntent = new Intent(this, TranscriptActivity.class);
             startActivity(transcriptIntent);
 
-        } else if (id == R.id.nav_diningList) {
+        }
+        else if (id == R.id.nav_diningList)
+        {
             Intent diningList = new Intent(this, DiningActivity.class);
             startActivity(diningList);
 
-        } else if (id == R.id.nav_settings) {
+        }
+        else if (id == R.id.nav_settings)
+        {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
 
-        } else if (id == R.id.nav_logout) {
+        }
+        else if (id == R.id.nav_logout)
+        {
             logout();
 
-        } else if (id == R.id.nav_contact) {
+        }
+        else if (id == R.id.nav_contact)
+        {
             Intent mailIntent = new Intent(Intent.ACTION_VIEW);
             Uri data = Uri.parse("mailto:uninet@uninetapplication.com");
             mailIntent.setData(data);
             startActivity(mailIntent);
 
-        } else if (id == R.id.nav_version) {
+        }
+        else if (id == R.id.nav_version)
+        {
             Intent versionIntent = new Intent(this, VersionActivity.class);
             startActivity(versionIntent);
         }
@@ -235,10 +243,13 @@ public class HomeActivity extends AppCompatActivity
                 dialogInterface.dismiss();
                 sessionChecker.setUserLoggedIn(false);
                 sessionChecker.setLoginInfo("");
+
                 LoggedInUser.UserId = null;
                 LoggedInUser.TeacherId = null;
                 LoggedInUser.StudentId = null;
+
                 sessionChecker.editor.clear().commit();
+
                 Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(loginIntent);

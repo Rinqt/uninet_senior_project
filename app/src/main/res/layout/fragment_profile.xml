@@ -138,9 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
-
                 android:paddingBottom="125dp"
-
                 app:layout_constraintEnd_toEndOf="@id/profile_divider"
                 app:layout_constraintRight_toRightOf="@id/profile_divider"
                 app:layout_constraintStart_toEndOf="@id/main_container"
