@@ -4,7 +4,6 @@ import android.Manifest;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,16 +13,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
@@ -90,6 +88,8 @@ public class SendNewPostActivity extends AppCompatActivity implements
                     userLocation = "None";
                 try {
                     DatabaseMethods.SendPost(LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
+                    Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+                    finish();
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }

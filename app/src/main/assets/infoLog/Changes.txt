@@ -67,6 +67,13 @@
     3. New Post Design Added.
     4. Users can see other users profile. (Still in development)
 
+14.04.2018 v 0.0.0.0.1.5.5
+    1. Users can send new posts now.
+    2. Dining List Added.
+    3. Messages List Added.
+    4. All ListAdapters moved to Adapter folder and lists re-organized with better design practice.
+    5. Turkish character problem solved.
+    6. Other performance updates :D
 
 
 

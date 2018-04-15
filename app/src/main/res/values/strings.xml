@@ -70,8 +70,8 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.0.1.5.1 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.1.5.1 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.1.5.5 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.1.5.5 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->

@@ -270,19 +270,19 @@ public class ProfileFragment extends Fragment {
 
     private void addDataToList()
     {
-        List<Post> feedScreenPosts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        List<Post> uniPost = DatabaseMethods.GetPosts(whoIsTheUser);
         uniPosts = new ArrayList<>();
 
 
-        for (int i = feedScreenPosts.size() - 1 ; i >= 0; i--)
+        for (int i = uniPost.size() - 1 ; i >= 0; i--)
         {
-            uniPosts.add(new UniPosts(whoIsTheUser, feedScreenPosts.get(i).postId,
-                    feedScreenPosts.get(i).name,
-                    feedScreenPosts.get(i).postDate,
-                    feedScreenPosts.get(i).postText,
-                    feedScreenPosts.get(i).location,
-                    feedScreenPosts.get(i).smallProfilePicture,
-                    feedScreenPosts.get(i).smallProfilePicture));
+            uniPosts.add(new UniPosts(whoIsTheUser, uniPost.get(i).postId,
+                    uniPost.get(i).name,
+                    uniPost.get(i).postDate,
+                    uniPost.get(i).postText,
+                    uniPost.get(i).location,
+                    uniPost.get(i).smallProfilePicture,
+                    uniPost.get(i).smallProfilePicture));
         }
     }
 
@@ -292,7 +292,7 @@ public class ProfileFragment extends Fragment {
 
         addDataToList();
 
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.uni_post_template, uniPosts);
         unipost_list.setAdapter(postListAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
