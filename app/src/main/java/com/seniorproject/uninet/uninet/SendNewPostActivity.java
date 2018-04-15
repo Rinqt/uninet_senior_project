@@ -82,6 +82,8 @@ public class SendNewPostActivity extends AppCompatActivity implements
                 }
                 Log.i("locationPERMISSION", Manifest.permission.ACCESS_FINE_LOCATION);
                 String postText = uniPostDescription.getText().toString();
+                if(userLocation.equals("") || userLocation.equals(null))
+                    userLocation = "None";
                 DatabaseMethods.SendPost(LoggedInUser.UserId, postText, userLocation, null);
 
             }
