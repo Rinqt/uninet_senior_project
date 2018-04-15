@@ -15,7 +15,7 @@ import java.util.List;
 public class DatabaseMethods {
     public static String LoginCheck(String username, String userpass){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/LoginCheck?a="+username+"?b="+userpass;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/LoginCheck?a="+username+"&b="+userpass;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("LoginCheckResult");
