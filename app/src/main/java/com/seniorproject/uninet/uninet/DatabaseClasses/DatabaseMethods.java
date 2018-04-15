@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class DatabaseMethods {
     public static String LoginCheck(String username, String userpass){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/LoginCheck/"+username+"/"+userpass;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/LoginCheck?a="+username+"?b="+userpass;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("LoginCheckResult");
@@ -28,7 +29,7 @@ public class DatabaseMethods {
 
     public static UserListingInfo GetUserNamePic(String userId){
         UserListingInfo result = new UserListingInfo();
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserNamePic/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserNamePic?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             jsonResult = jsonResult.getJSONObject("GetUserNamePicResult");
@@ -55,7 +56,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> SearchUser(String name){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SearchUser/"+name;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SearchUser?a="+name;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("SearchUserResult");
@@ -84,7 +85,7 @@ public class DatabaseMethods {
 
     public static ProfileInfoStudent GetProfileInfoStudent(String userId){
         ProfileInfoStudent result = new ProfileInfoStudent();
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetProfileInfoStudent/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetProfileInfoStudent?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             jsonResult = jsonResult.getJSONObject("GetProfileInfoStudentResult");
@@ -124,7 +125,7 @@ public class DatabaseMethods {
 
     public static ProfileInfoTeacher GetProfileInfoTeacher(String userId){
         ProfileInfoTeacher result = new ProfileInfoTeacher();
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetProfileInfoTeacher/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetProfileInfoTeacher?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             jsonResult = jsonResult.getJSONObject("GetProfileInfoTeacherResult");
@@ -163,7 +164,7 @@ public class DatabaseMethods {
     }
 
     public static void UpdateProfileInfo(String userId, String email, String webPage, String phoneNumber, String relationship, String smallProfilePicture, String bigProfilePicture){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdateProfileInfo/"+userId+"/"+email+"/"+webPage+"/"+phoneNumber+"/"+relationship+"/"+smallProfilePicture+"/"+bigProfilePicture;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdateProfileInfo?a="+userId+"&b="+email+"&c="+webPage+"&d="+phoneNumber+"&e="+relationship+"&f="+smallProfilePicture+"&g="+bigProfilePicture;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -174,7 +175,7 @@ public class DatabaseMethods {
 
     public static byte[] GetUserBigPic(String userId){
         byte[] result = null;
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserBigPic/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserBigPic?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             if(jsonResult.isNull("GetUserBigPicResult"))
@@ -195,7 +196,7 @@ public class DatabaseMethods {
 
     public static String GetStudentId(String userId){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetStudentId/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetStudentId?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("GetStudentIdResult");
@@ -208,7 +209,7 @@ public class DatabaseMethods {
 
     public static String GetTeacherId(String userId){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTeacherId/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTeacherId?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("GetTeacherIdResult");
@@ -220,7 +221,7 @@ public class DatabaseMethods {
     }
 
     public static void InsertRelation(String userId, String otherUserId, String relationType){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertRelation/"+userId+"/"+otherUserId+"/"+relationType;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertRelation?a="+userId+"&b="+otherUserId+"&c="+relationType;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -230,7 +231,7 @@ public class DatabaseMethods {
     }
 
     public static void RemoveFriendFollowUponBlock(String userId, String otherUserId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveFriendFollowUponBlock/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveFriendFollowUponBlock?a="+userId+"&b="+otherUserId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -240,7 +241,7 @@ public class DatabaseMethods {
     }
 
     public static void RemoveFriend(String userId, String otherUserId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveFriend/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveFriend?a="+userId+"&b="+otherUserId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -250,7 +251,7 @@ public class DatabaseMethods {
     }
 
     public static void RemoveBlock(String userId, String otherUserId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveBlock/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveBlock?a="+userId+"&b="+otherUserId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -260,7 +261,7 @@ public class DatabaseMethods {
     }
 
     public static void DeclineFriendRequest(String userId, String otherUserId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/DeclineFriendRequest/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/DeclineFriendRequest?a="+userId+"&b="+otherUserId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -272,7 +273,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> GetBlocks(String userId){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetBlocks/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetBlocks?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetBlocksResult");
@@ -301,7 +302,7 @@ public class DatabaseMethods {
 
     public static String CheckBlocked(String userId, String otherUserId){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckBlocked/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckBlocked?a="+userId+"&b="+otherUserId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("CheckBlockedResult");
@@ -315,7 +316,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> GetFriends(String userId){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetFriends/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetFriends?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetFriendsResult");
@@ -344,7 +345,7 @@ public class DatabaseMethods {
 
     public static String CheckFriendship(String userId, String otherUserId){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckFriendship/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckFriendship?a="+userId+"&b="+otherUserId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("CheckFriendshipResult");
@@ -358,7 +359,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> GetFriendRequests(String userId){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetFriendRequests/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetFriendRequests?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetFriendRequestsResult");
@@ -387,7 +388,7 @@ public class DatabaseMethods {
 
     public static String CheckFriendRequest(String userId, String otherUserId){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckFriendRequest/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckFriendRequest?a="+userId+"&b="+otherUserId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("CheckFriendRequestResult");
@@ -399,7 +400,7 @@ public class DatabaseMethods {
     }
 
     public static void InsertStudentFollow(String studentId, String teacherId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertStudentFollow/"+studentId+"/"+teacherId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertStudentFollow?a="+studentId+"&b="+teacherId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -409,7 +410,7 @@ public class DatabaseMethods {
     }
 
     public static void InsertTeacherFollow(String teacherId, String studentId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertStudentFollow/"+teacherId+"/"+studentId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertStudentFollow?a="+teacherId+"&b="+studentId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -419,7 +420,7 @@ public class DatabaseMethods {
     }
 
     public static void RemoveStudentFollow(String studentId, String teacherId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveStudentFollow/"+studentId+"/"+teacherId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveStudentFollow?a="+studentId+"&b="+teacherId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -429,7 +430,7 @@ public class DatabaseMethods {
     }
 
     public static void RemoveTeacherFollow(String teacherId, String studentId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveTeacherFollow/"+teacherId+"/"+studentId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemoveTeacherFollow?a="+teacherId+"&b="+studentId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -441,7 +442,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> GetStudentFollowers(String studentId){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetStudentFollowers/"+studentId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetStudentFollowers?a="+studentId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetStudentFollowersResult");
@@ -471,7 +472,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> GetStudentFollowing(String studentId){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetStudentFollowing/"+studentId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetStudentFollowing?a="+studentId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetStudentFollowingResult");
@@ -501,7 +502,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> GetTeacherFollowers(String teacherId){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTeacherFollowers/"+teacherId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTeacherFollowers?a="+teacherId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetTeacherFollowersResult");
@@ -531,7 +532,7 @@ public class DatabaseMethods {
     public static List<UserListingInfo> GetTeacherFollowing(String teacherId){
         List<UserListingInfo> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTeacherFollowing/"+teacherId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTeacherFollowing?a="+teacherId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetTeacherFollowingResult");
@@ -561,7 +562,7 @@ public class DatabaseMethods {
     public static List<TranscriptCourse> GetTranscript(String userId){
         List<TranscriptCourse> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTranscript/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetTranscript?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetTranscriptResult");
@@ -585,7 +586,7 @@ public class DatabaseMethods {
     }
 
     public static void SendMessage(String otherUserId, String userId, String userMessage){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessage/"+otherUserId+"/"+userId+"/"+userMessage;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessage?a="+otherUserId+"&b="+userId+"&c="+userMessage;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -595,7 +596,7 @@ public class DatabaseMethods {
     }
 
     public static void SendMessageExistingConversation(String conversationId, String userId, String userMessage){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessage/"+conversationId+"/"+userId+"/"+userMessage;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessage?a="+conversationId+"&b="+userId+"&c="+userMessage;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -606,7 +607,7 @@ public class DatabaseMethods {
 
     public static String CheckExistingConversation(String userId, String otherUserId){
         String result = "";
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckExistingConversation/"+userId+"/"+otherUserId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/CheckExistingConversation?a="+userId+"&b="+otherUserId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             result = jsonResult.getString("CheckExistingConversationResult");
@@ -618,7 +619,7 @@ public class DatabaseMethods {
     }
 
     public static void EraseMessage(String userId, String messageId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/EraseMessage/"+userId+"/"+messageId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/EraseMessage?a="+userId+"&b="+messageId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -628,7 +629,7 @@ public class DatabaseMethods {
     }
 
     public static void EraseConversation(String userId, String conversationId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/EraseConversation/"+userId+"/"+conversationId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/EraseConversation?a="+userId+"&b="+conversationId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -640,7 +641,7 @@ public class DatabaseMethods {
     public static List<Message> GetMessages(String userId, String conversationId){
         List<Message> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetMessages/"+userId+"/"+conversationId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetMessages?a="+userId+"&b="+conversationId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetMessagesResult");
@@ -664,7 +665,7 @@ public class DatabaseMethods {
     public static List<Conversation> GetConversations(String userId){
         List<Conversation> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetConversations/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetConversations?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetConversationsResult");
@@ -697,7 +698,7 @@ public class DatabaseMethods {
     public static List<TimeTableCourse> GetUserTimeTable(String userId){
         List<TimeTableCourse> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserTimeTable/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserTimeTable?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetUserTimeTableResult");
@@ -725,7 +726,7 @@ public class DatabaseMethods {
 
     public static PrivacySettings GetPrivacySettings(String userId){
         PrivacySettings result = new PrivacySettings();
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetPrivacySettings/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetPrivacySettings?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             jsonResult = jsonResult.getJSONObject("GetPrivacySettingsResult");
@@ -742,7 +743,7 @@ public class DatabaseMethods {
     }
 
     public static void UpdatePrivacySettings(String userId, String showPostEveryone, String showLocationEveryone, String receiveMessageFromEveryone, String notifications, String showBirthdayEveryone){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdateProfileInfo/"+userId+"/"+showPostEveryone+"/"+showLocationEveryone+"/"+receiveMessageFromEveryone+"/"+notifications+"/"+showBirthdayEveryone;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdateProfileInfo?a="+userId+"&b="+showPostEveryone+"&c="+showLocationEveryone+"&d="+receiveMessageFromEveryone+"&e="+notifications+"&f="+showBirthdayEveryone;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -752,7 +753,7 @@ public class DatabaseMethods {
     }
 
     public static void SendPost(String userId, String postText, String location, String picturesList) {
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendPost/"+userId+"/"+ postText +"/"+ location +"/"+picturesList;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendPost?a="+userId+"&b="+ postText +"&c="+ location +"&d="+picturesList;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -762,7 +763,7 @@ public class DatabaseMethods {
     }
 
     public static void RemovePost(String postId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemovePost/"+postId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemovePost?a="+postId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -774,7 +775,7 @@ public class DatabaseMethods {
     public static List<Post> GetPosts(String userId){
         List<Post> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetPosts/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetPosts?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetPostsResult");
@@ -793,7 +794,7 @@ public class DatabaseMethods {
                         tempPost.smallProfilePicture[j] = (byte)pictureBytes.getInt(j);
                     }
                 }
-                tempPost.postText = post.getString("postText");
+                tempPost.postText = URLDecoder.decode(post.getString("postText"), "UTF-8");
                 tempPost.location = post.getString("location");
                 tempPost.postDate = post.getString("postDate");
 
@@ -807,7 +808,7 @@ public class DatabaseMethods {
     }
 
     public static void InsertPostPictures(String postId, String picture){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemovePost/"+postId+"/"+picture;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/RemovePost?a="+postId+"&b="+picture;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -819,7 +820,7 @@ public class DatabaseMethods {
     public static List<PostPicture> GetPostPictures(String postId){
         List<PostPicture> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetPostPictures/"+postId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetPostPictures?a="+postId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetPostPicturesResult");
@@ -844,7 +845,7 @@ public class DatabaseMethods {
     public static List<Post> GetNewsFeed(String userId){
         List<Post> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetNewsFeed/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetNewsFeed?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetNewsFeedResult");
@@ -877,7 +878,7 @@ public class DatabaseMethods {
     }
 
     public static void AddLectureToUser(String userId, String lecturesCourseId){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/AddLectureToUser/"+userId+"/"+lecturesCourseId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/AddLectureToUser?a="+userId+"&b="+lecturesCourseId;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -889,7 +890,7 @@ public class DatabaseMethods {
     public static List<LecturesCourse> SearchLecture(String lectureName){
         List<LecturesCourse> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SearchLecture/"+lectureName;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SearchLecture?a="+lectureName;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("SearchLectureResult");
@@ -910,7 +911,7 @@ public class DatabaseMethods {
     public static List<LecturesCourse> GetUserLectures(String userId){
         List<LecturesCourse> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserLectures/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserLectures?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetUserLecturesResult");
@@ -931,7 +932,7 @@ public class DatabaseMethods {
     public static List<LectureTeacher> GetLectureTeachers(String lecturesCourseId){
         List<LectureTeacher> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetLectureTeachers/"+lecturesCourseId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetLectureTeachers?a="+lecturesCourseId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetLectureTeachersResult");
@@ -952,7 +953,7 @@ public class DatabaseMethods {
     public static List<CourseContent> GetCourseContents(String lecturesCourseId){
         List<CourseContent> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetCourseContents/"+lecturesCourseId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetCourseContents?a="+lecturesCourseId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetCourseContentsResult");
@@ -973,7 +974,7 @@ public class DatabaseMethods {
     public static List<Assignment> GetCourseAssignments(String lecturesCourseId){
         List<Assignment> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetCourseAssignments/"+lecturesCourseId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetCourseAssignments?a="+lecturesCourseId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetCourseAssignmentsResult");
@@ -994,7 +995,7 @@ public class DatabaseMethods {
     public static List<Assignment> GetUserAssignments(String userId){
         List<Assignment> result = new ArrayList<>();
 
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserAssignments/"+userId;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserAssignments?a="+userId;
         try {
             JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
             JSONArray jsonArray = jsonResult.getJSONArray("GetUserAssignmentsResult");

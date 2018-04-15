@@ -4,6 +4,7 @@ import android.Manifest;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.UrlQuerySanitizer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,9 @@ import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
@@ -84,7 +88,11 @@ public class SendNewPostActivity extends AppCompatActivity implements
                 String postText = uniPostDescription.getText().toString();
                 if(userLocation.equals("") || userLocation.equals(null))
                     userLocation = "None";
-                DatabaseMethods.SendPost(LoggedInUser.UserId, postText, userLocation, null);
+                try {
+                    DatabaseMethods.SendPost(LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
