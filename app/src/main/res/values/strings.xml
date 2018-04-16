@@ -9,6 +9,11 @@
     <string name="action_settings">Settings</string>
     <string name="menu_refresh">Swipe to Refresh</string>
 
+    <!--Internet Connection-->
+    <string name="internet_connection_valid">Internet connection found</string>
+    <string name="internet_connection_not_valid">Check Internet connection!</string>
+    <!--Internet Connection END-->
+
     <!--Login-->
     <string name="user_name">Username</string>
     <string name="password">Password</string>
@@ -52,6 +57,9 @@
     <string name="share_post">Share</string>
     <string name="upload_picture">Upload a Picture</string>
     <string name="successful_post">UniPost sent successfully</string>
+    <string name="post_copied">UniPost Copied!</string>
+    <string name="post_delete_successful">UniPost Deleted!</string>
+    <string name="post_delete_unsuccessful">UniPost Could Not Deleted!</string>
     <!--Post END-->
 
     <!--Profile-->
@@ -70,8 +78,8 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.0.1.5.5 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.1.5.5 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.1.5.8 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.1.5.8 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->
@@ -99,6 +107,13 @@
         <item>---</item>
     </string-array>
     <!-- Settings for Profile END -->
+
+    <!-- UniPost Settings -->
+    <string-array name="uni_post_settings">
+        <item>Copy UniPost Text</item>
+        <item>Delete Post</item>
+    </string-array>
+    <!-- UniPost Settings END -->
 
     <!-- Settings for UniPost -->
     <string name="title_activity_settings">UniPost Settings</string>
@@ -197,6 +212,7 @@
     <string name="btn_title_set_profile">Set Profile</string>
     <string name="btn_title_friends">Friends</string>
     <string name="btn_title_photos">Photos</string>
+    <string name="btn_title_privacy">Privacy</string>
     <string name="btn_title_about_user">About User</string>
     <string name="btn_title_mutual_friends">Mutual Friends</string>
     <string name="btn_title_delete_friend">Delete Friend</string>

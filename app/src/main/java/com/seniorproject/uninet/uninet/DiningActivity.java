@@ -33,7 +33,7 @@ public class DiningActivity extends AppCompatActivity {
         ArrayList<Lunch> lunches = new ArrayList<>();
 
 
-        for (int i = lunchSchedules.size() - 1 ; i >= 0; i--)
+        for (int i = 0; i < lunchSchedules.size(); i++)
         {
             lunches.add(new Lunch(lunchSchedules.get(i).food));
         }

@@ -87,7 +87,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
 
@@ -95,14 +94,12 @@
             android:name=".OtherUserProfileActivity"
             android:label="Other User Profile"
             android:parentActivityName=".HomeActivity">
-
         </activity>
 
         <activity
             android:name=".SendNewPostActivity"
             android:label="New UniPost"
             android:parentActivityName=".HomeActivity">
-
         </activity>
 
 

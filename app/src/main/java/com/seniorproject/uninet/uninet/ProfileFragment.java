@@ -1,6 +1,8 @@
 package com.seniorproject.uninet.uninet;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -57,7 +59,7 @@ public class ProfileFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
 
     // unipost_list
-    private ListView unipost_list;
+    public ListView unipost_list;
     PostListAdapter postListAdapter;
     ArrayList<UniPosts> uniPosts;
 
@@ -118,20 +120,34 @@ public class ProfileFragment extends Fragment {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
 
+
         //Postlar için LongPress Alert Dialog
         unipost_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 Log.i("Long click check", "Item Index " + i);
 
-                alertDialog.setItems(unipostOptions, new DialogInterface.OnClickListener() {
+                alertDialog.setItems(R.array.uni_post_settings, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int whichOption) {
+                        UniPosts selectedPost;
 
                         switch (whichOption)
                         {
                             case 0:
-                                Toast.makeText(getContext(), "Deneme", Toast.LENGTH_LONG).show();
+                                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                selectedPost = postListAdapter.getItem(i);
+                                ClipData clip = ClipData.newPlainText(getString(R.string.post_copied), selectedPost.getDescription());
+                                assert clipboard != null;
+                                clipboard.setPrimaryClip(clip);
+                                Toast.makeText(getContext(), R.string.post_copied, Toast.LENGTH_LONG).show();
+                            case 1:
+                                selectedPost = postListAdapter.getItem(i);
+                                Log.i("getItem(i)", "Item Index " + selectedPost.getUniPostId());
+
+                                // TODO: Add success controller. [for both places]
+                                DatabaseMethods.RemovePost(selectedPost.getUniPostId());
+                                Toast.makeText(getContext(), R.string.post_delete_successful, Toast.LENGTH_LONG).show();
                         }
                     }
                 });

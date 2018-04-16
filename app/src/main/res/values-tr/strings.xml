@@ -9,6 +9,11 @@
     <string name="action_settings">Ayarlar</string>
     <string name="menu_refresh">Yenilemek İçin Kaydır</string>
 
+    <!--Internet Connection-->
+    <string name="internet_connection_valid">Geçerli internet bağlantısı bulundu.</string>
+    <string name="internet_connection_not_valid">Lütfen internet bağlantınızı kontrol ediniz!</string>
+    <!--Internet Connection END-->
+
     <!--Login-->
     <string name="user_name">Kullanıcı Adı</string>
     <string name="password">Şifre</string>
@@ -52,6 +57,9 @@
     <string name="share_post">Paylaş</string>
     <string name="upload_picture">Resim yükle</string>
     <string name="successful_post">UniPost başarı ile yollandı</string>
+    <string name="post_copied">UniPost Kopyalandı!</string>
+    <string name="post_delete_successful">UniPost Silindi!</string>
+    <string name="post_delete_unsuccessful">UniPost Silinemedi!</string>
     <!--Post END-->
 
     <!--Profile-->
@@ -70,8 +78,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.0.1.5.5 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.1.5.5 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.1.5.8 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.1.5.8 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->

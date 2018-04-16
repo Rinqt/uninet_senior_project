@@ -23,7 +23,6 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
     private Context mContext;
     private int mResource;
     private int posts;
-    private int lastPosition = -1;
 
     static class ViewHolder {
         TextView name;

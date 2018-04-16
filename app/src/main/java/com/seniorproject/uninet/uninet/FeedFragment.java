@@ -1,6 +1,8 @@
 package com.seniorproject.uninet.uninet;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -45,7 +47,7 @@ public class FeedFragment extends Fragment {
 
 
     // unipost_list_view
-    private ListView unipost_feed;
+    public ListView unipost_feed;
     PostListAdapter postListAdapter;
     ArrayList<UniPosts> uniPosts;
 
@@ -101,6 +103,7 @@ public class FeedFragment extends Fragment {
         swipeRefreshLayout = getActivity().findViewById(R.id.feed_list_swiper);
         unipost_feed = getActivity().findViewById(R.id.uni_post_feed_list);
 
+
         addDataToList();
 
         postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
@@ -112,17 +115,32 @@ public class FeedFragment extends Fragment {
         //Postlar için LongPress Alert Dialog
         unipost_feed.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 Log.i("Long click check", "Item Index " + i);
 
-                alertDialog.setItems(unipostOptions, new DialogInterface.OnClickListener() {
+                alertDialog.setItems(R.array.uni_post_settings, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int whichOption) {
+                        UniPosts selectedPost;
 
                         switch (whichOption)
                         {
                             case 0:
-                                Toast.makeText(getContext(), "Deneme", Toast.LENGTH_LONG).show();
+                                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                selectedPost = postListAdapter.getItem(i);
+
+                                ClipData clip = ClipData.newPlainText(getString(R.string.post_copied), selectedPost.getDescription());
+                                assert clipboard != null;
+                                clipboard.setPrimaryClip(clip);
+                                Toast.makeText(getContext(), R.string.post_copied, Toast.LENGTH_LONG).show();
+
+                            case 1:
+                                selectedPost = postListAdapter.getItem(i);
+                                Log.i("getItem(i)", "Item Index " + selectedPost.getUniPostId());
+
+                                // TODO: Add success controller. [for both places] Also check if post belongs to the user
+                                DatabaseMethods.RemovePost(selectedPost.getUniPostId());
+                                Toast.makeText(getContext(), R.string.post_delete_successful, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -130,6 +148,8 @@ public class FeedFragment extends Fragment {
                 return false;
             }
         });
+
+
 
         // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
         // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
@@ -163,6 +183,7 @@ public class FeedFragment extends Fragment {
 
 
     }
+
 
 
     @Override
@@ -238,10 +259,12 @@ public class FeedFragment extends Fragment {
         addDataToList();
 
 
+
         postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
         unipost_feed.setAdapter(postListAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
+
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -251,6 +274,7 @@ public class FeedFragment extends Fragment {
         if(unipost_feed.getChildCount() == 0) return true;
         return unipost_feed.getChildAt(0).getTop() == 0;
     }
+
     //-----------------------------
 
 }

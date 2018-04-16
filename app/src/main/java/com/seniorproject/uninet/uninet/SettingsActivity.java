@@ -242,6 +242,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             return super.onOptionsItemSelected(item);
         }
+
+
     }
 
     public static class UniPostPreferenceFragment extends PreferenceFragment {

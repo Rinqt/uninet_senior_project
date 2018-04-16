@@ -1,9 +1,12 @@
 package com.seniorproject.uninet.uninet;
 
 
-import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,23 +20,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 
 public class HomeActivity extends AppCompatActivity
         implements
-            FeedFragment.OnFragmentInteractionListener,
-            ProfileFragment.OnFragmentInteractionListener,
-            LecturesFragment.OnFragmentInteractionListener,
-            MessagesFragment.OnFragmentInteractionListener,
-            NavigationView.OnNavigationItemSelectedListener {
+        FeedFragment.OnFragmentInteractionListener,
+        ProfileFragment.OnFragmentInteractionListener,
+        LecturesFragment.OnFragmentInteractionListener,
+        MessagesFragment.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
 
     ViewPager viewPager;
@@ -63,11 +67,11 @@ public class HomeActivity extends AppCompatActivity
         myToolbar.setTitle(R.string.app_name);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-
         //Session
         sessionChecker = new SessionChecker(this);
 
-        if(!sessionChecker.loggedIn()){
+        if(!sessionChecker.loggedIn())
+        {
             logout();
         }
 
@@ -81,7 +85,35 @@ public class HomeActivity extends AppCompatActivity
         LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
 
         viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabs);
+        drawerLayout = findViewById(R.id.drawer_layout); // Hidden drawer tanımı
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+
+
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendNewPostIntent = new Intent(getApplicationContext(), SendNewPostActivity.class);
+
+                //New post refresh change
+                startActivityForResult(sendNewPostIntent, 1);
+            }
+        });
+
+        toggle = new ActionBarDrawerToggle(this, drawerLayout,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerSlideAnimationEnabled(false);
+
+        navigationView.setNavigationItemSelectedListener(this);
         setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+
+
+
 
         //New post refresh change
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -102,33 +134,41 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        //.setAction("Action", null).show();
-                Intent sendNewPostIntent = new Intent(getApplicationContext(), SendNewPostActivity.class);
-                //New post refresh change
-                startActivityForResult(sendNewPostIntent, 1);
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                Log.i("FRAGMENTTAG", "" + tab.getPosition());
+                if(tab.getPosition() == 0)
+                {
+                    android.support.v4.app.Fragment feedList = getSupportFragmentManager().findFragmentByTag(myFragmentTags[0]);
+                    ListView fList = ((FeedFragment)feedList).unipost_feed;
+                    int fListHeight = fList.getHeight();
+                    fList.smoothScrollToPositionFromTop(0, fListHeight/2, 10);
+                }
+                else if (tab.getPosition() == 1)
+                {
+                    android.support.v4.app.Fragment profileList = getSupportFragmentManager().findFragmentByTag(myFragmentTags[1]);
+                    ListView pList = ((ProfileFragment)profileList).unipost_list;
+                    int pListHeight = pList.getHeight();
+                    pList.smoothScrollToPositionFromTop(0, pListHeight/2, 10);
+                }
+
+
             }
         });
-
-        drawerLayout = findViewById(R.id.drawer_layout); // Hidden drawer tanımı
-        toggle = new ActionBarDrawerToggle(
-                this, drawerLayout,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.setDrawerSlideAnimationEnabled(false);
-
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
     //New post refresh change
@@ -144,15 +184,25 @@ public class HomeActivity extends AppCompatActivity
 
     //New post refresh change
     private  void RefreshCurrentPage(){
+
         int item = viewPager.getCurrentItem();
         android.support.v4.app.Fragment page = getSupportFragmentManager().findFragmentByTag(myFragmentTags[item]);
 
-        if(page != null){
-            if(item == 0)
-                ((FeedFragment)page).refreshPosts();
-            else if(item == 1)
-                ((ProfileFragment)page).refreshPosts();
+        Log.i("Internet", ""+ PackageManager.PERMISSION_GRANTED);
+
+        if(haveNetworkConnection())
+        {
+            if(page != null){
+                if(item == 0) {
+                    ((FeedFragment)page).refreshPosts();
+                }
+                else if(item == 1) {
+                    ((ProfileFragment)page).refreshPosts();
+                }
+            }
         }
+        else
+            Toast.makeText(HomeActivity.this, getString(R.string.internet_connection_not_valid), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -184,8 +234,6 @@ public class HomeActivity extends AppCompatActivity
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.search:
-
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -194,8 +242,6 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-
-
         int id = item.getItemId();
 
         if (id == R.id.nav_timeTable) {
@@ -258,7 +304,8 @@ public class HomeActivity extends AppCompatActivity
 
     //New post refresh change
     // Create fragments
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager)
+    {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
 
         FeedFragment feed = new FeedFragment();
@@ -276,6 +323,7 @@ public class HomeActivity extends AppCompatActivity
         MessagesFragment messages = new MessagesFragment();
         adapter.addFragment(messages);
         getSupportFragmentManager().beginTransaction().add(messages, "MyMessagesFragment");
+
         viewPager.setAdapter(adapter);
     }
 
@@ -322,7 +370,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                Toast.makeText(HomeActivity.this, getString(R.string.logout_thanks), Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeActivity.this, getString(R.string.logout_thanks), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -330,4 +378,28 @@ public class HomeActivity extends AppCompatActivity
         AlertDialog alertDialog = logoutAlertDialog.create();
         alertDialog.show();
     }
+
+    public boolean haveNetworkConnection() {
+
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkStatus = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo status : networkStatus)
+        {
+            if (status.getTypeName().equalsIgnoreCase("WIFI"))
+                if (status.isConnected())
+                    haveConnectedWifi = true;
+            if (status.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (status.isConnected())
+                    haveConnectedMobile = true;
+        }
+
+        Log.i("Connection WIFI", "" + haveConnectedWifi);
+        Log.i("Connection MOBILE", "" + haveConnectedMobile);
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
+
 }

@@ -75,6 +75,10 @@
     5. Turkish character problem solved.
     6. Other performance updates :D
 
+16.04.2018 v 0.0.0.0.1.5.8
+    1. UniPost Copy Added.
+    2. UniPost Deletion Added ??.
+    3. Lists go up when user click the tab layout.
 
 
 
