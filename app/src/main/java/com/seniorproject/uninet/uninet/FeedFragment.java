@@ -141,6 +141,8 @@ public class FeedFragment extends Fragment {
                                 // TODO: Add success controller. [for both places] Also check if post belongs to the user
                                 DatabaseMethods.RemovePost(selectedPost.getUniPostId());
                                 Toast.makeText(getContext(), R.string.post_delete_successful, Toast.LENGTH_LONG).show();
+                                uniPosts.remove(i);
+                                postListAdapter.notifyDataSetChanged();
                         }
                     }
                 });
