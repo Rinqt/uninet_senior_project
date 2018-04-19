@@ -40,7 +40,6 @@ public class FeedFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    final CharSequence[] unipostOptions = {"Copy UniPost Text"};
 
     String whoIsTheUser;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -133,6 +132,7 @@ public class FeedFragment extends Fragment {
                                 assert clipboard != null;
                                 clipboard.setPrimaryClip(clip);
                                 Toast.makeText(getContext(), R.string.post_copied, Toast.LENGTH_LONG).show();
+                                break;
 
                             case 1:
                                 selectedPost = postListAdapter.getItem(i);
@@ -143,6 +143,7 @@ public class FeedFragment extends Fragment {
                                 Toast.makeText(getContext(), R.string.post_delete_successful, Toast.LENGTH_LONG).show();
                                 uniPosts.remove(i);
                                 postListAdapter.notifyDataSetChanged();
+                                break;
                         }
                     }
                 });

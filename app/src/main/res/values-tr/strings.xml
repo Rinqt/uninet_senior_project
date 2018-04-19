@@ -16,7 +16,7 @@
 
     <!--Profile Page-->
     <string name="user_department">Bölüm</string>
-    <string name="user_total_post_number">1\UniPost</string>
+    <string name="user_total_post_number">UniPosts</string>
     <string name="user_mail_address">Mail:</string>
     <string name="user_phone_number">Telefon:</string>
     <string name="user_relationship_status">İlişki Durumu:</string>
