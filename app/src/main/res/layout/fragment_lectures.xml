@@ -11,6 +11,6 @@
         android:layout_centerInParent="true"
         android:text="LECTURES"
         android:textSize="45dp"
-        android:id="@+id/textView4" />
+        android:id="@+id/user_year" />
 
 </RelativeLayout>

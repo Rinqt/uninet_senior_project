@@ -14,6 +14,16 @@
     <string name="internet_connection_not_valid">Check Internet connection!</string>
     <!--Internet Connection END-->
 
+    <!--Profile Page-->
+    <string name="user_department">Department</string>
+    <string name="user_total_post_number">1\nPosts</string>
+    <string name="user_faculty">Faculty:</string>
+    <string name="user_mail_address">Mail:</string>
+    <string name="user_phone_number">Phone:</string>
+    <string name="user_relationship_status">Relationship Status:</string>
+    <string name="user_web_page">Web Page:</string>
+    <!--Profile Page END-->
+
     <!--Login-->
     <string name="user_name">Username</string>
     <string name="password">Password</string>
@@ -65,9 +75,17 @@
     <!--Profile-->
     <string name="edit_profile">Edit Profile</string>
     <string name="friends">Friends</string>
+    <string name="follows">Follows</string>
+    <string name="followers">Followers</string>
     <string name="photos">Photos</string>
     <string name="privacy_settings">Privacy Settings</string>
+    <string name="about_user">About</string>
+    <string name="user_year">Year</string>
     <string name="delete_post">Delete Post</string>
+    <string name="total_photos"> 1 </string>
+    <string name="total_friends"> 1 </string>
+    <string name="total_follows"> 1 </string>
+
     <!--Profile END-->
 
     <!--Hidden Drawer-->
@@ -78,8 +96,8 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.0.1.5.8 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.1.5.8 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.2.0.0 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.2.0.0 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->
@@ -221,7 +239,6 @@
     <!-- BURAYA KADAR TR XML İLE BİREBİR AYNI -->
 
 
-
     <!-- Settings for Security -->
     <string-array name="pref_list_blocked_users">
         <item>strings.xml</item>
@@ -285,7 +302,6 @@
     </string-array>
 
 
-
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -298,6 +314,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_profile_info">ProfileInfoActivity</string>
 
 
 </resources>

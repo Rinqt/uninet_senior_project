@@ -10,7 +10,7 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/user_total_post_label"
             android:layout_width="231dp"
             android:layout_height="60dp"
             android:layout_marginEnd="8dp"

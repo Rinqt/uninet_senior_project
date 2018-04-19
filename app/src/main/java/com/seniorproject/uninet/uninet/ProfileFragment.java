@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +19,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
@@ -49,13 +49,14 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
 
-    // Buttons
-    Button setProfileButton;
-    Button friendsButton;
-    Button photosButton;
-    Button privacyButton;
+    Button profileButton;
+
+    TextView userPhotosLabel;
+    TextView userFriendsLabel;
+    TextView userFollowsLaber;
 
     String whoIsTheUser;
+
     SwipeRefreshLayout swipeRefreshLayout;
 
     // unipost_list
@@ -104,10 +105,11 @@ public class ProfileFragment extends Fragment {
         whoIsTheUser = LoggedInUser.UserId;
 
         // Declaration
-        setProfileButton = getActivity().findViewById(R.id.set_profile_button);
-        friendsButton = getActivity().findViewById(R.id.friends_button);
-        photosButton = getActivity().findViewById(R.id.photos_button);
-        privacyButton = getActivity().findViewById(R.id.privacy_button);
+        profileButton = getActivity().findViewById(R.id.user_profile_button);
+        userPhotosLabel = getActivity().findViewById(R.id.user_total_photos_label);
+        userFriendsLabel = getActivity().findViewById(R.id.user_total_friends_label);
+        userFollowsLaber = getActivity().findViewById(R.id.user_total_follows_label);
+
         swipeRefreshLayout = getActivity().findViewById(R.id.uni_post_swiper);
         unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
 
@@ -117,6 +119,13 @@ public class ProfileFragment extends Fragment {
         unipost_list.setAdapter(postListAdapter);
 
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
+                refreshPosts();
+            }
+        });
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
 
@@ -174,55 +183,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        setProfileButton.setOnClickListener(new View.OnClickListener() {
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingsIntent = new Intent(getActivity(), SettingsActivity.class);
-                settingsIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.ProfilePreferenceFragment.class.getName() );
-                settingsIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-                startActivity(settingsIntent);
-            }
-        });
+                Intent profilePage = new Intent(getContext(), ProfileInfoActivity.class);
+                startActivity(profilePage);
 
-        friendsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-            }
-        });
-
-        photosButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
-                refreshPosts();
-            }
-        });
-
-
-
-
-
-
-
-
-        privacyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Class içindeki Fragmentı çağırmayı putExtra ile yapıyoruz.
-                Intent privacyIntent = new Intent(getActivity(), SettingsActivity.class);
-                privacyIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.SafetyAndPrivacy.class.getName() );
-                privacyIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-                startActivity(privacyIntent);
             }
         });
     }
@@ -230,10 +197,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
-
     }
 
     @Override

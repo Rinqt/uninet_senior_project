@@ -9,7 +9,6 @@
     <dimen name="app_name_layout_height">48dp</dimen>
 
 
-
     // Facebook Like Feed Screen
     <dimen name="feed_item_margin">10dp</dimen>
     <dimen name="feed_item_padding_top_bottom">20dp</dimen>

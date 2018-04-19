@@ -65,9 +65,14 @@
     <!--Profile-->
     <string name="edit_profile">Profili Düzenle</string>
     <string name="friends">Arkadaşlar</string>
+    <string name="follows">Takip</string>
+    <string name="followers">Takipçi</string>
     <string name="photos">Fotoğraflar</string>
     <string name="privacy_settings">Gizlilik Ayarları</string>
     <string name="delete_post">Sil</string>
+    <string name="total_photos"> 1 </string>
+    <string name="total_friends"> 1 </string>
+    <string name="total_follows"> 1 </string>
     <!--Profile END-->
 
     <!--Hidden Drawer-->
@@ -78,8 +83,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.0.1.5.8 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.1.5.8 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.2.0.0 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.2.0.0 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->

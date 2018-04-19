@@ -2,10 +2,12 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="button_blue">#00529C</color>
     <color name="colorAccent">#ff4081</color>
 
     // Facebook Like Feed Screen Colors
     <color name="white">#ffffff</color>
+    <color name="start_blue">#00eaff</color>
     <color name="feed_bg">#d3d6db</color>
     <color name="feed_item_bg">#ffffff</color>
     <color name="feed_item_border">#c2c3c8</color>
@@ -13,4 +15,5 @@
     <color name="time_stamp">#a0a3a7</color>
     <color name="user_name">#000</color>
     <color name="uni_post_text">#000</color>
+    <color name="gray">#818181</color>
 </resources>
