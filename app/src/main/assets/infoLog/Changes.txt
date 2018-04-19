@@ -80,6 +80,15 @@
     2. UniPost Deletion Added ??.
     3. Lists go up when user click the tab layout.
 
+18.04.2018 v 0.0.0.0.2.0.0
+    1. New Profile Page Designed
+    2. Detailed Design Page added.
+
+20.04.2018 v 0.0.0.0.2.5.0
+    1. Detailed Design Page design is done.
+    2. Messaging design added. (sender, receiver templates)
+
+
 
 
 ----------------------------------------------------------------------------

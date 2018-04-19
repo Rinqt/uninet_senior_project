@@ -17,6 +17,7 @@
     <!--Profile Page-->
     <string name="user_department">Department</string>
     <string name="user_total_post_number">UniPosts</string>
+    <string name="user_education_year_name" />
     <string name="user_mail_address">Mail:</string>
     <string name="user_phone_number">Phone:</string>
     <string name="user_relationship_status">Relationship Status:</string>
@@ -35,6 +36,18 @@
     <string name="description_total_posts_button">Total UniPosts</string>
     <string name="description_profile_photo">Profile Photo</string>
     <string name="description_messages_user_profile_photo">Profile Photo</string>
+    <string name="description_total_uploaded_photo_image">Profile Photo</string>
+    <string name="description_total_followers_image">Total Followers</string>
+    <string name="description_total_follows_image">Total Follows</string>
+
+    <string name="snack_bar_total_friends_image" formatted="true">You have %1$s friends.</string>
+    <string name="snack_bar_university_progress_image" formatted="true">You are a %1$s Student</string>
+    <string name="snack_bar_total_posts_image" formatted="true">You have sent %1$s so far</string>
+    <string name="snack_bar_profile_image" formatted="true">You have shared %1$s photos so far</string>
+    <string name="snack_bar_total_followers_image" formatted="true">%1$s people are following you right now</string>
+    <string name="snack_bar_total_follows_image" formatted="true">You are following %1$s people right now</string>
+    <string name="snack_bar_copy_text">Copy</string>
+    <string name="snack_bar_copy_text_successful">Copied</string>
     <!-- Descriptions END -->
 
     <!--Login-->
@@ -108,8 +121,8 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.0.2.0.0 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.2.0.0 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.2.5.0 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.2.5.0 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->
@@ -246,6 +259,14 @@
     <string name="btn_title_new_message">New Message</string>
     <string name="btn_title_send_conversation_message">Send</string>
     <!-- Buttons END -->
+
+    <!-- Education Year Names -->
+    <string name="preparation_year">Prep Class</string>
+    <string name="first_year">Freshman</string>
+    <string name="second_year">Sophomore</string>
+    <string name="third_year">Junior</string>
+    <string name="fourth_year">Senior</string>
+    <!-- Education Year Names END -->
 
     <!-- BURAYA KADAR TR XML İLE BİREBİR AYNI -->
 

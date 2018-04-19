@@ -97,8 +97,6 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent sendNewPostIntent = new Intent(getApplicationContext(), SendNewPostActivity.class);
-
-                //New post refresh change
                 startActivityForResult(sendNewPostIntent, 1);
             }
         });

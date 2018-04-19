@@ -16,7 +16,8 @@
 
     <!--Profile Page-->
     <string name="user_department">Bölüm</string>
-    <string name="user_total_post_number">UniPosts</string>
+    <string name="user_total_post_number">UniPost</string>
+    <string name="user_education_year_name" />
     <string name="user_mail_address">Mail:</string>
     <string name="user_phone_number">Telefon:</string>
     <string name="user_relationship_status">İlişki Durumu:</string>
@@ -34,7 +35,18 @@
     <string name="description_total_friends_button">Arkadaşlar</string>
     <string name="description_total_posts_button">UniPost</string>
     <string name="description_profile_photo">Profil Fotoğrafı</string>
-    <string name="description_messages_user_profile_photo">Profil Fotoğrafı</string>
+    <string name="description_total_uploaded_photo_image">Profile Fotoğrafı</string>
+    <string name="description_total_followers_image">Toplam Takipçiler</string>
+    <string name="description_total_follows_image">Toplam Takipler</string>
+
+    <string name="snack_bar_total_friends_image" formatted="true">Şu an %1$s kişiyle arkadaşsınız</string>
+    <string name="snack_bar_university_progress_image" formatted="true">%1$ssın</string>
+    <string name="snack_bar_total_posts_image" formatted="true">Şimdiye kadar %1$s yolladın</string>
+    <string name="snack_bar_profile_image" formatted="true">Şimdiye kadar %1$s tane resim paylaştın</string>
+    <string name="snack_bar_total_followers_image" formatted="true">%1$s kişi seni takip ediyor</string>
+    <string name="snack_bar_total_follows_image" formatted="true">%1$s kişiyi takip ediyorsun</string>
+    <string name="snack_bar_copy_text">Kopyala</string>
+    <string name="snack_bar_copy_text_successful">Kopyalandı</string>
     <!-- Descriptions END -->
 
     <!--Login-->
@@ -108,8 +120,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.0.2.0.0 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.2.0.0 </string>
+    <string name="version">earlyDevelopment 0.0.0.0.2.5.0 </string>
+    <string name="version_hidden_drawer">v 0.0.0.0.2.5.0 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->
@@ -246,5 +258,13 @@
     <string name="btn_title_new_message">Yeni Mesaj</string>
     <string name="btn_title_send_conversation_message">Gönder</string>
     <!-- Buttons END -->
+
+    <!-- Education Year Names -->
+    <string name="preparation_year">Hazırlık</string>
+    <string name="first_year">1. Sınıf</string>
+    <string name="second_year">2. Sınıf</string>
+    <string name="third_year">3. Sınıf</string>
+    <string name="fourth_year">4. Sınıf</string>
+    <!-- Education Year Names END -->
 
 </resources>
