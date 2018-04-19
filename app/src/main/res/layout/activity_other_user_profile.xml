@@ -22,99 +22,149 @@
             android:layout_marginBottom="75dp"
             android:layout_marginTop="48dp">
 
-            <ImageView
-                android:id="@+id/other_user_profile_profile_photo"
-                android:layout_width="108dp"
-                android:layout_height="108dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:contentDescription="@string/description_profile_photo"
-                android:src="@mipmap/dining_icon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/other_user_profile_button_holder"
-                android:layout_width="299dp"
-                android:layout_height="80dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/other_user_profile_profile_divider"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/other_user_profile_profile_photo"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <Button
-                    android:id="@+id/other_user_profile_mutual_friends_button"
-                    android:layout_width="145dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/profile_button"
-                    android:gravity="center"
-                    android:shadowColor="#A8A8A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="@string/btn_title_mutual_friends"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@+id/other_user_profile_set_photos_button"
-                    app:layout_constraintTop_toBottomOf="@+id/other_user_profile_set_photos_button" />
-
-                <Button
-                    android:id="@+id/other_user_profile_set_photos_button"
-                    android:layout_width="145dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/profile_button"
-                    android:gravity="center"
-                    android:shadowColor="#A8A8A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="@string/btn_title_photos"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/other_user_profile_delete_friend_button"
-                    android:layout_width="145dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/profile_button_reverse"
-                    android:gravity="center"
-                    android:shadowColor="#A8A8A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="@string/btn_title_delete_friend"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
-
-                    app:layout_constraintEnd_toEndOf="parent"
+                <ImageView
+                    android:id="@+id/profile_photo"
+                    android:layout_width="87dp"
+                    android:layout_height="90dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/description_profile_photo"
+                    android:elevation="5dp"
+                    android:src="@mipmap/awesome_kaan"
+                    app:layout_constraintBottom_toBottomOf="@+id/user_info_card_view"
+                    app:layout_constraintEnd_toStartOf="@+id/user_info_card_view"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/other_user_profile_mutual_friends_button"
-                    app:layout_constraintTop_toBottomOf="@+id/other_user_profile_about_user_button" />
+                    app:layout_constraintStart_toStartOf="@+id/user_info_card_view"
+                    app:layout_constraintTop_toTopOf="@+id/user_info_card_view" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/user_info_card_view"
+                    android:layout_width="0dp"
+                    android:layout_height="69dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="45dp"
+
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/user_profile_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:paddingEnd="0dp"
+                        android:paddingStart="35dp"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/photos"
+                                android:textColor="@color/gray"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/user_total_photos_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:text="@string/total_photos"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/friends"
+                                android:textColor="@color/gray"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/user_total_friends_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:text="@string/total_friends"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/follows"
+                                android:textColor="@color/gray"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/user_total_follows_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:text="@string/total_follows"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <Button
-                    android:id="@+id/other_user_profile_about_user_button"
-                    android:layout_width="145dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/profile_button_reverse"
-                    android:gravity="center"
-                    android:shadowColor="#A8A8A8"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="5"
-                    android:text="@string/btn_title_about_user"
-                    android:textColor="#FFFFFF"
-                    android:textSize="12sp"
+                    android:id="@+id/user_profile_button"
+                    android:layout_width="71dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/ic_person_white_24dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/user_info_card_view"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/other_user_profile_mutual_friends_button" />
+                    app:layout_constraintTop_toTopOf="@+id/user_info_card_view" />
+
             </android.support.constraint.ConstraintLayout>
 
 
@@ -123,12 +173,13 @@
                 android:layout_width="0dp"
                 android:layout_height="5dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:background="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintRight_toRightOf="@id/main_container"
-                app:layout_constraintStart_toStartOf="@+id/other_user_profile_profile_photo"
-                app:layout_constraintTop_toBottomOf="@+id/other_user_profile_profile_photo" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/other_user_profile_button_holder" />
 
 
             <ListView

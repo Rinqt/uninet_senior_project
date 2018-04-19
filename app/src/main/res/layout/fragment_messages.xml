@@ -25,12 +25,12 @@
             android:paddingRight="@dimen/feed_item_padding_left_right">
 
             <Button
-                android:id="@+id/button9"
+                android:id="@+id/new_message_button"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:text="Yeni mesaj" />
+                android:text="@string/btn_title_new_message" />
 
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/messages_swiper"

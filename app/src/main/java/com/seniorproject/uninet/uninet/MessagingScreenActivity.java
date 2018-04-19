@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by kaany on 27.02.2018.
  */
 
-public class TranscriptActivity extends AppCompatActivity {
+public class MessagingScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

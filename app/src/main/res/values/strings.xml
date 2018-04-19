@@ -17,11 +17,17 @@
     <!--Profile Page-->
     <string name="user_department">Department</string>
     <string name="user_total_post_number">1\nPosts</string>
-    <string name="user_faculty">Faculty:</string>
     <string name="user_mail_address">Mail:</string>
     <string name="user_phone_number">Phone:</string>
     <string name="user_relationship_status">Relationship Status:</string>
     <string name="user_web_page">Web Page:</string>
+
+    <string name="default_user_department">No department information</string>
+    <string name="default_user_total_post_number">No post information</string>
+    <string name="default_user_mail_address">No mail information</string>
+    <string name="default_user_phone_number">no phone information</string>
+    <string name="default_user_relationship_status">No relationship information</string>
+    <string name="default_user_web_page">No web page information</string>
     <!--Profile Page END-->
 
     <!--Login-->
@@ -85,7 +91,6 @@
     <string name="total_photos"> 1 </string>
     <string name="total_friends"> 1 </string>
     <string name="total_follows"> 1 </string>
-
     <!--Profile END-->
 
     <!--Hidden Drawer-->
@@ -210,6 +215,14 @@
     <string name="hint_login_user_password">Password</string>
     <!-- Edit Text Hints END -->
 
+
+    <!-- Descriptions -->
+    <string name="description_total_friends_button">Total Friends</string>
+    <string name="description_total_posts_button">Total Posts</string>
+    <string name="description_profile_photo">Profile Photo</string>
+    <string name="description_messages_user_profile_photo">Profile Photo</string>
+    <!-- Descriptions END -->
+
     <!-- android:keys -->
     <string name="key_phone_number">key_phone_number</string>
     <string name="key_mail_address">key_mail_address</string>
@@ -226,7 +239,6 @@
     <!-- Activity Names END -->
 
     <!-- Buttons -->
-    <string name="description_profile_photo">Profile Photo</string>
     <string name="btn_title_set_profile">Set Profile</string>
     <string name="btn_title_friends">Friends</string>
     <string name="btn_title_photos">Photos</string>
@@ -234,6 +246,8 @@
     <string name="btn_title_about_user">About User</string>
     <string name="btn_title_mutual_friends">Mutual Friends</string>
     <string name="btn_title_delete_friend">Delete Friend</string>
+    <string name="btn_title_new_message">New Message</string>
+    <string name="btn_title_send_conversation_message">Send</string>
     <!-- Buttons END -->
 
     <!-- BURAYA KADAR TR XML İLE BİREBİR AYNI -->

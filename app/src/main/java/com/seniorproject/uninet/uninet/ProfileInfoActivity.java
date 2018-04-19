@@ -33,7 +33,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
     TextView totalFollow;
     TextView totalFollower;
 
-    TextView userFaculty;
+
     TextView userMail;
     TextView userPhone;
     TextView userRelationshipStatus;
@@ -66,7 +66,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         totalFollow = findViewById(R.id.user_total_follows_label);
         totalFollower = findViewById(R.id.user_total_followers_label);
 
-        userFaculty = findViewById(R.id.faculty_text_result);
+
         userMail = findViewById(R.id.email_text_result);
         userPhone = findViewById(R.id.user_phone_number_text_result);
         userRelationshipStatus = findViewById(R.id.user_relationship_text_result);
@@ -83,7 +83,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         totalFollower.setText(String.valueOf(DatabaseMethods.GetStudentFollowers(whoIsTheUser).size()));
         totalFollow.setText(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
 
-        userFaculty.setText("DB de fakülte yok");
+
         userMail.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).email);
         userPhone.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).phoneNumber);
         userRelationshipStatus.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).relationship);

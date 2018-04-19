@@ -1,6 +1,7 @@
 package com.seniorproject.uninet.uninet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ import java.util.List;
  */
 public class MessagesFragment extends Fragment {
 
+    Button newMessageButton;
 
     SwipeRefreshLayout swipeRefreshLayout;
     String whoIsTheUser;
@@ -92,6 +95,7 @@ public class MessagesFragment extends Fragment {
         whoIsTheUser = LoggedInUser.UserId;
         swipeRefreshLayout = getActivity().findViewById(R.id.messages_swiper);
         messagesList = getActivity().findViewById(R.id.messages_list);
+        newMessageButton = getActivity().findViewById(R.id.new_message_button);
 
         addDataToList();
 
@@ -114,6 +118,14 @@ public class MessagesFragment extends Fragment {
                 }else{
                     swipeRefreshLayout.setEnabled(false);
                 }
+            }
+        });
+
+        newMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent conversationScreen = new Intent(getContext(), MessagingScreenActivity.class);
+                startActivity(conversationScreen);
             }
         });
 
@@ -210,9 +222,7 @@ public class MessagesFragment extends Fragment {
     }
 
     // To check if we are at top of the UniPost List.
-    private boolean isListAtTop()
-    {
-        if(messagesList.getChildCount() == 0) return true;
-        return messagesList.getChildAt(0).getTop() == 0;
+    private boolean isListAtTop() {
+        return messagesList.getChildCount() == 0 || messagesList.getChildAt(0).getTop() == 0;
     }
 }
