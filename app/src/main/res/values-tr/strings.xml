@@ -17,6 +17,7 @@
     <!--Profile Page-->
     <string name="user_department">Bölüm</string>
     <string name="user_total_post_number">UniPosts</string>
+    <string name="user_education_year_name" />
     <string name="user_mail_address">Mail:</string>
     <string name="user_phone_number">Telefon:</string>
     <string name="user_relationship_status">İlişki Durumu:</string>
@@ -246,5 +247,13 @@
     <string name="btn_title_new_message">Yeni Mesaj</string>
     <string name="btn_title_send_conversation_message">Gönder</string>
     <!-- Buttons END -->
+
+    <!-- Education Year Names -->
+    <string name="preparation_year">Hazırlık</string>
+    <string name="first_year">1. Sınıf</string>
+    <string name="second_year">2. Sınıf</string>
+    <string name="third_year">3. Sınıf</string>
+    <string name="fourth_year">4. Sınıf</string>
+    <!-- Education Year Names END -->
 
 </resources>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/profileSettingsLayout">
+    android:id="@+id/profileSettingsLayout"
+    android:layout="@layout/fragment_profile">
 
-    <SwitchPreference
+    <MultiSelectListPreference
         android:defaultValue="true"
         android:summary="@string/pref_description_changeProfilePhoto"
         android:title="@string/pref_title_changeProfilePhoto" />
@@ -14,6 +15,8 @@
         android:hint="@string/hint_phone_number"
         android:key="@string/key_phone_number"
         android:inputType="number"/>
+
+
 
     <EditTextPreference
         android:summary="@string/pref_description_mailAddress"

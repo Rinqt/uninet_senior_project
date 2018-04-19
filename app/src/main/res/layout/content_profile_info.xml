@@ -7,6 +7,7 @@
     tools:context=".ProfileInfoActivity">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/main_container_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -77,17 +78,18 @@
             app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
         <ImageButton
-            android:id="@+id/total_pots_image_button"
+            android:id="@+id/total_pots_image"
+            android:onClick="imageClicked"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginTop="52dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/description_total_posts_button"
             app:layout_constraintEnd_toStartOf="@+id/profile_photo"
             app:layout_constraintTop_toTopOf="@+id/profile_photo"
-            app:srcCompat="@drawable/ic_menu_send"
-            tools:ignore="VectorDrawableCompat"
-            android:contentDescription="@string/description_total_posts_button" />
+            app:srcCompat="@drawable/ic_forum_white_24dp"
+            tools:ignore="VectorDrawableCompat" />
 
         <TextView
             android:id="@+id/user_total_post_label"
@@ -97,24 +99,25 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/total_pots_image_button"
-            app:layout_constraintEnd_toEndOf="@+id/total_pots_image_button"
-            app:layout_constraintStart_toStartOf="@+id/total_pots_image_button"
-            app:layout_constraintTop_toBottomOf="@+id/total_pots_image_button" />
+            app:layout_constraintBottom_toBottomOf="@+id/total_pots_image"
+            app:layout_constraintEnd_toEndOf="@+id/total_pots_image"
+            app:layout_constraintStart_toStartOf="@+id/total_pots_image"
+            app:layout_constraintTop_toBottomOf="@+id/total_pots_image" />
 
         <ImageButton
-            android:id="@+id/total_friends_image_button"
+            android:id="@+id/university_progress_image"
+            android:onClick="imageClicked"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="52dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/description_total_friends_button"
             app:layout_constraintStart_toEndOf="@+id/profile_photo"
             app:layout_constraintTop_toTopOf="@+id/profile_photo"
-            app:srcCompat="@drawable/ic_menu_send"
             app:layout_goneMarginStart="16dp"
-            tools:ignore="VectorDrawableCompat"
-            android:contentDescription="@string/description_total_friends_button" />
+            app:srcCompat="@drawable/ic_timelapse_white_24dp"
+            tools:ignore="VectorDrawableCompat" />
 
         <TextView
             android:id="@+id/user_year"
@@ -124,10 +127,10 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/total_friends_image_button"
-            app:layout_constraintEnd_toEndOf="@+id/total_friends_image_button"
-            app:layout_constraintStart_toStartOf="@+id/total_friends_image_button"
-            app:layout_constraintTop_toBottomOf="@+id/total_friends_image_button"
+            app:layout_constraintBottom_toBottomOf="@+id/university_progress_image"
+            app:layout_constraintEnd_toEndOf="@+id/university_progress_image"
+            app:layout_constraintStart_toStartOf="@+id/university_progress_image"
+            app:layout_constraintTop_toBottomOf="@+id/university_progress_image"
             app:layout_constraintVertical_bias="0.52" />
 
 
@@ -255,6 +258,7 @@
 
         <TextView
             android:id="@+id/email_text_result"
+            android:onClick="imageClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -279,6 +283,7 @@
 
         <TextView
             android:id="@+id/user_phone_number_text_result"
+            android:onClick="imageClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -303,6 +308,7 @@
 
         <TextView
             android:id="@+id/user_relationship_text_result"
+            android:onClick="imageClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -328,6 +334,7 @@
 
         <TextView
             android:id="@+id/user_web_page_text_result"
+            android:onClick="imageClicked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -359,6 +366,8 @@
                 android:weightSum="4">
 
                 <LinearLayout
+                    android:id="@+id/total_photos_image_container"
+                    android:onClick="imageClicked"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
@@ -367,17 +376,17 @@
                     android:layout_marginStart="10dp"
 
                     android:layout_weight="1"
-                    android:background="@drawable/curved_corners_cards"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/upload_photos_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/photos"
-                        android:textColor="@color/gray"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:background="@drawable/ic_photo_camera_black_24dp"
+                        android:contentDescription="@string/description_total_uploaded_photo_image"
+                        />
+
 
                     <TextView
                         android:id="@+id/user_total_photos_label"
@@ -391,7 +400,17 @@
 
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_blue"
+                    />
+
+
                 <LinearLayout
+                    android:id="@+id/total_friends_container"
+                    android:onClick="imageClicked"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
@@ -400,17 +419,15 @@
                     android:layout_marginStart="10dp"
 
                     android:layout_weight="1"
-                    android:background="@drawable/curved_corners_cards"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/total_friends_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/friends"
-                        android:textColor="@color/gray"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:background="@drawable/ic_total_friends_image_black_24dp"
+                        android:contentDescription="@string/description_total_friends_button"/>
 
                     <TextView
                         android:id="@+id/user_total_friends_label"
@@ -424,7 +441,16 @@
 
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/divider_2"
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_blue"
+                    />
+
                 <LinearLayout
+                    android:id="@+id/total_follows_container"
+                    android:onClick="imageClicked"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
@@ -432,19 +458,16 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/curved_corners_cards"
                     android:gravity="center"
-                    android:orientation="vertical"
+                    android:orientation="vertical" >
 
-                    >
-
-                    <TextView
+                    <ImageView
+                        android:id="@+id/total_follows_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/follows"
-                        android:textColor="@color/gray"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:background="@drawable/ic_follows_image_black_24dp"
+                        android:contentDescription="@string/description_total_follows_image"
+                        />
 
                     <TextView
                         android:id="@+id/user_total_follows_label"
@@ -458,7 +481,16 @@
 
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/divider_3"
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/button_blue"
+                    />
+
                 <LinearLayout
+                    android:id="@+id/total_followers_container"
+                    android:onClick="imageClicked"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
@@ -466,17 +498,17 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/curved_corners_cards"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/total_followers_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/followers"
-                        android:textColor="@color/gray"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:background="@drawable/ic_followers_image_black_24dp"
+                        android:contentDescription="@string/description_total_followers_image"
+                        />
+
 
                     <TextView
                         android:id="@+id/user_total_followers_label"
@@ -490,12 +522,10 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
-
-
     </android.support.constraint.ConstraintLayout>
+
 </ScrollView>
