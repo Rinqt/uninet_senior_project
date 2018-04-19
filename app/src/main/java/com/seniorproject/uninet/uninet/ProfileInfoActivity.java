@@ -77,7 +77,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
         userName.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).name);
         userDepartment.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).department);
         userYear.setText(String.valueOf(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).academicYear));
-        totalPost.setText(String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()));
+
+        String postNumber = String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()) + R.string.user_total_post_number;
+        totalPost.setText(postNumber);
         totalPictures.setText("0");
         totalFriend.setText(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
         totalFollower.setText(String.valueOf(DatabaseMethods.GetStudentFollowers(whoIsTheUser).size()));

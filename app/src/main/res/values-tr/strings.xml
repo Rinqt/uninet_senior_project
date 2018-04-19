@@ -14,6 +14,29 @@
     <string name="internet_connection_not_valid">Lütfen internet bağlantınızı kontrol ediniz!</string>
     <!--Internet Connection END-->
 
+    <!--Profile Page-->
+    <string name="user_department">Bölüm</string>
+    <string name="user_total_post_number">1\UniPost</string>
+    <string name="user_mail_address">Mail:</string>
+    <string name="user_phone_number">Telefon:</string>
+    <string name="user_relationship_status">İlişki Durumu:</string>
+    <string name="user_web_page">İnternet Sayfası:</string>
+
+    <string name="default_user_department">Bölüm bilgisi yok</string>
+    <string name="default_user_total_post_number">UniPost bilgisi yok</string>
+    <string name="default_user_mail_address">Mail bilgisi yok</string>
+    <string name="default_user_phone_number">Telefon bilgisi yok</string>
+    <string name="default_user_relationship_status">İlişki bilgisi yok</string>
+    <string name="default_user_web_page">İnternet sayfası bilgisi yok</string>
+    <!--Profile Page END-->
+
+    <!-- Descriptions -->
+    <string name="description_total_friends_button">Arkadaşlar</string>
+    <string name="description_total_posts_button">UniPost</string>
+    <string name="description_profile_photo">Profil Fotoğrafı</string>
+    <string name="description_messages_user_profile_photo">Profil Fotoğrafı</string>
+    <!-- Descriptions END -->
+
     <!--Login-->
     <string name="user_name">Kullanıcı Adı</string>
     <string name="password">Şifre</string>
@@ -69,7 +92,9 @@
     <string name="followers">Takipçi</string>
     <string name="photos">Fotoğraflar</string>
     <string name="privacy_settings">Gizlilik Ayarları</string>
-    <string name="delete_post">Sil</string>
+    <string name="about_user">Hakkında</string>
+    <string name="user_year">Sınıf</string>
+    <string name="delete_post">Unipostu Sil</string>
     <string name="total_photos"> 1 </string>
     <string name="total_friends"> 1 </string>
     <string name="total_follows"> 1 </string>
@@ -114,6 +139,11 @@
     <!-- Settings for Profile END -->
 
     <!-- Settings for UniPost -->
+    <string-array name="uni_post_settings">
+        <item>UniPost içeriğini kopyala</item>
+        <item>UniPostu sil</item>
+    </string-array>
+
     <string name="title_activity_settings">UniPost Ayarları</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">UniPost Gizliliği</string>
@@ -206,7 +236,6 @@
     <!-- Activity Names END -->
 
     <!-- Buttons -->
-    <string name="description_profile_photo">Profil Fotoğrafı</string>
     <string name="btn_title_set_profile">Profil Ayarları</string>
     <string name="btn_title_friends">Arkadaşlar</string>
     <string name="btn_title_photos">Fotoğraflar</string>
@@ -214,6 +243,8 @@
     <string name="btn_title_about_user">Hakkında</string>
     <string name="btn_title_mutual_friends">Ortak Arkadaşlar</string>
     <string name="btn_title_delete_friend">Arkadaşlıktan Çıkar</string>
+    <string name="btn_title_new_message">Yeni Mesaj</string>
+    <string name="btn_title_send_conversation_message">Gönder</string>
     <!-- Buttons END -->
 
 </resources>

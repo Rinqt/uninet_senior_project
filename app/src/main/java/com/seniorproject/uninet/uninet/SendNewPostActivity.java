@@ -1,9 +1,13 @@
 package com.seniorproject.uninet.uninet;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +38,29 @@ public class SendNewPostActivity extends AppCompatActivity implements
     EditText uniPostDescription;
     GoogleApiClient mGoogleApiClient = null;
     Location mLastLocation = null;
+
+
+    private boolean haveNetworkConnection() {
+
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkStatus = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo status : networkStatus)
+        {
+            if (status.getTypeName().equalsIgnoreCase("WIFI"))
+                if (status.isConnected())
+                    haveConnectedWifi = true;
+            if (status.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (status.isConnected())
+                    haveConnectedMobile = true;
+        }
+
+        Log.i("Connection WIFI", "" + haveConnectedWifi);
+        Log.i("Connection MOBILE", "" + haveConnectedMobile);
+        return haveConnectedWifi || haveConnectedMobile;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,11 +114,18 @@ public class SendNewPostActivity extends AppCompatActivity implements
                 if(userLocation.equals("") || userLocation.equals(null))
                     userLocation = "None";
                 try {
-                    DatabaseMethods.SendPost(LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
-                    Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
-                    //New post refresh change
-                    setResult(RESULT_OK);
-                    finish();
+                    //TODO: Server kapalıyken post atılırsa uygulama yanıt vermiyor.
+                    if(haveNetworkConnection())
+                    {
+                        DatabaseMethods.SendPost(LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
+                        Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+                        //New post refresh change
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                    else
+                        Toast.makeText(SendNewPostActivity.this, getString(R.string.internet_connection_not_valid), Toast.LENGTH_SHORT).show();
+
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
@@ -100,6 +134,7 @@ public class SendNewPostActivity extends AppCompatActivity implements
         });
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onConnected(Bundle connectionHint) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
@@ -115,5 +150,7 @@ public class SendNewPostActivity extends AppCompatActivity implements
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
+
+
 }
 

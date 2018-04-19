@@ -30,6 +30,13 @@
     <string name="default_user_web_page">No web page information</string>
     <!--Profile Page END-->
 
+    <!-- Descriptions -->
+    <string name="description_total_friends_button">Total Friends</string>
+    <string name="description_total_posts_button">Total UniPosts</string>
+    <string name="description_profile_photo">Profile Photo</string>
+    <string name="description_messages_user_profile_photo">Profile Photo</string>
+    <!-- Descriptions END -->
+
     <!--Login-->
     <string name="user_name">Username</string>
     <string name="password">Password</string>
@@ -131,14 +138,12 @@
     </string-array>
     <!-- Settings for Profile END -->
 
-    <!-- UniPost Settings -->
+    <!-- Settings for UniPost -->
     <string-array name="uni_post_settings">
         <item>Copy UniPost Text</item>
         <item>Delete Post</item>
     </string-array>
-    <!-- UniPost Settings END -->
 
-    <!-- Settings for UniPost -->
     <string name="title_activity_settings">UniPost Settings</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">Protect UniPosts</string>
@@ -215,14 +220,6 @@
     <string name="hint_login_user_password">Password</string>
     <!-- Edit Text Hints END -->
 
-
-    <!-- Descriptions -->
-    <string name="description_total_friends_button">Total Friends</string>
-    <string name="description_total_posts_button">Total Posts</string>
-    <string name="description_profile_photo">Profile Photo</string>
-    <string name="description_messages_user_profile_photo">Profile Photo</string>
-    <!-- Descriptions END -->
-
     <!-- android:keys -->
     <string name="key_phone_number">key_phone_number</string>
     <string name="key_mail_address">key_mail_address</string>
@@ -283,38 +280,6 @@
         <item>3</item>
     </string-array>
     <!-- Settings for Security END -->
-
-    <!-- DENEME -->
-    <string-array name="titles">
-        <item>Kaan YÖŞ</item>
-        <item>Alican Karamaraş</item>
-        <item>Sercan Tavas</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-        <item>F</item>
-        <item>G</item>
-    </string-array>
-
-    <!-- DENEME -->
-    <string-array name="post">
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</item>
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</item>
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</item>
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</item>
-        <item>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</item>
-    </string-array>
-
-    <!-- DENEME -->
-    <string-array name="date">
-        <item>28.02.2018</item>
-        <item>27.02.2018</item>
-        <item>26.02.2018</item>
-        <item>25.02.2018</item>
-        <item>24.02.2018</item>
-    </string-array>
-
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
