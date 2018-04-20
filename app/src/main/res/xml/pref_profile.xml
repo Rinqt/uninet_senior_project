@@ -4,7 +4,7 @@
     android:id="@+id/profileSettingsLayout"
     android:layout="@layout/fragment_profile">
 
-    <SwitchPreference
+    <MultiSelectListPreference
         android:defaultValue="true"
         android:summary="@string/pref_description_changeProfilePhoto"
         android:title="@string/pref_title_changeProfilePhoto" />
