@@ -113,6 +113,7 @@ public class ProfileFragment extends Fragment {
         swipeRefreshLayout = getActivity().findViewById(R.id.uni_post_swiper);
         unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
 
+        refreshInformation();
         addDataToList();
 
         postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.uni_post_template, uniPosts);
@@ -124,6 +125,7 @@ public class ProfileFragment extends Fragment {
             public void onRefresh() {
                 Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
                 refreshPosts();
+                refreshInformation();
             }
         });
 
@@ -277,6 +279,14 @@ public class ProfileFragment extends Fragment {
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }
+
+    protected void refreshInformation()
+    {
+        userPhotosLabel.setText("-1");
+        userFriendsLabel.setText(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
+        userPhotosLabel.setText(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
+    }
+
 
     // To check if we are at top of the UniPost List.
     private boolean isListAtTop()

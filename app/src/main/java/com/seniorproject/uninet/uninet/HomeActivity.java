@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity
     TabLayout tabLayout;
     DrawerLayout drawerLayout;
     SessionChecker sessionChecker;
+    StoredUserInformation userInformation;
 
     ActionBarDrawerToggle toggle;
 
@@ -69,6 +70,7 @@ public class HomeActivity extends AppCompatActivity
 
         //Session
         sessionChecker = new SessionChecker(this);
+        userInformation = new StoredUserInformation(this);
 
         if(!sessionChecker.loggedIn())
         {
@@ -294,10 +296,10 @@ public class HomeActivity extends AppCompatActivity
 
     private void setupTabIcons() // 4 ana tabin iconu ayarlama
     {
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(tabIcons[0]);
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(tabIcons[1]);
+        Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(tabIcons[2]);
+        Objects.requireNonNull(tabLayout.getTabAt(3)).setIcon(tabIcons[3]);
     }
 
     //New post refresh change
@@ -356,6 +358,7 @@ public class HomeActivity extends AppCompatActivity
                 LoggedInUser.StudentId = null;
 
                 sessionChecker.editor.clear().commit();
+                userInformation.dataEditor.clear().commit();
 
                 Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

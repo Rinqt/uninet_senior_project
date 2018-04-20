@@ -1,6 +1,7 @@
 package com.seniorproject.uninet.uninet;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,8 +35,9 @@ public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView universityNumber;
     private EditText userPassword;
 
-    //Session
+    //SharedPrefs
     private SessionChecker sessionChecker;
+    private StoredUserInformation userInformation;
 
     // Keyboard hider
     InputMethodManager keyboardHider;
@@ -61,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //Session
         sessionChecker = new SessionChecker(this);
+        userInformation = new StoredUserInformation(this);
+
         if (sessionChecker.loggedIn())
         {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
@@ -107,6 +111,42 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void saveUserData()
+    {
+        final ProgressDialog dialog= new ProgressDialog(this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Loading");
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
+
+
+        Thread getUserData = new Thread() {
+            String whoIsTheUser = LoggedInUser.UserId;
+            @Override
+            public void run() {
+
+                //TODO: Check if user ID belong to student or lecturer
+                userInformation.setUniPostsNumber(String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()));
+                userInformation.setEducationYear(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).academicYear);
+                userInformation.setFriendsNumber(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
+                userInformation.setFollowersNumber(String.valueOf(DatabaseMethods.GetStudentFollowers(whoIsTheUser).size()));
+                userInformation.setFollowsNumber(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
+                userInformation.setPhotosNumber("0");
+
+                dialog.dismiss();
+            }
+        };
+        getUserData.start();
+
+        //TODO: Threadi kapatmak gerekiyor mu ?
+
+        getUserData.interrupt();
+
+
+    }
+
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -117,6 +157,8 @@ public class LoginActivity extends AppCompatActivity {
     {
         if (isThereANetwork())
         {
+
+
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
                     == PackageManager.PERMISSION_GRANTED)
             {
@@ -133,11 +175,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     Log.i("attemptLogin",  LoggedInUser.TeacherId + "tries to sneak to app.");
 
+                    // Retrieve user data from database and save locally
+                    saveUserData();
+
                     sessionChecker.setUserLoggedIn(true); // User Session
                     sessionChecker.setLoginInfo(LoggedInUser.UserId + "," + LoggedInUser.TeacherId + "," + LoggedInUser.StudentId);
 
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
+
 
                     Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_SHORT).show();
                 }

@@ -8,11 +8,11 @@ import android.content.SharedPreferences;
  */
 
 public class SessionChecker {
-    SharedPreferences prefs;
+    private SharedPreferences prefs;
     SharedPreferences.Editor editor;
     Context context;
 
-    public SessionChecker(Context context) {
+    SessionChecker(Context context) {
         prefs = context.getSharedPreferences("stayLoggedIn", Context.MODE_PRIVATE);
         editor = prefs.edit();
         this.context = context;
@@ -38,4 +38,9 @@ public class SessionChecker {
     {
         return prefs.getBoolean("UserLoggedIn", false);
     }
+
+
+
+
+
 }

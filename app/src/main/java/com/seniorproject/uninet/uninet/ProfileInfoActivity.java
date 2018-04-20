@@ -56,6 +56,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
     String whoIsTheUser;
     String universityYearName;
 
+    StoredUserInformation userInformation;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +66,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
 
         whoIsTheUser = LoggedInUser.UserId;
+
+        userInformation = new StoredUserInformation(this);
+
 
         //Button Declarations
         setProfileButton = findViewById(R.id.set_profile_button);

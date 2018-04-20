@@ -84,9 +84,15 @@
     1. New Profile Page Designed
     2. Detailed Design Page added.
 
-20.04.2018 v 0.0.0.0.2.5.0
+20.04.2018 v 0.0.0.0.2.5.9
     1. Detailed Design Page design is done.
-    2. Messaging design added. (sender, receiver templates)
+    2. Messaging design added. (sender, receiver templates).
+    3. Turkish translation has been fixed in detail profiled page.
+    4. App retrieves some user data while logging in and save the data to StoredUserInformation Shared Preferences.
+    5. Loading screen added to login.
+    6. New thread added to login process. User is able to see loading screen while app retrieves data from Database.
+
+    //TODO DB den alıp locale kayıt edilen veriler detaylı profil sayfasına aktarılmalı.
 
 
 
