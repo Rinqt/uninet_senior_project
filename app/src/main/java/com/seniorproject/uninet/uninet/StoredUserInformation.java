@@ -16,6 +16,41 @@ public class StoredUserInformation {
         this.context = context;
     }
 
+    private void userName(String info)
+    {
+        dataEditor.putString("user_name", info);
+        dataEditor.commit();
+    }
+
+    private void userDepartment(String info)
+    {
+        dataEditor.putString("user_department", info);
+        dataEditor.commit();
+    }
+
+    private void mailAddress(String info)
+    {
+        dataEditor.putString("user_key_total_mail_address", info);
+        dataEditor.commit();
+    }
+
+    private void phoneNumber(String info)
+    {
+        dataEditor.putString("user_key_total_phone_number", info);
+        dataEditor.commit();
+    }
+
+    private void relationshipStatus(String info)
+    {
+        dataEditor.putString("user_key_total_relationship_status", info);
+        dataEditor.commit();
+    }
+
+    private void webPage(String info)
+    {
+        dataEditor.putString("user_key_total_web_page", info);
+        dataEditor.commit();
+    }
 
 
     private void friendsNumber(String info)
@@ -57,32 +92,19 @@ public class StoredUserInformation {
         dataEditor.commit();
     }
 
-    private void mailAddress(String info)
-    {
-        dataEditor.putString("user_key_total_mail_address", info);
-        dataEditor.commit();
-    }
-
-    private void phoneNumber(String info)
-    {
-        dataEditor.putString("user_key_total_phone_number", info);
-        dataEditor.commit();
-    }
-
-    private void relationshipStatus(String info)
-    {
-        dataEditor.putString("user_key_total_relationship_status", info);
-        dataEditor.commit();
-    }
-
-    private void webPage(String info)
-    {
-        dataEditor.putString("user_key_total_web_page", info);
-        dataEditor.commit();
-    }
 
 
     // SETTERS
+    public void setUserName(String info)
+    {
+        userName(info);
+    }
+
+    public void setDepartment(String info)
+    {
+        userDepartment(info);
+    }
+
     public void setFriendsNumber(String info)
     {
         friendsNumber(info);
@@ -138,6 +160,16 @@ public class StoredUserInformation {
 
 
     // GETTERS
+    public String getUserName()
+    {
+        return dataPrefs.getString("user_name", "");
+    }
+
+    public String getDepartment()
+    {
+        return dataPrefs.getString("user_department", "");
+    }
+
     public String getFriendsNumber() {
         return dataPrefs.getString("user_key_total_friends", "");
     }

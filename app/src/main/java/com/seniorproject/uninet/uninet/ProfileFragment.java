@@ -64,6 +64,8 @@ public class ProfileFragment extends Fragment {
     PostListAdapter postListAdapter;
     ArrayList<UniPosts> uniPosts;
 
+    StoredUserInformation userInformation;
+
 
 
     public ProfileFragment() {
@@ -154,7 +156,7 @@ public class ProfileFragment extends Fragment {
                                 Toast.makeText(getContext(), R.string.post_copied, Toast.LENGTH_LONG).show();
                             case 1:
                                 selectedPost = postListAdapter.getItem(i);
-                                Log.i("getItem(i)", "Item Index " + selectedPost.getUniPostId());
+                                //Log.i("getItem(i)", "Item Index " + selectedPost.getUniPostId());
 
                                 // TODO: Add success controller. [for both places]
                                 DatabaseMethods.RemovePost(selectedPost.getUniPostId());
@@ -282,17 +284,24 @@ public class ProfileFragment extends Fragment {
 
     protected void refreshInformation()
     {
-        userPhotosLabel.setText("-1");
-        userFriendsLabel.setText(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
-        userPhotosLabel.setText(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
+
+        userInformation = new StoredUserInformation(getContext());
+
+        String friendsLabel, photosLabel, followsLabel;
+
+        friendsLabel = userInformation.getFriendsNumber();
+        photosLabel = userInformation.getPhotosNumber();
+        followsLabel = userInformation.getFollowsNumber();
+
+        userPhotosLabel.setText(photosLabel);
+        userFriendsLabel.setText(friendsLabel);
+        userFollowsLaber.setText(followsLabel);
     }
 
 
     // To check if we are at top of the UniPost List.
-    private boolean isListAtTop()
-    {
-        if(unipost_list.getChildCount() == 0) return true;
-        return unipost_list.getChildAt(0).getTop() == 0;
+    private boolean isListAtTop() {
+        return unipost_list.getChildCount() == 0 || unipost_list.getChildAt(0).getTop() == 0;
     }
 
 }

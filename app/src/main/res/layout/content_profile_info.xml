@@ -30,7 +30,7 @@
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="120dp"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="96dp"
             android:background="@drawable/curved_corners"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintHorizontal_bias="0.0"
@@ -384,8 +384,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_photo_camera_black_24dp"
-                        android:contentDescription="@string/description_total_uploaded_photo_image"
-                        />
+                        android:contentDescription="@string/description_total_uploaded_photo_image"/>
 
 
                     <TextView
@@ -506,8 +505,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_followers_image_black_24dp"
-                        android:contentDescription="@string/description_total_followers_image"
-                        />
+                        android:contentDescription="@string/description_total_followers_image"/>
 
 
                     <TextView

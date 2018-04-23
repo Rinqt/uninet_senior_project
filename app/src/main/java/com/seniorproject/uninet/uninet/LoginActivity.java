@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
     {
         final ProgressDialog dialog= new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading");
+        dialog.setMessage(getString(R.string.loading));
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.setInverseBackgroundForced(false);
@@ -128,11 +128,17 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
 
                 //TODO: Check if user ID belong to student or lecturer
-                userInformation.setUniPostsNumber(String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()));
-                userInformation.setEducationYear(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).academicYear);
+                userInformation.setUserName(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).name);
+                userInformation.setDepartment(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).department);
+                userInformation.setMailAddress(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).email);
+                userInformation.setPhoneNumber(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).phoneNumber);
+                userInformation.setRelationshipStatus(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).relationship);
+                userInformation.setWebPage(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).webPage);
                 userInformation.setFriendsNumber(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
                 userInformation.setFollowersNumber(String.valueOf(DatabaseMethods.GetStudentFollowers(whoIsTheUser).size()));
                 userInformation.setFollowsNumber(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
+                userInformation.setUniPostsNumber(String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()));
+                userInformation.setEducationYear(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).academicYear);
                 userInformation.setPhotosNumber("0");
 
                 dialog.dismiss();
@@ -141,10 +147,6 @@ public class LoginActivity extends AppCompatActivity {
         getUserData.start();
 
         //TODO: Threadi kapatmak gerekiyor mu ?
-
-        getUserData.interrupt();
-
-
     }
 
 

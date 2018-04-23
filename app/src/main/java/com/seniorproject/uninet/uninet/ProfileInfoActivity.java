@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
-
 /**
  * Created by kaany on 27.02.2018.
  */
@@ -64,11 +62,24 @@ public class ProfileInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_profile_info);
 
+        userInformation = new StoredUserInformation(this);
 
         whoIsTheUser = LoggedInUser.UserId;
 
-        userInformation = new StoredUserInformation(this);
+        // Shared Pref to String:
+        String name, department, year, post, friend, follow, follower, mail, phone, relation, webPage;
 
+        name = userInformation.getUserName();
+        department = userInformation.getDepartment();
+        year = userInformation.getEducationYear();
+        post = userInformation.getUniPostsNumber();
+        friend = userInformation.getFriendsNumber();
+        follow = userInformation.getFollowsNumber();
+        follower = userInformation.getFollowersNumber();
+        mail = userInformation.getMailAddress();
+        phone = userInformation.getPhoneNumber();
+        relation = userInformation.getRelationshipStatus();
+        webPage = userInformation.getWebPage();
 
         //Button Declarations
         setProfileButton = findViewById(R.id.set_profile_button);
@@ -102,24 +113,23 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
 
         //Set labels with values
-        String educationYear = calculateYearName(Integer.valueOf(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).academicYear));
+        String educationYear = calculateYearName(Integer.valueOf(year));
 
-        userName.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).name);
-        userDepartment.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).department);
+        userName.setText(name);
+        userDepartment.setText(department);
         userYear.setText(educationYear);
 
-        String postNumber = String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()) + " " + getResources().getString(R.string.user_total_post_number);
+        String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
         totalPost.setText(postNumber);
         totalPictures.setText("0");
-        totalFriend.setText(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
-        totalFollower.setText(String.valueOf(DatabaseMethods.GetStudentFollowers(whoIsTheUser).size()));
-        totalFollow.setText(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
+        totalFriend.setText(friend);
+        totalFollow.setText(follow);
+        totalFollower.setText(follower);
 
-
-        userMail.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).email);
-        userPhone.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).phoneNumber);
-        userRelationshipStatus.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).relationship);
-        userWebPage.setText(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).webPage);
+        userMail.setText(mail);
+        userPhone.setText(phone);
+        userRelationshipStatus.setText(relation);
+        userWebPage.setText(webPage);
 
 
 

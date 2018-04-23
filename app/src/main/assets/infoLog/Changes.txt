@@ -90,11 +90,15 @@
     3. Turkish translation has been fixed in detail profiled page.
     4. App retrieves some user data while logging in and save the data to StoredUserInformation Shared Preferences.
     5. Loading screen added to login.
-    6. New thread added to login process. User is able to see loading screen while app retrieves data from Database.
+    6. New thread added to login process. User is able to see loading screen while app retrieving data from Database.
+    7. Detail profile page gets information from shared preferences now.
 
-    //TODO DB den alıp locale kayıt edilen veriler detaylı profil sayfasına aktarılmalı.
+23.04.2018 v 0.0.0.0.3.0.0
+    1. Time table added. (with dummy data)
+    2. Portrait mode is forced for all screens of application. **Except time table activity and Transcript activity
+    3. TargetSdkVersion upgraded to sdk 27 along with all implementations
 
-
+    TODO: App is crashing when tab layout button is pressed while phone has no connection to the Internet.
 
 
 ----------------------------------------------------------------------------
