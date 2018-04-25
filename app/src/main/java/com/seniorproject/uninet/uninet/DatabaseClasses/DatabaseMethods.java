@@ -1,7 +1,15 @@
 package com.seniorproject.uninet.uninet.DatabaseClasses;
 
+import android.content.Context;
 import android.database.DatabaseUtils;
 import android.util.Log;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,7 +18,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseMethods {
     public static String LoginCheck(String username, String userpass){
@@ -22,8 +32,7 @@ public class DatabaseMethods {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Log.i("LoginCheck", result.toString());
+        
         return result;
     }
 
@@ -48,7 +57,6 @@ public class DatabaseMethods {
             e.printStackTrace();
         }
 
-        Log.i("GetUserNamePic", result.toString());
         return result;
 
     }
@@ -163,14 +171,33 @@ public class DatabaseMethods {
         return result;
     }
 
-    public static void UpdateProfileInfo(String userId, String email, String webPage, String phoneNumber, String relationship, String smallProfilePicture, String bigProfilePicture){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdateProfileInfo?a="+userId+"&b="+email+"&c="+webPage+"&d="+phoneNumber+"&e="+relationship+"&f="+smallProfilePicture+"&g="+bigProfilePicture;
-        try {
-            new DatabaseClass().execute(url, "POST").get();
-            //Successful Message?
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void UpdateProfileInfo(Context context, String userId, String email, String webPage, String phoneNumber, String relationship, String smallProfilePicture, String bigProfilePicture){
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdateProfileInfo";
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("userId", userId);
+        parameters.put("email", email);
+        parameters.put("webPage", webPage);
+        parameters.put("phoneNumber", phoneNumber);
+        parameters.put("relationship", relationship);
+        parameters.put("smallProfilePicture", smallProfilePicture);
+        parameters.put("bigProfilePicture", bigProfilePicture);
+
+        JSONObject params = new JSONObject(parameters);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(jsonObjectRequest);
     }
 
     public static byte[] GetUserBigPic(String userId){
@@ -752,14 +779,30 @@ public class DatabaseMethods {
         }
     }
 
-    public static void SendPost(String userId, String postText, String location, String picturesList) {
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendPost?a="+userId+"&b="+ postText +"&c="+ location +"&d="+picturesList;
-        try {
-            new DatabaseClass().execute(url, "POST").get();
-            //Successful Message?
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public static void SendPost(Context context, String userId, String postText, String location, String picturesList) {
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendPost";
+
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("userId", userId);
+        parameters.put("postText", postText);
+        parameters.put("location", location);
+        parameters.put("picturesList", picturesList);
+
+        JSONObject params = new JSONObject(parameters);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(jsonObjectRequest);
     }
 
     public static void RemovePost(String postId){
