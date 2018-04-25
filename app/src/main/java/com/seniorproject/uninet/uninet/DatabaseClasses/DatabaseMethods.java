@@ -623,7 +623,7 @@ public class DatabaseMethods {
     }
 
     public static void SendMessageExistingConversation(String conversationId, String userId, String userMessage){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessage?a="+conversationId+"&b="+userId+"&c="+userMessage;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessageExistingConversation?a="+conversationId+"&b="+userId+"&c="+userMessage;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
@@ -837,7 +837,7 @@ public class DatabaseMethods {
                         tempPost.smallProfilePicture[j] = (byte)pictureBytes.getInt(j);
                     }
                 }
-                tempPost.postText = URLDecoder.decode(post.getString("postText"), "UTF-8");
+                tempPost.postText = post.getString("postText");
                 tempPost.location = post.getString("location");
                 tempPost.postDate = post.getString("postDate");
 

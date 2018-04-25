@@ -10,6 +10,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 
 import java.io.IOException;
@@ -71,19 +74,24 @@ public class SendNewPostActivity extends AppCompatActivity implements
         shareButton = findViewById(R.id.share_post_button);
         uniPostDescription = findViewById(R.id.new_post_area);
         keyboardHider = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //TODO:Doesn't Check if the application actually has the permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (mGoogleApiClient == null) {
+                mGoogleApiClient = new GoogleApiClient.Builder(this)
+                        .addConnectionCallbacks(this)
+                        .addOnConnectionFailedListener(this)
+                        .addApi(LocationServices.API)
+                        .build();
+            }
+            if (mGoogleApiClient != null) {
+                mGoogleApiClient.connect();
                 //mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                mLastLocation = LocationServices.getFusedLocationProviderClient(this).getLastLocation().getResult();
+                LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        mLastLocation = task.getResult();
+                    }
+                });
             }
         }
 
@@ -101,7 +109,7 @@ public class SendNewPostActivity extends AppCompatActivity implements
             @Override
             public void onClick(View view) {
                 String userLocation = "";
-                if(mLastLocation != null){
+                if (mLastLocation != null) {
                     Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
                     List<Address> addresses = null;
                     try {
@@ -114,24 +122,18 @@ public class SendNewPostActivity extends AppCompatActivity implements
                 }
                 Log.i("locationPERMISSION", Manifest.permission.ACCESS_FINE_LOCATION);
                 String postText = uniPostDescription.getText().toString();
-                if(userLocation.equals("") || userLocation.equals(null))
+                if (userLocation.equals("") || userLocation.equals(null))
                     userLocation = "None";
-                try {
-                    //TODO: Server kapalıyken post atılırsa uygulama yanıt vermiyor.
-                    if(haveNetworkConnection())
-                    {
-                        DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
-                        Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
-                        //New post refresh change
-                        setResult(RESULT_OK);
-                        finish();
-                    }
-                    else
-                        Toast.makeText(SendNewPostActivity.this, getString(R.string.internet_connection_not_valid), Toast.LENGTH_SHORT).show();
+                //TODO: Server kapalıyken post atılırsa uygulama yanıt vermiyor.
+                if (haveNetworkConnection()) {
+                    DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, null);
+                    Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+                    //New post refresh change
+                    setResult(RESULT_OK);
+                    finish();
+                } else
+                    Toast.makeText(SendNewPostActivity.this, getString(R.string.internet_connection_not_valid), Toast.LENGTH_SHORT).show();
 
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
 
             }
         });
