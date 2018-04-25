@@ -98,6 +98,11 @@
     2. Portrait mode is forced for all screens of application. **Except time table activity and Transcript activity
     3. TargetSdkVersion upgraded to sdk 27 along with all implementations
 
+23.04.2018 v 0.0.0.0.3.4.0
+    1. Dummy data of time table swapped with correct database data.
+    2. Lab sessions are blue like in original time table in SIS.
+
+
     TODO: App is crashing when tab layout button is pressed while phone has no connection to the Internet.
 
 

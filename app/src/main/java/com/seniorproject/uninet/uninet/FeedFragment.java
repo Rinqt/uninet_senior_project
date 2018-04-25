@@ -41,12 +41,11 @@ public class FeedFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    String whoIsTheUser;
-    SwipeRefreshLayout swipeRefreshLayout;
-
+    private String whoIsTheUser;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     // unipost_list_view
-    public ListView unipost_feed;
+    public ListView uniPostFeed;
     PostListAdapter postListAdapter;
     ArrayList<UniPosts> uniPosts;
 
@@ -55,8 +54,6 @@ public class FeedFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-
 
     private OnFragmentInteractionListener mListener;
 
@@ -100,19 +97,20 @@ public class FeedFragment extends Fragment {
 
         // Declaration
         swipeRefreshLayout = getActivity().findViewById(R.id.feed_list_swiper);
-        unipost_feed = getActivity().findViewById(R.id.uni_post_feed_list);
-
+        uniPostFeed = getActivity().findViewById(R.id.uni_post_feed_list);
 
         addDataToList();
 
         postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
-        unipost_feed.setAdapter(postListAdapter);
+        uniPostFeed.setAdapter(postListAdapter);
 
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
 
+
+
         //Postlar için LongPress Alert Dialog
-        unipost_feed.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        uniPostFeed.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 Log.i("Long click check", "Item Index " + i);
@@ -156,7 +154,7 @@ public class FeedFragment extends Fragment {
 
         // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
         // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
-        unipost_feed.setOnScrollListener(new AbsListView.OnScrollListener() {
+        uniPostFeed.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -180,6 +178,7 @@ public class FeedFragment extends Fragment {
                 refreshPosts();
             }
         });
+
 
 
 
@@ -264,7 +263,7 @@ public class FeedFragment extends Fragment {
 
 
         postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
-        unipost_feed.setAdapter(postListAdapter);
+        uniPostFeed.setAdapter(postListAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
 
@@ -274,9 +273,11 @@ public class FeedFragment extends Fragment {
     // To check if we are at top of the UniPost List.
     private boolean isListAtTop()
     {
-        if(unipost_feed.getChildCount() == 0) return true;
-        return unipost_feed.getChildAt(0).getTop() == 0;
+        if(uniPostFeed.getChildCount() == 0) return true;
+        return uniPostFeed.getChildAt(0).getTop() == 0;
     }
+
+
 
     //-----------------------------
 

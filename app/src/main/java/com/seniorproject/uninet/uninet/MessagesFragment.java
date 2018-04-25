@@ -1,7 +1,6 @@
 package com.seniorproject.uninet.uninet;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -97,7 +96,9 @@ public class MessagesFragment extends Fragment {
         messagesList = getActivity().findViewById(R.id.messages_list);
         newMessageButton = getActivity().findViewById(R.id.new_message_button);
 
+
         addDataToList();
+
 
         messagesListAdapter = new MessagesListAdapter(getContext().getApplicationContext(), R.layout.messages_list_template, messages);
         messagesList.setAdapter(messagesListAdapter);
@@ -124,8 +125,8 @@ public class MessagesFragment extends Fragment {
         newMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent conversationScreen = new Intent(getContext(), MessagingScreenActivity.class);
-                startActivity(conversationScreen);
+                //Intent conversationScreen = new Intent(getContext(), MessagingScreenActivity.class);
+                //startActivity(conversationScreen);
             }
         });
 
@@ -138,6 +139,9 @@ public class MessagesFragment extends Fragment {
                 refreshPosts();
             }
         });
+
+
+
     }
 
     @Override
@@ -199,11 +203,7 @@ public class MessagesFragment extends Fragment {
 
         for (int i = conversations.size() - 1 ; i >= 0; i--)
         {
-            messages.add(new Messages(conversations.get(i).name, conversations.get(i).userMessage, conversations.get(i).smallProfilePicture));
-            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
-            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
-            messages.add(new Messages("Kullanıcı adı", "Mesaj Denemesi", conversations.get(i).smallProfilePicture));
-
+            messages.add(new Messages(conversations.get(i).name, conversations.get(i).userMessage, conversations.get(i).conversationId, conversations.get(i).smallProfilePicture));
         }
     }
 
@@ -225,4 +225,6 @@ public class MessagesFragment extends Fragment {
     private boolean isListAtTop() {
         return messagesList.getChildCount() == 0 || messagesList.getChildAt(0).getTop() == 0;
     }
+
+
 }

@@ -2,12 +2,13 @@ package com.seniorproject.uninet.uninet;
 
 public class Messages {
 
-    private String friendUserName, lastMessage;
+    private String friendUserName, lastMessage, conversationID;
     private byte[] friendSmallProfilePicture;
 
-    public Messages(String friendUserName, String lastMessage, byte[] friendSmallProfilePicture) {
+    public Messages(String friendUserName, String lastMessage, String friendID, byte[] friendSmallProfilePicture) {
         this.friendUserName = friendUserName;
         this.lastMessage = lastMessage;
+        this.conversationID = friendID;
         this.friendSmallProfilePicture = friendSmallProfilePicture;
     }
 
@@ -25,6 +26,14 @@ public class Messages {
 
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    public String getConversationID() {
+        return conversationID;
+    }
+
+    public void setConversationID(String conversationID) {
+        this.conversationID = conversationID;
     }
 
     public byte[] getFriendSmallProfilePicture() {

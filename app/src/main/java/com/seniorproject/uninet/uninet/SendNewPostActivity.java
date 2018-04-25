@@ -30,8 +30,6 @@ import com.google.android.gms.tasks.Task;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
@@ -75,7 +73,8 @@ public class SendNewPostActivity extends AppCompatActivity implements
         uniPostDescription = findViewById(R.id.new_post_area);
         keyboardHider = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         //TODO:Doesn't Check if the application actually has the permission
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             if (mGoogleApiClient == null) {
                 mGoogleApiClient = new GoogleApiClient.Builder(this)
                         .addConnectionCallbacks(this)
@@ -104,7 +103,7 @@ public class SendNewPostActivity extends AppCompatActivity implements
             }
         });
 
-        // Login butonu için click listener
+        // share butonu için click listener
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

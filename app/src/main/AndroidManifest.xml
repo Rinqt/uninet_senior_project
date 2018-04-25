@@ -56,7 +56,7 @@
             android:name=".TranscriptActivity"
             android:label="@string/title_activity_transcript"
             android:parentActivityName=".HomeActivity"
-            android:screenOrientation="landscape">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.seniorproject.uninet.uninet.HomeActivity" />

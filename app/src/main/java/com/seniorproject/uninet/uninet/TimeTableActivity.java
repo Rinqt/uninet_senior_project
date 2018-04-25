@@ -8,13 +8,10 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.Adapters.CourseAdapter;
-import com.seniorproject.uninet.uninet.DatabaseClasses.CourseContent;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.TimeTableCourse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,41 +22,20 @@ import java.util.List;
 
 public class TimeTableActivity extends AppCompatActivity {
 
-    // TextViews
-    TextView cTime;
-    TextView cCode;
-    TextView cName;
-    TextView cClassroom;
-    TextView cLecturer;
-
-    // Table
-    TableRow cTable;
 
     String whoIsTheUser;
-
-    ListView mondayList;
-    ListView tuesdayList;
-    ListView wednesdayList;
-    ListView thursdayList;
-    ListView fridayList;
-
     ArrayList<Courses> courses;
-
-    private RecyclerView recyclerView;
-    private RecyclerView recyclerView2;
-    private RecyclerView recyclerView3;
-    private RecyclerView recyclerView4;
-    private RecyclerView recyclerView5;
-    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //TODO DENEME LAYOUT UN İSMİNİ DEĞİŞTİR
         setContentView(R.layout.deneme_layout);
 
         whoIsTheUser = LoggedInUser.UserId;
 
-        List<CourseContent> courseInformation = DatabaseMethods.GetCourseContents(whoIsTheUser);
+       // List<CourseContent> courseInformation = DatabaseMethods.GetCourseContents(whoIsTheUser);
         courses = new ArrayList<>();
 
         mondayLectures();
@@ -68,7 +44,7 @@ public class TimeTableActivity extends AppCompatActivity {
         thursdayLectures();
         fridayLectures();
 
-        CourseAdapter adapter = new CourseAdapter(courses);
+        CourseAdapter adapter = new CourseAdapter(this, courses);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -77,9 +53,6 @@ public class TimeTableActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
         recyclerView.setAdapter(adapter);
-
-
-
 
     }
 
@@ -93,61 +66,136 @@ public class TimeTableActivity extends AppCompatActivity {
     // type 0 = Ders ekleme.
     private void mondayLectures()
     {
+        List<TimeTableCourse> courseInfo = DatabaseMethods.GetUserTimeTable(whoIsTheUser);
         // Create the date with empty constructor
-        courses.add(new Courses("", "", "", "", "", "MONDAY",1));
+        courses.add(new Courses("", "", "", "", "", "", "MONDAY",1));
+
 
         // Get courses
-        for(int i = 0; i < 1; i++)
+        for(int i = 0; i < courseInfo.size(); i++)
         {
-            courses.add(new Courses("", "", "", "", "", "MONDAY",0));
+            if(courseInfo.get(i).weekDay.equals("1"))
+            {
+                String startTime = courseInfo.get(i).startTime.split(":")[0] + ":" + courseInfo.get(i).startTime.split(":")[1];
+                String endTime = courseInfo.get(i).endTime.split(":")[0] + ":" + courseInfo.get(i).endTime.split(":")[1];
+
+                courses.add(new Courses(startTime + " - " + endTime,
+                        courseInfo.get(i).courseCode + " (" + courseInfo.get(i).branchNumber + ")",
+                        courseInfo.get(i).courseName,
+                        courseInfo.get(i).classroom + " (" + courseInfo.get(i).quota + ")",
+                        courseInfo.get(i).name,
+                        courseInfo.get(i).theoryClass,
+                        courseInfo.get(i).weekDay,
+                        0));
+            }
         }
     }
 
     private void tuesdayLectures()
     {
+        List<TimeTableCourse> courseInfo = DatabaseMethods.GetUserTimeTable(whoIsTheUser);
+
         // Create the date with empty constructor
-        courses.add(new Courses("", "", "", "", "", "TUESDAY",2));
+        courses.add(new Courses("", "", "", "", "", "","TUESDAY",2));
+
         // Get courses
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < courseInfo.size(); i++)
         {
-            courses.add(new Courses("", "", "", "", "", "TUESDAY",0));
+            if(courseInfo.get(i).weekDay.equals("2"))
+            {
+                String startTime = courseInfo.get(i).startTime.split(":")[0] + ":" + courseInfo.get(i).startTime.split(":")[1];
+                String endTime = courseInfo.get(i).endTime.split(":")[0] + ":" + courseInfo.get(i).endTime.split(":")[1];
+
+                courses.add(new Courses(startTime + " - " + endTime,
+                        courseInfo.get(i).courseCode + " (" + courseInfo.get(i).branchNumber + ")",
+                        courseInfo.get(i).courseName,
+                        courseInfo.get(i).classroom + " (" + courseInfo.get(i).quota + ")",
+                        courseInfo.get(i).name,
+                        courseInfo.get(i).theoryClass,
+                        courseInfo.get(i).weekDay,
+                        0));
+            }
         }
     }
 
     private void wednesdayLectures()
     {
+        List<TimeTableCourse> courseInfo = DatabaseMethods.GetUserTimeTable(whoIsTheUser);
+
         // Create the date with empty constructor
-        courses.add(new Courses("", "", "", "", "", "WEDNESDAY",3));
+        courses.add(new Courses("", "", "", "", "", "","WEDNESDAY",3));
 
         // Get courses
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < courseInfo.size(); i++)
         {
-            courses.add(new Courses("", "", "", "", "", "WEDNESDAY",0));
+            if(courseInfo.get(i).weekDay.equals("3"))
+            {
+                String startTime = courseInfo.get(i).startTime.split(":")[0] + ":" + courseInfo.get(i).startTime.split(":")[1];
+                String endTime = courseInfo.get(i).endTime.split(":")[0] + ":" + courseInfo.get(i).endTime.split(":")[1];
+
+                courses.add(new Courses(startTime + " - " + endTime,
+                        courseInfo.get(i).courseCode + " (" + courseInfo.get(i).branchNumber + ")",
+                        courseInfo.get(i).courseName,
+                        courseInfo.get(i).classroom + " (" + courseInfo.get(i).quota + ")",
+                        courseInfo.get(i).name,
+                        courseInfo.get(i).theoryClass,
+                        courseInfo.get(i).weekDay,
+                        0));
+            }
         }
     }
     private void thursdayLectures()
     {
+        List<TimeTableCourse> courseInfo = DatabaseMethods.GetUserTimeTable(whoIsTheUser);
+
         // Create the date with empty constructor
-        courses.add(new Courses("", "", "", "", "", "THURSDAY",4));
+        courses.add(new Courses("", "", "", "", "", "", "THURSDAY",4));
 
         // Get courses
-        for(int i = 0; i < 1; i++)
+        for(int i = 0; i < courseInfo.size(); i++)
         {
-            courses.add(new Courses("", "", "", "", "", "THURSDAY",0));
+            if(courseInfo.get(i).weekDay.equals("4"))
+            {
+                String startTime = courseInfo.get(i).startTime.split(":")[0] + ":" + courseInfo.get(i).startTime.split(":")[1];
+                String endTime = courseInfo.get(i).endTime.split(":")[0] + ":" + courseInfo.get(i).endTime.split(":")[1];
+
+                courses.add(new Courses(startTime + " - " + endTime,
+                        courseInfo.get(i).courseCode + " (" + courseInfo.get(i).branchNumber + ")",
+                        courseInfo.get(i).courseName,
+                        courseInfo.get(i).classroom + " (" + courseInfo.get(i).quota + ")",
+                        courseInfo.get(i).name,
+                        courseInfo.get(i).theoryClass,
+                        courseInfo.get(i).weekDay,
+                        0));
+            }
         }
     }
 
     private void fridayLectures()
     {
+        List<TimeTableCourse> courseInfo = DatabaseMethods.GetUserTimeTable(whoIsTheUser);
+
         // Create the date with empty constructor
-        courses.add(new Courses("", "", "", "", "", "FRIDAY",5));
+        courses.add(new Courses("", "", "", "", "", "", "FRIDAY",5));
 
         // Get courses
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < courseInfo.size(); i++)
         {
-            courses.add(new Courses("", "", "", "", "", "FRIDAY",0));
+            if(courseInfo.get(i).weekDay.equals("5"))
+            {
+                String startTime = courseInfo.get(i).startTime.split(":")[0] + ":" + courseInfo.get(i).startTime.split(":")[1];
+                String endTime = courseInfo.get(i).endTime.split(":")[0] + ":" + courseInfo.get(i).endTime.split(":")[1];
+
+                courses.add(new Courses(startTime + " - " + endTime,
+                        courseInfo.get(i).courseCode + " (" + courseInfo.get(i).branchNumber + ")",
+                        courseInfo.get(i).courseName,
+                        courseInfo.get(i).classroom + " (" + courseInfo.get(i).quota + ")",
+                        courseInfo.get(i).name,
+                        courseInfo.get(i).theoryClass,
+                        courseInfo.get(i).weekDay,
+                        0));
+            }
         }
     }
-
 
 }

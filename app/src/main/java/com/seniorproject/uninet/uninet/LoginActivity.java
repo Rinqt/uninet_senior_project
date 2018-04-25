@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Thread getUserData = new Thread() {
+            // TODO User ID yi shared pref'e ekle.
             String whoIsTheUser = LoggedInUser.UserId;
             @Override
             public void run() {

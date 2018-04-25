@@ -43,7 +43,7 @@ public class ProfileFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    final CharSequence[] unipostOptions = {"Copy UniPost Text"};
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment {
 
     TextView userPhotosLabel;
     TextView userFriendsLabel;
-    TextView userFollowsLaber;
+    TextView userFollowsLabel;
 
     String whoIsTheUser;
 
@@ -110,7 +110,7 @@ public class ProfileFragment extends Fragment {
         profileButton = getActivity().findViewById(R.id.user_profile_button);
         userPhotosLabel = getActivity().findViewById(R.id.user_total_photos_label);
         userFriendsLabel = getActivity().findViewById(R.id.user_total_friends_label);
-        userFollowsLaber = getActivity().findViewById(R.id.user_total_follows_label);
+        userFollowsLabel = getActivity().findViewById(R.id.user_total_follows_label);
 
         swipeRefreshLayout = getActivity().findViewById(R.id.uni_post_swiper);
         unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
@@ -295,7 +295,7 @@ public class ProfileFragment extends Fragment {
 
         userPhotosLabel.setText(photosLabel);
         userFriendsLabel.setText(friendsLabel);
-        userFollowsLaber.setText(followsLabel);
+        userFollowsLabel.setText(followsLabel);
     }
 
 

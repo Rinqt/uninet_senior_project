@@ -1,5 +1,7 @@
 package com.seniorproject.uninet.uninet.Adapters;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +23,13 @@ import static com.seniorproject.uninet.uninet.Courses.WEDNESDAY;
 public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 
     private List<Courses> mList;
-    public CourseAdapter(List<Courses> list) {
+    private Context mContext;
+
+    public CourseAdapter(Context context, List<Courses> list) {
+        this.mContext = context;
         this.mList = list;
     }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -71,12 +77,25 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     ((DateViewHolder) holder).day.setText(R.string.friday);
                     break;
                 case COURSE_TYPE:
-                    ((CourseViewHolder) holder).time.setText("14:30-16:20");
-                    ((CourseViewHolder) holder).code.setText("SE314(2)");
-                    ((CourseViewHolder) holder).name.setText("OPERATING SYSTEMS AND NETWORKING");
-                    ((CourseViewHolder) holder).classroom.setText("Y216(65)");
-                    ((CourseViewHolder) holder).lecturer.setText("MEHMET SÜLEYMAN ÜNLÜTÜRK");
+
+                    if (object.getIsTheory().equals("False"))
+                    {
+                        int bgColor = ContextCompat.getColor(mContext, R.color.theory_class);
+                        ((CourseViewHolder) holder).time.setBackgroundColor(bgColor);
+                        ((CourseViewHolder) holder).code.setBackgroundColor(bgColor);
+                        ((CourseViewHolder) holder).name.setBackgroundColor(bgColor);
+                        ((CourseViewHolder) holder).classroom.setBackgroundColor(bgColor);
+                        ((CourseViewHolder) holder).lecturer.setBackgroundColor(bgColor);
+                    }
+                    ((CourseViewHolder) holder).time.setText(object.getTime());
+                    ((CourseViewHolder) holder).code.setText(object.getCode());
+                    ((CourseViewHolder) holder).name.setText(object.getName());
+                    ((CourseViewHolder) holder).classroom.setText(object.getClassroom());
+                    ((CourseViewHolder) holder).lecturer.setText(object.getLecturer());
                     break;
+
+
+
             }
         }
     }
@@ -96,6 +115,9 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         return 0;
     }
+
+
+    // Holder Classes
     public static class DateViewHolder extends RecyclerView.ViewHolder {
         private TextView day;
         public DateViewHolder(View itemView) {

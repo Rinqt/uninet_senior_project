@@ -114,7 +114,6 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-
         //New post refresh change
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -154,7 +153,7 @@ public class HomeActivity extends AppCompatActivity
                 if(tab.getPosition() == 0)
                 {
                     android.support.v4.app.Fragment feedList = getSupportFragmentManager().findFragmentByTag(myFragmentTags[0]);
-                    ListView fList = ((FeedFragment)feedList).unipost_feed;
+                    ListView fList = ((FeedFragment)feedList).uniPostFeed;
                     int fListHeight = fList.getHeight();
                     fList.smoothScrollToPositionFromTop(0, fListHeight/2, 10);
                 }
@@ -219,6 +218,8 @@ public class HomeActivity extends AppCompatActivity
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
+
         }
     }
 
@@ -247,24 +248,32 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_timeTable) {
             Intent timeTableIntent = new Intent(this, TimeTableActivity.class);
             startActivity(timeTableIntent);
+            item.setChecked(true);
 
         }
+
         else if (id == R.id.nav_transcript)
         {
             Intent transcriptIntent = new Intent(this, TranscriptActivity.class);
             startActivity(transcriptIntent);
+            item.setChecked(true);
+
 
         }
         else if (id == R.id.nav_diningList)
         {
             Intent diningList = new Intent(this, DiningActivity.class);
             startActivity(diningList);
+            item.setChecked(true);
+
 
         }
         else if (id == R.id.nav_settings)
         {
             Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
+            item.setChecked(true);
+
 
         }
         else if (id == R.id.nav_logout)
@@ -278,16 +287,22 @@ public class HomeActivity extends AppCompatActivity
             Uri data = Uri.parse("mailto:uninet@uninetapplication.com");
             mailIntent.setData(data);
             startActivity(mailIntent);
+            item.setChecked(true);
+
 
         }
         else if (id == R.id.nav_version)
         {
             Intent versionIntent = new Intent(this, VersionActivity.class);
             startActivity(versionIntent);
+            item.setChecked(true);
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        item.setChecked(false);
+
 
         return true;
     }

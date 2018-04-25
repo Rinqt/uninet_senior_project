@@ -30,6 +30,8 @@
                 android:layout_height="0dp"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
                 android:text="@string/btn_title_new_message" />
 
             <android.support.v4.widget.SwipeRefreshLayout

@@ -3,7 +3,6 @@ package com.seniorproject.uninet.uninet;
 public class Courses {
 
     public static final int COURSE_TYPE = 0;
-    public static final int DAY_TYPE = 9;
     public static final int MONDAY = 1;
     public static final int TUESDAY = 2;
     public static final int WEDNESDAY = 3;
@@ -16,15 +15,17 @@ public class Courses {
     private String courseName;
     private String classroom;
     private String lecturer;
+    private String isTheory;
     private String date;
     private int type;
 
-    Courses(String courseTime, String courseCode, String courseName, String classroom, String lecturer, String date, int type) {
+    Courses(String courseTime, String courseCode, String courseName, String classroom, String lecturer, String isTheory, String date, int type) {
         this.courseTime = courseTime;
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.classroom = classroom;
         this.lecturer = lecturer;
+        this.isTheory = isTheory;
         this.date = date;
         this.type = type;
 
@@ -68,6 +69,14 @@ public class Courses {
 
     public void setLecturer(String lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public String getIsTheory() {
+        return isTheory;
+    }
+
+    public void setIsTheory(String isTheory) {
+        this.isTheory = isTheory;
     }
 
     public String getDate() {
