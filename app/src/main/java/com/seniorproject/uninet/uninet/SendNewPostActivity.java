@@ -3,6 +3,7 @@ package com.seniorproject.uninet.uninet;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -10,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -47,8 +49,7 @@ public class SendNewPostActivity extends AppCompatActivity implements
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo[] networkStatus = connectivityManager.getAllNetworkInfo();
-        for (NetworkInfo status : networkStatus)
-        {
+        for (NetworkInfo status : networkStatus) {
             if (status.getTypeName().equalsIgnoreCase("WIFI"))
                 if (status.isConnected())
                     haveConnectedWifi = true;
@@ -80,8 +81,10 @@ public class SendNewPostActivity extends AppCompatActivity implements
         }
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                    mGoogleApiClient);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                //mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                mLastLocation = LocationServices.getFusedLocationProviderClient(this).getLastLocation().getResult();
+            }
         }
 
         findViewById(R.id.new_uni_post_main_container).setOnTouchListener(new View.OnTouchListener() {
@@ -117,7 +120,7 @@ public class SendNewPostActivity extends AppCompatActivity implements
                     //TODO: Server kapalıyken post atılırsa uygulama yanıt vermiyor.
                     if(haveNetworkConnection())
                     {
-                        DatabaseMethods.SendPost(LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
+                        DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, URLEncoder.encode(postText, "UTF-8"), userLocation, null);
                         Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
                         //New post refresh change
                         setResult(RESULT_OK);
