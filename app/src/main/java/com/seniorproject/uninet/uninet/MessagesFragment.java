@@ -1,6 +1,7 @@
 package com.seniorproject.uninet.uninet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -125,8 +126,8 @@ public class MessagesFragment extends Fragment {
         newMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent conversationScreen = new Intent(getContext(), MessagingScreenActivity.class);
-                //startActivity(conversationScreen);
+                Intent friendListScreen = new Intent(getContext(), FriendsListActivity.class);
+                startActivity(friendListScreen);
             }
         });
 
@@ -142,6 +143,12 @@ public class MessagesFragment extends Fragment {
 
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshPosts();
     }
 
     @Override

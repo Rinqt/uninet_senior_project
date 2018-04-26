@@ -1,5 +1,6 @@
 package com.seniorproject.uninet.uninet;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -30,12 +30,12 @@ public class MessagingScreenActivity extends AppCompatActivity {
 
     private String whoIsTheUser;
     private String conversationID;
+    private String userName;
     private ArrayList<UserConversations> messages;
     private Button sendMessage;
     private EditText messageBox;
     private RecyclerView chatScreen;
 
-    InputMethodManager keyboardHider;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MessagingScreenActivity extends AppCompatActivity {
 
         whoIsTheUser = LoggedInUser.UserId;
         conversationID = getIntent().getStringExtra("conversationId");
+        userName = getIntent().getStringExtra("UserName");
         messages = new ArrayList<>();
 
         // Declarations
@@ -51,16 +52,18 @@ public class MessagingScreenActivity extends AppCompatActivity {
         sendMessage = findViewById(R.id.button_message_send);
         messageBox = findViewById(R.id.message_box);
 
+
         clearMessages();
         loadMessages();
 
         ConversationAdapter messageAdapter = new ConversationAdapter(this, messages);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
+        // Scroll view to the last message:
+        linearLayoutManager.setStackFromEnd(true);
+
         chatScreen.setLayoutManager(linearLayoutManager);
         chatScreen.setItemAnimator(new DefaultItemAnimator());
-        //chatScreen.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-
         chatScreen.setAdapter(messageAdapter);
 
         sendMessage.setOnClickListener(new View.OnClickListener() {
@@ -68,20 +71,12 @@ public class MessagingScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userMessage = messageBox.getText().toString();
                 DatabaseMethods.SendMessageExistingConversation(conversationID, whoIsTheUser, userMessage);
+                keyboardHider();
 
                 messageBox.getText().clear();
                 clearMessages();
                 loadMessages();
 
-            }
-        });
-
-        findViewById(R.id.message_screen_main_constraint_layout).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                keyboardHider.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
-                return true;
             }
         });
 
@@ -103,13 +98,27 @@ public class MessagingScreenActivity extends AppCompatActivity {
                 else
                     messages.add(new UserConversations(whoIsTheUser, message.get(i).messageId, message.get(i).name, message.get(i).userMessage, message.get(i).messageDate, 0));
             }
-
         }
+    }
 
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        // Set Activity Name as other user name
+        setTitle(userName);
 
     }
 
-    public void clearMessages() {
+    private boolean keyboardHider()
+    {
+        InputMethodManager keyboardHider = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        assert keyboardHider != null;
+        keyboardHider.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
+        return true;
+    }
+
+    private void clearMessages() {
         final int size = messages.size();
         if (size > 0) {
             for (int i = 0; i < size; i++) {
@@ -117,4 +126,8 @@ public class MessagingScreenActivity extends AppCompatActivity {
             }
         }
     }
+
+
+
+
 }

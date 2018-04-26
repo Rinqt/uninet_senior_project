@@ -121,8 +121,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.seniorproject.uninet.uninet.HomeActivity" />
         </activity>
-        <activity android:name=".MessagingScreenActivity"
-            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".MessagingScreenActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"
+            android:label="UserName"
+            android:parentActivityName=".HomeActivity">
+
+        </activity>
+
+
+        <activity
+            android:name=".FriendsListActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/friends"
+            android:launchMode="singleInstance"
+            android:parentActivityName=".HomeActivity">
+        </activity>
 
     </application>
 

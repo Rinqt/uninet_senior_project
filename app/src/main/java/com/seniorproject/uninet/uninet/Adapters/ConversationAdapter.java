@@ -97,7 +97,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 
-        public OtherUserMessage(View itemView) {
+        OtherUserMessage(View itemView) {
             super(itemView);
             senderProfilePicture = itemView.findViewById(R.id.received_image_user_message_profile);
             senderUserName = itemView.findViewById(R.id.received_text_message_name);
@@ -111,7 +111,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private TextView currentUserMessage;
         private TextView currentUserMessageTime;
 
-        public CurrentUserMessage(View itemView) {
+        CurrentUserMessage(View itemView) {
             super(itemView);
             currentUserMessage = itemView.findViewById(R.id.sent_text_message_body);
             currentUserMessageTime = itemView.findViewById(R.id.sent_text_message_time);

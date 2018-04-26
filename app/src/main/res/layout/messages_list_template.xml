@@ -26,7 +26,7 @@
             android:paddingRight="@dimen/feed_item_padding_left_right" >
 
             <ImageView
-                android:id="@+id/friend_profile_picture"
+                android:id="@+id/friend_list_friend_profile_picture"
                 android:layout_width="@dimen/feed_item_profile_pic"
                 android:layout_height="@dimen/feed_item_profile_pic"
                 android:scaleType="fitCenter"

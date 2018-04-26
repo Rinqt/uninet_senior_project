@@ -114,6 +114,7 @@ public class HomeActivity extends AppCompatActivity
 
 
 
+
         //New post refresh change
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -222,8 +223,6 @@ public class HomeActivity extends AppCompatActivity
 
         }
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

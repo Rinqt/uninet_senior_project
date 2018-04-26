@@ -102,8 +102,17 @@
     1. Dummy data of time table swapped with correct database data.
     2. Lab sessions are blue like in original time table in SIS.
 
+25.04.2018 v 0.0.0.0.3.9.0
+    1. Picture Problem is solved ?
+    2. Messaging functionality added.
+
+26.04.2018 v 0.0.0.0.4.4.4
+    1. User Friend List Added to New Message Button
+
+
 
     TODO: App is crashing when tab layout button is pressed while phone has no connection to the Internet.
+    TODO: Bir kaç fragement gezip homefragmenta çılgınlarca tıklayınca uygulama çöküyor
 
 
 ----------------------------------------------------------------------------

@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.Messages;
 import com.seniorproject.uninet.uninet.MessagingScreenActivity;
-import com.seniorproject.uninet.uninet.OtherUserProfileActivity;
 import com.seniorproject.uninet.uninet.R;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class MessagesListAdapter extends ArrayAdapter<Messages> {
@@ -24,7 +24,7 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
     private  Context mContext;
     private int mResource;
 
-    static class ViewHolder {
+    static class ViewHolder  {
         TextView friendName;
         TextView friendMessage;
         ImageView friendProfilePhoto;
@@ -36,15 +36,18 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
         mResource = resource;
     }
 
+
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
+
         ViewHolder messagesViewHolder;
-        String name = getItem(position).getFriendUserName();
-        final String conversationId = getItem(position).getConversationID();
-        String message = getItem(position).getLastMessage();
-        byte[] picture = getItem(position).getFriendSmallProfilePicture();
+        final String name = Objects.requireNonNull(getItem(position)).getFriendUserName();
+        final String conversationId = Objects.requireNonNull(getItem(position)).getConversationID();
+        String message = Objects.requireNonNull(getItem(position)).getLastMessage();
+        byte[] picture = Objects.requireNonNull(getItem(position)).getFriendSmallProfilePicture();
 
         if (convertView == null)
         {
@@ -55,7 +58,7 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
 
             messagesViewHolder.friendName = convertView.findViewById(R.id.friend_user_name);
             messagesViewHolder.friendMessage = convertView.findViewById(R.id.friend_last_message);
-            messagesViewHolder.friendProfilePhoto = convertView.findViewById(R.id.friend_profile_picture);
+            messagesViewHolder.friendProfilePhoto = convertView.findViewById(R.id.friend_list_friend_profile_picture);
 
             convertView.setTag(messagesInflater);
         }
@@ -66,26 +69,21 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
 
         messagesViewHolder.friendName.setText(name);
         messagesViewHolder.friendMessage.setText(message);
-        messagesViewHolder.friendProfilePhoto.setImageResource(R.mipmap.messages_icon);
+        messagesViewHolder.friendProfilePhoto.setImageResource(R.mipmap.ic_launcher);
         //messagesViewHolder.friendProfilePhoto.setImageResource(picture[position]);
 
 
         messagesViewHolder.friendProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent messageScreen = new Intent(mContext, OtherUserProfileActivity.class);
-                messageScreen.putExtra("UserID", "1");
-                messageScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(messageScreen);
-
+                goToMessageScreen(conversationId, name);
             }
         });
 
         messagesViewHolder.friendName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToMessageScreen(conversationId);
-
+                goToMessageScreen(conversationId, name);
             }
         });
 
@@ -95,16 +93,15 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
 
 
         return convertView;
-
-
-
     }
 
-    private void goToMessageScreen(String value)
+    private void goToMessageScreen(String value, String name)
     {
         Intent messageScreen = new Intent(mContext, MessagingScreenActivity.class);
         messageScreen.putExtra("conversationId", value);
+        messageScreen.putExtra("UserName", name);
         messageScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(messageScreen);
     }
+
 }
