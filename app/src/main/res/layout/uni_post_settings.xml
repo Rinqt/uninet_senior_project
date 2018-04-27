@@ -1,0 +1,105 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <!-- UniPost Protection number -->
+            <RelativeLayout
+                android:id="@+id/r_layout_1"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:background="@color/feed_bg"
+                >
+
+                <ImageView
+                    android:id="@+id/protect_uni_post_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_safety_and_privacy_black_24dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/pref_description_phoneNumber" />
+
+                <Switch
+                    android:id="@+id/phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/protect_uni_post_icon"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+
+                    android:textSize="16sp"
+                    android:hint="@string/pref_title_protectUniPosts"/>
+
+                <TextView
+                    android:id="@+id/summary_protect_uni_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/phone_number"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:hint="@string/pref_description_protectUniPosts"
+                    />
+
+            </RelativeLayout>
+            <!-- UniPost Protection END-->
+
+            <!-- Location Setting-->
+            <RelativeLayout
+                android:id="@+id/r_layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/feed_bg"
+                android:layout_below="@+id/r_layout_1">
+
+                <ImageView
+                    android:id="@+id/mail_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_location_icon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/pref_description_mailAddress" />
+
+
+                <Switch
+                    android:id="@+id/mail_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/mail_icon"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textSize="16sp"
+                    android:hint="@string/pref_title_location"/>
+
+                <TextView
+                    android:id="@+id/summary_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mail_address"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:hint="@string/pref_description_location"
+                   />
+
+            </RelativeLayout>
+            <!--  Location Setting END-->
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+</merge>

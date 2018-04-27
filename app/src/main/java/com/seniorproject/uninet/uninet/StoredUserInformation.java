@@ -116,7 +116,6 @@ public class StoredUserInformation {
         followersNumber(info);
     }
 
-
     public void setFollowsNumber(String info)
     {
         followsNumber(info);

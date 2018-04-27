@@ -137,8 +137,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.0.4.4.4 </string>
-    <string name="version_hidden_drawer">v 0.0.0.0.4.4.4 </string>
+    <string name="version">earlyDevelopment 0.0.0.1.6.6.6 </string>
+    <string name="version_hidden_drawer">v 0.0.0.1.6.6.6 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->
@@ -173,7 +173,7 @@
         <item>UniPostu sil</item>
     </string-array>
 
-    <string name="title_activity_settings">UniPost Ayarları</string>
+    <string name="uni_post_settings">UniPost Ayarları</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">UniPost Gizliliği</string>
     <string name="pref_description_protectUniPosts">Sadece arkadaş listeniz UniPostları görebilir</string>

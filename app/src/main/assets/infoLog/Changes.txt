@@ -109,6 +109,11 @@
 26.04.2018 v 0.0.0.0.4.4.4
     1. User Friend List Added to New Message Button
 
+27.04.2018 v 0.0.0.1.6.6.6
+    1. Settings re-designed with fragments.
+    2. User is able to change profile picture inside the app but cannot save yet.
+
+
 
 
     TODO: App is crashing when tab layout button is pressed while phone has no connection to the Internet.

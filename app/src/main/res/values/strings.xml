@@ -138,7 +138,7 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.0.4.4.4 </string>
+    <string name="version">earlyDevelopment 0.0.0.1.6.6.6 </string>
     <string name="version_hidden_drawer">v 0.0.0.0.4.4.4 </string>
     <!-- Hidden Drawer END -->
 
@@ -174,7 +174,7 @@
         <item>Delete Post</item>
     </string-array>
 
-    <string name="title_activity_settings">UniPost Settings</string>
+    <string name="uni_post_settings">UniPost Settings</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">Protect UniPosts</string>
     <string name="pref_description_protectUniPosts">Show UniPosts only to your friends</string>
