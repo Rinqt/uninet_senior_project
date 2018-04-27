@@ -146,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         getUserData.start();
-
         //TODO: Threadi kapatmak gerekiyor mu ?
     }
 

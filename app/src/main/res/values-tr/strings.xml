@@ -173,7 +173,7 @@
         <item>UniPostu sil</item>
     </string-array>
 
-    <string name="title_activity_settings">UniPost Ayarları</string>
+    <string name="uni_post_settings">UniPost Ayarları</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">UniPost Gizliliği</string>
     <string name="pref_description_protectUniPosts">Sadece arkadaş listeniz UniPostları görebilir</string>

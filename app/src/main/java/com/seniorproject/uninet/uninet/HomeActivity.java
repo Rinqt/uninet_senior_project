@@ -269,7 +269,11 @@ public class HomeActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_settings)
         {
-            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            //Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            //startActivity(settingsIntent);
+            //item.setChecked(true);
+
+            Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
             startActivity(settingsIntent);
             item.setChecked(true);
 

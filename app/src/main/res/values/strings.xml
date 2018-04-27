@@ -174,7 +174,7 @@
         <item>Delete Post</item>
     </string-array>
 
-    <string name="title_activity_settings">UniPost Settings</string>
+    <string name="uni_post_settings">UniPost Settings</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">Protect UniPosts</string>
     <string name="pref_description_protectUniPosts">Show UniPosts only to your friends</string>
