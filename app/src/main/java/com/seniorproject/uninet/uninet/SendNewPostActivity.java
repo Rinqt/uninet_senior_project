@@ -129,6 +129,8 @@ public class SendNewPostActivity extends AppCompatActivity implements
                     Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
                     //New post refresh change
                     setResult(RESULT_OK);
+                    LoggedInUser.FeedPostRefresh = true;
+                    LoggedInUser.ProfilePostRefresh = true;
                     finish();
                 } else
                     Toast.makeText(SendNewPostActivity.this, getString(R.string.internet_connection_not_valid), Toast.LENGTH_SHORT).show();
