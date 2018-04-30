@@ -55,6 +55,10 @@
     <string name="description_total_uploaded_photo_image">Profile Fotoğrafı</string>
     <string name="description_total_followers_image">Toplam Takipçiler</string>
     <string name="description_total_follows_image">Toplam Takipler</string>
+    <string name="description_save_settings">Ayarları Kaydet</string>
+    <string name="description_back_arrow">Ana Sayfa</string>
+    <string name="description_go_to_lecture">Derse Git</string>
+
 
     <string name="snack_bar_total_friends_image" formatted="true">Şu an %1$s kişiyle arkadaşsınız</string>
     <string name="snack_bar_university_progress_image" formatted="true">%1$ssın</string>
@@ -65,6 +69,25 @@
     <string name="snack_bar_copy_text">Kopyala</string>
     <string name="snack_bar_copy_text_successful">Kopyalandı</string>
     <!-- Descriptions END -->
+
+    <!-- Transcript Titles -->
+    <string name="tr_title_course_unit">Ders Kodu</string>
+    <string name="tr_title_course_unit_title">Ders Adı</string>
+    <string name="tr_title_success_notes">Başarı Notu</string>
+    <string name="tr_title_etcs">AKTS</string>
+    <string name="tr_title_point">AKTS</string>
+    <string name="tr_title_education_year">Yıl</string>
+    <string name="tr_title_semester">Sömestır</string>
+    <string name="tr_semester_fall" formatted="true">%1$s Güz</string>
+    <string name="tr_semester_spring" formatted="true">%1$s Bahar</string>
+
+    <string name="tr_summary_title_semester_gpa">DNO</string>
+    <string name="tr_summary_title_cumulative_gpa">GNO</string>
+    <string name="tr_summary_title_semester_ects">Dönem AKTS</string>
+    <string name="tr_summary_title_semester_points">Dönem Puan</string>
+    <string name="tr_summary_title_total_ects">Toplam AKTS</string>
+    <string name="tr_summary_title_total_points">Toplam Puan</string>
+    <!-- Transcript Titles END -->
 
     <!--Login-->
     <string name="user_name">Kullanıcı Adı</string>
@@ -137,8 +160,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.1.6.6.6 </string>
-    <string name="version_hidden_drawer">v 0.0.0.1.6.6.6 </string>
+    <string name="version">earlyDevelopment 0.0.0.2.0.0.0 </string>
+    <string name="version_hidden_drawer">v 0.0.0.2.0.0.0 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->

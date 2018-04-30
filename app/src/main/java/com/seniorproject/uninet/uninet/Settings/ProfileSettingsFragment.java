@@ -1,12 +1,10 @@
 package com.seniorproject.uninet.uninet.Settings;
 
+import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,12 +20,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.seniorproject.uninet.uninet.R;
 import com.seniorproject.uninet.uninet.StoredUserInformation;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -69,6 +72,7 @@ public class ProfileSettingsFragment extends Fragment {
         userInformation = new StoredUserInformation(Objects.requireNonNull(getContext()));
 
 
+
         backArrowButton = (getActivity()).findViewById(R.id.back_arrow_button);
         saveSettingsButton = (getActivity()).findViewById(R.id.apply_settings_button);
         changeProfilePicture = getActivity().findViewById(R.id.change_profile_photo);
@@ -89,7 +93,8 @@ public class ProfileSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Navigation to Home Activity");
-                getActivity().finish();
+
+
             }
         });
 
@@ -113,15 +118,15 @@ public class ProfileSettingsFragment extends Fragment {
         changeProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performCrop();
+                requestStoragePermission();
+
+
+
+
             }
         });
 
 
-    }
-
-    private void performCrop() {
-        CropImage.activity().start(getContext(), this);
     }
 
     @Override
@@ -163,6 +168,10 @@ public class ProfileSettingsFragment extends Fragment {
         }
     }
 
+    private void performCrop() {
+        CropImage.activity().start(getContext(), this);
+    }
+
     private void Save() {
         String bigImageString = "";
         String smallImageString = "";
@@ -176,7 +185,8 @@ public class ProfileSettingsFragment extends Fragment {
         }
     }
 
-    private void setRelationship() {
+    private void setRelationship()
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         //builder.setTitle(R.string.pref_title_relationshipStatus);
         builder.setTitle(R.string.pref_title_relationshipStatus);
@@ -191,7 +201,32 @@ public class ProfileSettingsFragment extends Fragment {
             }
         });
         builder.show();
+    }
 
+    private void requestStoragePermission() {
+        Dexter.withActivity(getActivity())
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        // After user give the permission
+                        //Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        //startActivityForResult(intent, 9);
+                        performCrop();
+                    }
 
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        // After permission denial
+                        if (response.isPermanentlyDenied()) {
+                            Toast.makeText(getContext(), R.string.description_need_permission, Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
     }
 }

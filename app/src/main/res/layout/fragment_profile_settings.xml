@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/profile_fragment_main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -33,6 +34,9 @@
 
 
 
+
     </RelativeLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

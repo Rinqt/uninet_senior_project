@@ -56,6 +56,9 @@
     <string name="description_total_uploaded_photo_image">Profile Photo</string>
     <string name="description_total_followers_image">Total Followers</string>
     <string name="description_total_follows_image">Total Follows</string>
+    <string name="description_save_settings">Save Settings</string>
+    <string name="description_back_arrow">Home Screen</string>
+    <string name="description_go_to_lecture">Go To Lecture</string>
 
     <string name="snack_bar_total_friends_image" formatted="true">You have %1$s friends.</string>
     <string name="snack_bar_university_progress_image" formatted="true">You are a %1$s Student</string>
@@ -66,6 +69,31 @@
     <string name="snack_bar_copy_text">Copy</string>
     <string name="snack_bar_copy_text_successful">Copied</string>
     <!-- Descriptions END -->
+
+    <!-- Transcript Titles -->
+    <string name="tr_title_course_unit">Course Unit</string>
+    <string name="tr_title_course_unit_title">Course Unit Title</string>
+    <string name="tr_title_success_notes">Success Notes</string>
+    <string name="tr_title_etcs">ECTS</string>
+    <string name="tr_title_point">Point</string>
+    <string name="tr_title_education_year">Year</string>
+    <string name="tr_title_semester">Semester</string>
+    <string name="tr_semester_fall" formatted="true">%1$s Fall Semester</string>
+    <string name="tr_semester_spring" formatted="true">%1$s Spring Semester</string>
+
+    <string name="tr_summary_title_semester_gpa">GPA</string>
+    <string name="tr_summary_title_cumulative_gpa">C.G.P.A</string>
+    <string name="tr_summary_title_semester_ects">Semester Total ECTS</string>
+    <string name="tr_summary_title_semester_points">Semester Total Point</string>
+    <string name="tr_summary_title_total_ects">Total ECTS</string>
+    <string name="tr_summary_title_total_points">Total Points</string>
+    <!-- Transcript Titles END -->
+
+    <!-- Permissions -->
+    <string name="title_need_permission">Need Permission</string>
+    <string name="description_need_permission">UniNet needs permission to use this feature. Please go to phone settings and give the required permission</string>
+
+    <!-- Permissions END-->
 
     <!--Login-->
     <string name="user_name">Username</string>
@@ -138,8 +166,8 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.1.6.6.6 </string>
-    <string name="version_hidden_drawer">v 0.0.0.1.6.6.6 </string>
+    <string name="version">earlyDevelopment 0.0.0.2.0.0.0 </string>
+    <string name="version_hidden_drawer">v 0.0.0.2.0.0.0 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->

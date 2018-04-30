@@ -118,7 +118,7 @@ public class ProfileFragment extends Fragment {
         refreshInformation();
         addDataToList();
 
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.uni_post_template, uniPosts);
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.edit_uni_post_template, uniPosts);
         unipost_list.setAdapter(postListAdapter);
 
 
@@ -275,7 +275,7 @@ public class ProfileFragment extends Fragment {
 
         addDataToList();
 
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.uni_post_template, uniPosts);
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.edit_uni_post_template, uniPosts);
         unipost_list.setAdapter(postListAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();

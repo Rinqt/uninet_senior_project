@@ -9,7 +9,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/settings_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                 android:layout_centerVertical="true"
                 android:text="Options"
                 android:textSize="20sp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
 
                 android:layout_toEndOf="@id/back_arrow_button"
                 android:layout_marginStart="5dp"

@@ -30,12 +30,10 @@ public class TimeTableActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO DENEME LAYOUT UN İSMİNİ DEĞİŞTİR
-        setContentView(R.layout.deneme_layout);
+        setContentView(R.layout.activity_time_table);
 
         whoIsTheUser = LoggedInUser.UserId;
 
-       // List<CourseContent> courseInformation = DatabaseMethods.GetCourseContents(whoIsTheUser);
         courses = new ArrayList<>();
 
         mondayLectures();

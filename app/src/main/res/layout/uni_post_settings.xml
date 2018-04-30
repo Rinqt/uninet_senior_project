@@ -2,7 +2,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/feed_bg">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -13,8 +14,8 @@
             <RelativeLayout
                 android:id="@+id/r_layout_1"
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:background="@color/feed_bg"
+                android:layout_height="70dp"
+                android:background="@drawable/blue_border_bottom"
                 >
 
                 <ImageView
@@ -27,22 +28,24 @@
                     android:contentDescription="@string/pref_description_phoneNumber" />
 
                 <Switch
-                    android:id="@+id/phone_number"
+                    android:id="@+id/protect_uni_posts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/protect_uni_post_icon"
                     android:layout_marginStart="45dp"
                     android:background="@null"
-
                     android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:hint="@string/pref_title_protectUniPosts"/>
 
                 <TextView
                     android:id="@+id/summary_protect_uni_post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/phone_number"
+                    android:layout_below="@id/protect_uni_posts"
                     android:layout_marginStart="45dp"
+
                     android:background="@null"
                     android:textSize="12sp"
                     android:hint="@string/pref_description_protectUniPosts"
@@ -55,28 +58,29 @@
             <RelativeLayout
                 android:id="@+id/r_layout_2"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="70dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/feed_bg"
+                android:background="@drawable/blue_border_bottom"
                 android:layout_below="@+id/r_layout_1">
 
                 <ImageView
-                    android:id="@+id/mail_icon"
+                    android:id="@+id/location_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_location_icon"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="5dp"
-                    android:contentDescription="@string/pref_description_mailAddress" />
+                    android:contentDescription="@string/pref_description_location" />
 
 
                 <Switch
-                    android:id="@+id/mail_address"
+                    android:id="@+id/location_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/mail_icon"
+                    android:layout_alignTop="@id/location_icon"
                     android:layout_marginStart="45dp"
                     android:background="@null"
+                    android:textStyle="bold"
                     android:textSize="16sp"
                     android:hint="@string/pref_title_location"/>
 
@@ -84,7 +88,7 @@
                     android:id="@+id/summary_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/mail_address"
+                    android:layout_below="@id/location_switch"
                     android:layout_marginStart="45dp"
                     android:background="@null"
                     android:textSize="12sp"
@@ -93,6 +97,138 @@
 
             </RelativeLayout>
             <!--  Location Setting END-->
+
+            <!-- Message Receive Setting-->
+            <RelativeLayout
+                android:id="@+id/r_layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/blue_border_bottom"
+                android:layout_below="@+id/r_layout_2">
+
+                <ImageView
+                    android:id="@+id/message_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_message_icon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/pref_description_messageReceive" />
+
+                <Switch
+                    android:id="@+id/messaging_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/message_icon"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:hint="@string/pref_title_messageReceive"/>
+
+                <TextView
+                    android:id="@+id/summary_messaging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/messaging_switch"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:hint="@string/pref_description_messageReceive"
+                    />
+
+            </RelativeLayout>
+            <!--  Message Receive Setting END-->
+
+            <!-- Birthday Setting-->
+            <RelativeLayout
+                android:id="@+id/r_layout_4"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/blue_border_bottom"
+                android:layout_below="@+id/r_layout_3">
+
+                <ImageView
+                    android:id="@+id/birthday_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_birthday_icon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/pref_description_birthday" />
+
+                <Switch
+                    android:id="@+id/birthday_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/birthday_icon"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:hint="@string/pref_title_birthday"/>
+
+                <TextView
+                    android:id="@+id/summary_birthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/birthday_switch"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:hint="@string/pref_description_birthday"
+                    />
+
+            </RelativeLayout>
+            <!--  Birthday Setting END-->
+
+            <!-- Birthday Setting-->
+            <RelativeLayout
+                android:id="@+id/r_layout_5"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/blue_border_bottom"
+                android:layout_below="@+id/r_layout_4">
+
+                <ImageView
+                    android:id="@+id/blocked_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_block_icon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/pref_description_blockedUser" />
+
+                <Button
+                    android:id="@+id/blocked_list_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@id/blocked_icon"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:hint="@string/pref_title_blockedUsers"
+                    android:textAlignment="textStart"
+                    android:gravity="start"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/summary_blocked"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/blocked_list_button"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:hint="@string/pref_description_blockedUser"
+                    />
+
+            </RelativeLayout>
+            <!--  Birthday Setting END-->
+
 
 
 

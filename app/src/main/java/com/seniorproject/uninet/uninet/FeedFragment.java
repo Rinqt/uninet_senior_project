@@ -101,7 +101,7 @@ public class FeedFragment extends Fragment {
 
         addDataToList();
 
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.edit_uni_post_template, uniPosts);
         uniPostFeed.setAdapter(postListAdapter);
 
 
@@ -262,7 +262,7 @@ public class FeedFragment extends Fragment {
 
 
 
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.uni_post_template, uniPosts);
+        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.edit_uni_post_template, uniPosts);
         uniPostFeed.setAdapter(postListAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();

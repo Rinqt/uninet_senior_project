@@ -105,6 +105,7 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return 0;
         return mList.size();
     }
+
     @Override
     public int getItemViewType(int position) {
         if (mList != null) {
@@ -119,20 +120,23 @@ public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     // Holder Classes
     public static class DateViewHolder extends RecyclerView.ViewHolder {
+
         private TextView day;
-        public DateViewHolder(View itemView) {
+
+        DateViewHolder(View itemView) {
             super(itemView);
             day = itemView.findViewById(R.id.course_days);
         }
     }
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
-        public TextView time;
+
+        TextView time;
         TextView code;
         TextView name;
         TextView classroom;
         TextView lecturer;
 
-        public CourseViewHolder(View itemView) {
+        CourseViewHolder(View itemView) {
             super(itemView);
 
             time = itemView.findViewById(R.id.course_time);

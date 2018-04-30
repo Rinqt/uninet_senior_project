@@ -51,7 +51,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
                     postList.get(i).smallProfilePicture));
         }
 
-        postListAdapter = new PostListAdapter(this, 0, R.layout.uni_post_template, uniPosts);
+        postListAdapter = new PostListAdapter(this, 0, R.layout.edit_uni_post_template, uniPosts);
         userPosts.setAdapter(postListAdapter);
 
         // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
@@ -84,7 +84,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     private void refreshPosts()
     {
         postListAdapter.notifyDataSetChanged();
-        userPosts.setAdapter(new PostListAdapter(this, 0, R.layout.uni_post_template, uniPosts));
+        userPosts.setAdapter(new PostListAdapter(this, 0, R.layout.edit_uni_post_template, uniPosts));
 
         Toast.makeText(this, R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);

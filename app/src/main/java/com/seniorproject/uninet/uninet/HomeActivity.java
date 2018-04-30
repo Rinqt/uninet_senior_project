@@ -1,6 +1,7 @@
 package com.seniorproject.uninet.uninet;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.Objects;
 
@@ -98,8 +106,8 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent sendNewPostIntent = new Intent(getApplicationContext(), SendNewPostActivity.class);
-                startActivityForResult(sendNewPostIntent, 1);
+                requestLocationPermission();
+
             }
         });
 
@@ -247,24 +255,18 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_timeTable) {
             Intent timeTableIntent = new Intent(this, TimeTableActivity.class);
             startActivity(timeTableIntent);
-            item.setChecked(true);
-
         }
 
         else if (id == R.id.nav_transcript)
         {
             Intent transcriptIntent = new Intent(this, TranscriptActivity.class);
             startActivity(transcriptIntent);
-            item.setChecked(true);
-
 
         }
         else if (id == R.id.nav_diningList)
         {
             Intent diningList = new Intent(this, DiningActivity.class);
             startActivity(diningList);
-            item.setChecked(true);
-
 
         }
         else if (id == R.id.nav_settings)
@@ -275,8 +277,6 @@ public class HomeActivity extends AppCompatActivity
 
             Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
             startActivity(settingsIntent);
-            item.setChecked(true);
-
 
         }
         else if (id == R.id.nav_logout)
@@ -290,21 +290,16 @@ public class HomeActivity extends AppCompatActivity
             Uri data = Uri.parse("mailto:uninet@uninetapplication.com");
             mailIntent.setData(data);
             startActivity(mailIntent);
-            item.setChecked(true);
-
 
         }
         else if (id == R.id.nav_version)
         {
             Intent versionIntent = new Intent(this, VersionActivity.class);
             startActivity(versionIntent);
-            item.setChecked(true);
-
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        item.setChecked(false);
 
 
         return true;
@@ -420,5 +415,29 @@ public class HomeActivity extends AppCompatActivity
         return haveConnectedWifi || haveConnectedMobile;
     }
 
+    private void requestLocationPermission() {
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        // After user give the permission
+                        Intent sendNewPostIntent = new Intent(getApplicationContext(), SendNewPostActivity.class);
+                        startActivityForResult(sendNewPostIntent, 1);
+                    }
 
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        // After permission denial
+                        if (response.isPermanentlyDenied()) {
+                            Toast.makeText(getApplication(), R.string.description_need_permission, Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
 }

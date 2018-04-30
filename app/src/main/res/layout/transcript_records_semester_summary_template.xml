@@ -1,0 +1,117 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="fill_parent"
+    android:layout_height="45dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TableRow
+        android:id="@+id/course_info_container"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginStart="1dp"
+        android:weightSum="10.5"
+        android:background="@color/feed_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/semester_gpa"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="0"
+            android:layout_margin="1dp"
+            android:layout_weight="1.25"
+            android:background="@color/feed_bg"
+            android:gravity="center"
+            android:text="@string/tr_summary_title_semester_gpa"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/cumulative_gpa"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="1"
+            android:layout_margin="1dp"
+            android:layout_weight="1.725"
+            android:background="@color/feed_bg"
+            android:gravity="center"
+            android:text="@string/tr_summary_title_cumulative_gpa"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/semester_total_ects"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="2"
+            android:layout_margin="1dp"
+            android:layout_weight="2.25"
+            android:background="@color/feed_bg"
+            android:gravity="center"
+            android:text="@string/tr_summary_title_semester_ects"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/semester_total_points"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="3"
+            android:layout_margin="1dp"
+            android:layout_weight="2.25"
+            android:background="@color/feed_bg"
+            android:gravity="center"
+            android:text="@string/tr_summary_title_semester_points"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/total_ects"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="4"
+            android:layout_margin="1dp"
+            android:layout_weight="1.5"
+            android:background="@color/feed_bg"
+            android:gravity="center"
+            android:text="@string/tr_summary_title_total_ects"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/total_points"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_column="4"
+            android:layout_margin="1dp"
+            android:layout_weight="1.5"
+            android:background="@color/feed_bg"
+            android:gravity="center"
+            android:text="@string/tr_summary_title_total_points"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+
+
+
+    </TableRow>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

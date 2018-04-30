@@ -14,10 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.seniorproject.uninet.uninet.Adapters.SettingsFragmentStatePagerAdapter;
-import com.seniorproject.uninet.uninet.Settings.DataSyncFragment;
-import com.seniorproject.uninet.uninet.Settings.NotificationsFragment;
 import com.seniorproject.uninet.uninet.Settings.ProfileSettingsFragment;
-import com.seniorproject.uninet.uninet.Settings.SecurityFragment;
 import com.seniorproject.uninet.uninet.Settings.UniPostSettingsFragment;
 
 import java.util.ArrayList;
@@ -77,24 +74,22 @@ public class UserSettingsActivity extends AppCompatActivity {
         /*
         * Fragment 0: ProfileSettingsFragment
         * Fragment 1: UniPostSettingsFragment
-        * Fragment 2: NotificationsFragment
-        * Fragment 3: SecurityFragment
-        * Fragment 4: DataSyncFragment
         */
         options.add(getString(R.string.pref_header_profile));
         options.add(getString(R.string.pref_header_uniPost));
-        options.add(getString(R.string.pref_header_notifications));
-        options.add(getString(R.string.pref_header_safetyAndPrivacy));
-        options.add(getString(R.string.pref_header_data_sync));
 
-        ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_list_item_1, options);
+
+        final ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_list_item_1, options);
         settingList.setAdapter(adapter);
+
+
 
         settingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemClick: navigating the fragment number " + position);
                 setViewPager(position);
+
             }
         });
     }
@@ -105,9 +100,6 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         pagerAdapter.addFragmentToList(new ProfileSettingsFragment(), getString(R.string.pref_header_profile));
         pagerAdapter.addFragmentToList(new UniPostSettingsFragment(), getString(R.string.pref_header_uniPost));
-        pagerAdapter.addFragmentToList(new NotificationsFragment(), getString(R.string.pref_header_notifications));
-        pagerAdapter.addFragmentToList(new SecurityFragment(), getString(R.string.pref_header_safetyAndPrivacy));
-        pagerAdapter.addFragmentToList(new DataSyncFragment(), getString(R.string.pref_header_data_sync));
     }
 
     // Responsible for navigating between fragments:
@@ -116,7 +108,9 @@ public class UserSettingsActivity extends AppCompatActivity {
         mRelativeLayout.setVisibility(View.GONE);
         Log.d(TAG, "setViewPager: navigate the fragment number: " + fragmentNumber);
 
+
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setCurrentItem(fragmentNumber);
+
     }
 }

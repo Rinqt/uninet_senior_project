@@ -113,10 +113,16 @@
     1. Settings re-designed with fragments.
     2. User is able to change profile picture inside the app but cannot save yet.
 
+29.04.2018 v 0.0.0.2.0.0.0
+    1. UniNet asks permission dynamically now.
+    2. Transcript added.
+    3. Photo Crop is available now.
+
 
 
 
     TODO: App is crashing when tab layout button is pressed while phone has no connection to the Internet.
+    TODO: GPA yi falan hesaplatıcaz mı ?
     TODO: Bir kaç fragement gezip homefragmenta çılgınlarca tıklayınca uygulama çöküyor
 
 

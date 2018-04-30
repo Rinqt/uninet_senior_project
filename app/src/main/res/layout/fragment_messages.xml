@@ -21,14 +21,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:weightSum="2"
             android:paddingLeft="@dimen/feed_item_padding_left_right"
             android:paddingRight="@dimen/feed_item_padding_left_right">
 
             <Button
                 android:id="@+id/new_message_button"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="bottom"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:focusable="true"
@@ -37,7 +39,8 @@
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/messages_swiper"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ListView
                     android:id="@+id/messages_list"

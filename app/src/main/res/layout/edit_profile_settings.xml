@@ -1,10 +1,12 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/feed_bg">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,8 +22,8 @@
                 android:layout_marginTop="20dp"
                 android:background="@mipmap/awesome_kaan"
 
-                app:civ_border_color="@color/black"
-                app:civ_border_width="2dp" />
+                app:civ_border_color="@color/button_blue"
+                app:civ_border_width="3dp" />
 
             <TextView
                 android:id="@+id/change_profile_photo"
@@ -48,11 +50,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="60dp"
-                android:background="@color/feed_bg"
 
                 android:layout_below="@+id/change_profile_photo">
 
                 <ImageView
+                    android:id="@+id/phone_number_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_phone_icon"
@@ -80,11 +82,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/feed_bg"
 
                 android:layout_below="@+id/r_layout_1">
 
                 <ImageView
+                    android:id="@+id/mail_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_mail_icon"
@@ -113,11 +115,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/feed_bg"
 
                 android:layout_below="@+id/r_layout_2">
 
                 <ImageView
+                    android:id="@+id/web_page_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_web_page"
@@ -139,17 +141,17 @@
             </RelativeLayout>
             <!-- Web Page END-->
 
-            <!-- Web-Page-->
+            <!-- Relationship Status -->
             <RelativeLayout
                 android:id="@+id/r_layout_4"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/feed_bg"
 
                 android:layout_below="@+id/r_layout_3">
 
                 <ImageView
+                    android:id="@+id/relationship_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_relationship_status"
@@ -169,12 +171,11 @@
                     android:hint="@string/pref_description_relationshipStatus"/>
 
             </RelativeLayout>
-            <!-- Web Page END-->
+            <!-- Relationship Status END-->
+
 
 
 
         </RelativeLayout>
-
-
     </ScrollView>
 </merge>
