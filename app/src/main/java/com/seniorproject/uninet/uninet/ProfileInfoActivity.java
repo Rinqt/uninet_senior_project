@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
+
 /**
  * Created by kaany on 27.02.2018.
  */
@@ -52,6 +55,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
 
     String whoIsTheUser;
+    String otherUserId;
     String universityYearName;
 
     StoredUserInformation userInformation;
@@ -63,73 +67,27 @@ public class ProfileInfoActivity extends AppCompatActivity {
         setContentView(R.layout.content_profile_info);
 
         userInformation = new StoredUserInformation(this);
+        otherUserId = getIntent().getStringExtra("UserID");
 
-        whoIsTheUser = LoggedInUser.UserId;
+        String id;
 
-        // Shared Pref to String:
-        String name, department, year, post, friend, follow, follower, mail, phone, relation, webPage;
+        id = userInformation.getUserId();
 
-        name = userInformation.getUserName();
-        department = userInformation.getDepartment();
-        year = userInformation.getEducationYear();
-        post = userInformation.getUniPostsNumber();
-        friend = userInformation.getFriendsNumber();
-        follow = userInformation.getFollowsNumber();
-        follower = userInformation.getFollowersNumber();
-        mail = userInformation.getMailAddress();
-        phone = userInformation.getPhoneNumber();
-        relation = userInformation.getRelationshipStatus();
-        webPage = userInformation.getWebPage();
+        // Eğer kullanıcı direk profilinden detaylara gitmek isterse otherUserId null dönüyor
+        if (otherUserId == null)
+            otherUserId = id;
 
-        //Button Declarations
-        setProfileButton = findViewById(R.id.set_profile_button);
-        friendsButton = findViewById(R.id.friends_button);
-        photosButton = findViewById(R.id.photos_button);
-        privacyButton = findViewById(R.id.privacy_button);
-
-        //TextView Declarations
-        userName = findViewById(R.id.user_name);
-        userDepartment = findViewById(R.id.department);
-        userYear = findViewById(R.id.user_year);
-        totalPost = findViewById(R.id.user_total_post_label);
-        totalPictures = findViewById(R.id.user_total_photos_label);
-        totalFriend = findViewById(R.id.user_total_friends_label);
-        totalFollow = findViewById(R.id.user_total_follows_label);
-        totalFollower = findViewById(R.id.user_total_followers_label);
+        if (!id.contains(otherUserId))
+        {
+            // Posttan gidilen kullanıcının profilini yüklle:
+            loadOtherUserProfile();
+        }
+        else
+            // Giriş yapmış olan kullanıcının profilini yükle
+            loadCurrentUserProfile();
 
 
-        userMail = findViewById(R.id.email_text_result);
-        userPhone = findViewById(R.id.user_phone_number_text_result);
-        userRelationshipStatus = findViewById(R.id.user_relationship_text_result);
-        userWebPage = findViewById(R.id.user_web_page_text_result);
 
-        // ImageView Declarations
-        uniPostImage = findViewById(R.id.total_pots_image);
-        educationYearImage = findViewById(R.id.university_progress_image);
-        totalPhotosImage = findViewById(R.id.upload_photos_image);
-        totalFriendsImage = findViewById(R.id.total_friends_image);
-        totalFollowsImage = findViewById(R.id.total_follows_image);
-        getTotalFollowersImage = findViewById(R.id.total_followers_image);
-
-
-        //Set labels with values
-        String educationYear = calculateYearName(Integer.valueOf(year));
-
-        userName.setText(name);
-        userDepartment.setText(department);
-        userYear.setText(educationYear);
-
-        String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
-        totalPost.setText(postNumber);
-        totalPictures.setText("0");
-        totalFriend.setText(friend);
-        totalFollow.setText(follow);
-        totalFollower.setText(follower);
-
-        userMail.setText(mail);
-        userPhone.setText(phone);
-        userRelationshipStatus.setText(relation);
-        userWebPage.setText(webPage);
 
 
 
@@ -277,6 +235,144 @@ public class ProfileInfoActivity extends AppCompatActivity {
         assert clipboard != null;
         clipboard.setPrimaryClip(clip);
         Toast.makeText(getApplication(), R.string.snack_bar_copy_text_successful, Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadCurrentUserProfile()
+    {
+        String id, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage;
+
+        name = userInformation.getUserName();
+        department = userInformation.getDepartment();
+        year = userInformation.getEducationYear();
+        post = userInformation.getUniPostsNumber();
+        friend = userInformation.getFriendsNumber();
+        follow = userInformation.getFollowsNumber();
+        follower = userInformation.getFollowersNumber();
+        mail = userInformation.getMailAddress();
+        phone = userInformation.getPhoneNumber();
+        relation = userInformation.getRelationshipStatus();
+        webPage = userInformation.getWebPage();
+
+        //Button Declarations
+        setProfileButton = findViewById(R.id.set_profile_button);
+        friendsButton = findViewById(R.id.friends_button);
+        photosButton = findViewById(R.id.photos_button);
+        privacyButton = findViewById(R.id.privacy_button);
+
+        //TextView Declarations
+        userName = findViewById(R.id.user_name);
+        userDepartment = findViewById(R.id.department);
+        userYear = findViewById(R.id.user_year);
+        totalPost = findViewById(R.id.user_total_post_label);
+        totalPictures = findViewById(R.id.user_total_photos_label);
+        totalFriend = findViewById(R.id.user_total_friends_label);
+        totalFollow = findViewById(R.id.user_total_follows_label);
+        totalFollower = findViewById(R.id.user_total_followers_label);
+
+
+        userMail = findViewById(R.id.email_text_result);
+        userPhone = findViewById(R.id.user_phone_number_text_result);
+        userRelationshipStatus = findViewById(R.id.user_relationship_text_result);
+        userWebPage = findViewById(R.id.user_web_page_text_result);
+
+        // ImageView Declarations
+        uniPostImage = findViewById(R.id.total_pots_image);
+        educationYearImage = findViewById(R.id.university_progress_image);
+        totalPhotosImage = findViewById(R.id.upload_photos_image);
+        totalFriendsImage = findViewById(R.id.total_friends_image);
+        totalFollowsImage = findViewById(R.id.total_follows_image);
+        getTotalFollowersImage = findViewById(R.id.total_followers_image);
+
+
+        //Set labels with values
+        String educationYear = calculateYearName(Integer.valueOf(year));
+
+        userName.setText(name);
+        userDepartment.setText(department);
+        userYear.setText(educationYear);
+
+        String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
+        totalPost.setText(postNumber);
+        totalPictures.setText("0");
+        totalFriend.setText(friend);
+        totalFollow.setText(follow);
+        totalFollower.setText(follower);
+
+        userMail.setText(mail);
+        userPhone.setText(phone);
+        userRelationshipStatus.setText(relation);
+        userWebPage.setText(webPage);
+    }
+
+    private void loadOtherUserProfile()
+    {
+        String friendId, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage;
+
+        friendId = otherUserId;
+
+        ProfileInfoStudent friendInfo = DatabaseMethods.GetProfileInfoStudent(friendId);
+
+        name = friendInfo.name;
+        department = friendInfo.department;
+        year = friendInfo.academicYear;
+        post = (String.valueOf(DatabaseMethods.GetFriends(friendId).size()));
+        friend = (String.valueOf(DatabaseMethods.GetFriends(friendId).size()));
+        follow = (String.valueOf(DatabaseMethods.GetStudentFollowing(friendId).size()));
+        follower = (String.valueOf(DatabaseMethods.GetStudentFollowers(friendId).size()));
+        mail = friendInfo.email;
+        phone = friendInfo.phoneNumber;
+        relation = friendInfo.relationship;
+        webPage = friendInfo.webPage;
+
+        //Button Declarations
+        setProfileButton = findViewById(R.id.set_profile_button);
+        friendsButton = findViewById(R.id.friends_button);
+        photosButton = findViewById(R.id.photos_button);
+        privacyButton = findViewById(R.id.privacy_button);
+
+        //TextView Declarations
+        userName = findViewById(R.id.user_name);
+        userDepartment = findViewById(R.id.department);
+        userYear = findViewById(R.id.user_year);
+        totalPost = findViewById(R.id.user_total_post_label);
+        totalPictures = findViewById(R.id.user_total_photos_label);
+        totalFriend = findViewById(R.id.user_total_friends_label);
+        totalFollow = findViewById(R.id.user_total_follows_label);
+        totalFollower = findViewById(R.id.user_total_followers_label);
+
+
+        userMail = findViewById(R.id.email_text_result);
+        userPhone = findViewById(R.id.user_phone_number_text_result);
+        userRelationshipStatus = findViewById(R.id.user_relationship_text_result);
+        userWebPage = findViewById(R.id.user_web_page_text_result);
+
+        // ImageView Declarations
+        uniPostImage = findViewById(R.id.total_pots_image);
+        educationYearImage = findViewById(R.id.university_progress_image);
+        totalPhotosImage = findViewById(R.id.upload_photos_image);
+        totalFriendsImage = findViewById(R.id.total_friends_image);
+        totalFollowsImage = findViewById(R.id.total_follows_image);
+        getTotalFollowersImage = findViewById(R.id.total_followers_image);
+
+
+        //Set labels with values
+        String educationYear = calculateYearName(Integer.valueOf(year));
+
+        userName.setText(name);
+        userDepartment.setText(department);
+        userYear.setText(educationYear);
+
+        String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
+        totalPost.setText(postNumber);
+        totalPictures.setText("0");
+        totalFriend.setText(friend);
+        totalFollow.setText(follow);
+        totalFollower.setText(follower);
+
+        userMail.setText(mail);
+        userPhone.setText(phone);
+        userRelationshipStatus.setText(relation);
+        userWebPage.setText(webPage);
     }
 
 

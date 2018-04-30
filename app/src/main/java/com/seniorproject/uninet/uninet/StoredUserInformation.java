@@ -16,6 +16,13 @@ public class StoredUserInformation {
         this.context = context;
     }
 
+    private void userId(String info)
+    {
+        dataEditor.putString("user_id", info);
+        dataEditor.commit();
+    }
+
+
     private void userName(String info)
     {
         dataEditor.putString("user_name", info);
@@ -95,6 +102,11 @@ public class StoredUserInformation {
 
 
     // SETTERS
+    public void setUserId(String info)
+    {
+        userId(info);
+    }
+
     public void setUserName(String info)
     {
         userName(info);
@@ -159,6 +171,11 @@ public class StoredUserInformation {
 
 
     // GETTERS
+    public String getUserId()
+    {
+        return dataPrefs.getString("user_id", "");
+    }
+
     public String getUserName()
     {
         return dataPrefs.getString("user_name", "");

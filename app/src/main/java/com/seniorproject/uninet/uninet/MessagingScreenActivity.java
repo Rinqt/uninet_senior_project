@@ -28,6 +28,8 @@ import java.util.Objects;
 
 public class MessagingScreenActivity extends AppCompatActivity {
 
+    private StoredUserInformation userInformation;
+
     private String whoIsTheUser;
     private String conversationID;
     private String userName;
@@ -42,12 +44,13 @@ public class MessagingScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_screen);
 
-        whoIsTheUser = LoggedInUser.UserId;
+        userInformation = new StoredUserInformation(this);
         conversationID = getIntent().getStringExtra("conversationId");
         userName = getIntent().getStringExtra("UserName");
         messages = new ArrayList<>();
 
         // Declarations
+        whoIsTheUser = userInformation.getUserId();
         chatScreen = findViewById(R.id.message_list_recycler_view);
         sendMessage = findViewById(R.id.button_message_send);
         messageBox = findViewById(R.id.message_box);

@@ -19,6 +19,8 @@ import java.util.List;
 public class FriendsListActivity extends AppCompatActivity {
 
     private String whoIsTheUser;
+    StoredUserInformation userInformation;
+
     private ArrayList<Friends> friendList;
     private RecyclerView friendScreen;
 
@@ -29,7 +31,8 @@ public class FriendsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_friends_list);
 
         // Declarations
-        whoIsTheUser = LoggedInUser.UserId;
+        userInformation = new StoredUserInformation(this);
+        whoIsTheUser = userInformation.getUserId();
         friendList = new ArrayList<>();
         friendScreen = findViewById(R.id.friends_list);
 

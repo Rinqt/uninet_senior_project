@@ -23,6 +23,8 @@ import java.util.List;
 public class TranscriptActivity extends AppCompatActivity {
 
     String whoIsTheUser;
+    StoredUserInformation userInformation;
+
     ArrayList<TranscriptRecords> courses;
 
     @Override
@@ -30,8 +32,9 @@ public class TranscriptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transcript);
 
+        userInformation = new StoredUserInformation(this);
+        whoIsTheUser = userInformation.getUserId();
 
-        whoIsTheUser = LoggedInUser.UserId;
         courses = new ArrayList<>();
 
         create2017Semester();

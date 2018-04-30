@@ -24,15 +24,17 @@ public class TimeTableActivity extends AppCompatActivity {
 
 
     String whoIsTheUser;
+    StoredUserInformation userInformation;
+
     ArrayList<Courses> courses;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_time_table);
 
-        whoIsTheUser = LoggedInUser.UserId;
+        userInformation = new StoredUserInformation(this);
+        whoIsTheUser = userInformation.getUserId();
 
         courses = new ArrayList<>();
 

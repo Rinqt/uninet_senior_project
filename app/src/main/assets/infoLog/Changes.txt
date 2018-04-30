@@ -15,7 +15,6 @@
     4. pref_safety_and_privacy eklendi.
     5. pref_headers eklendi.
     6. pref_general eklendi.
-    Eksikler olması muhtemel.
     7. Oluşturulan stringler TR.xml'e de eklendi.
 
 
@@ -118,9 +117,14 @@
     2. Transcript added.
     3. Photo Crop is available now.
 
+30.04.2018 v 0.0.0.2.0.0.0
+    1. UserID added to SharedPreferences for better loading performance
+    2. Users can navigate to other user profile now.
+    3.
 
 
 
+    TODO: Toplam resim sayıları hep hardcode
     TODO: App is crashing when tab layout button is pressed while phone has no connection to the Internet.
     TODO: GPA yi falan hesaplatıcaz mı ?
     TODO: Bir kaç fragement gezip homefragmenta çılgınlarca tıklayınca uygulama çöküyor

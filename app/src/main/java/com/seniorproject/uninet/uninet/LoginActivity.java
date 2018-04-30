@@ -129,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
 
                 //TODO: Check if user ID belong to student or lecturer
+                userInformation.setUserId(whoIsTheUser);
                 userInformation.setUserName(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).name);
                 userInformation.setDepartment(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).department);
                 userInformation.setMailAddress(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).email);
@@ -175,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
                     else
                         LoggedInUser.TeacherId = DatabaseMethods.GetTeacherId(LoggedInUser.UserId);
 
-                    Log.i("attemptLogin",  LoggedInUser.TeacherId + "tries to sneak to app.");
+                    Log.i("attemptLogin",  LoggedInUser.UserId + " tries to sneak to app.");
 
                     // Retrieve user data from database and save locally
                     saveUserData();

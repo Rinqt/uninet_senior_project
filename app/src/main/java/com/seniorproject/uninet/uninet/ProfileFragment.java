@@ -51,9 +51,9 @@ public class ProfileFragment extends Fragment {
 
     Button profileButton;
 
-    TextView userPhotosLabel;
-    TextView userFriendsLabel;
-    TextView userFollowsLabel;
+        TextView userPhotosLabel;
+        TextView userFriendsLabel;
+        TextView userFollowsLabel;
 
     String whoIsTheUser;
 
@@ -103,10 +103,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        userInformation = new StoredUserInformation(getActivity());
 
-        whoIsTheUser = LoggedInUser.UserId;
 
         // Declaration
+        whoIsTheUser = userInformation.getUserId();
         profileButton = getActivity().findViewById(R.id.user_profile_button);
         userPhotosLabel = getActivity().findViewById(R.id.user_total_photos_label);
         userFriendsLabel = getActivity().findViewById(R.id.user_total_friends_label);

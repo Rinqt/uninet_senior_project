@@ -95,8 +95,7 @@ public class LecturesFragment extends Fragment {
 
         // Declaration
         userInformation = new StoredUserInformation(Objects.requireNonNull(getContext()));
-        //TODO ADD USER ID HERE
-        whoIsTheUser = LoggedInUser.UserId;
+        whoIsTheUser = userInformation.getUserId();
 
         mLectureCourses = new ArrayList<>();
 

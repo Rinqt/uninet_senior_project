@@ -42,6 +42,7 @@ public class FeedFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private String whoIsTheUser;
+    StoredUserInformation userInformation;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     // unipost_list_view
@@ -92,8 +93,9 @@ public class FeedFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        userInformation = new StoredUserInformation(getActivity());
 
-        whoIsTheUser = LoggedInUser.UserId;
+        whoIsTheUser = userInformation.getUserId();
 
         // Declaration
         swipeRefreshLayout = getActivity().findViewById(R.id.feed_list_swiper);
@@ -240,10 +242,10 @@ public class FeedFragment extends Fragment {
         List<Post> feedScreenPosts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
         uniPosts = new ArrayList<>();
 
-
         for (int i = feedScreenPosts.size() - 1 ; i >= 0; i--)
         {
-            uniPosts.add(new UniPosts(whoIsTheUser, feedScreenPosts.get(i).postId,
+            uniPosts.add(new UniPosts(feedScreenPosts.get(i).userId,
+                    feedScreenPosts.get(i).postId,
                     feedScreenPosts.get(i).name,
                     feedScreenPosts.get(i).postDate,
                     feedScreenPosts.get(i).postText,

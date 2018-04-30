@@ -94,6 +94,8 @@ public class HomeActivity extends AppCompatActivity
         LoggedInUser.TeacherId = teacherId.equals("null") ? null : teacherId;
         LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
 
+
+
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabs);
         drawerLayout = findViewById(R.id.drawer_layout); // Hidden drawer tanımı
@@ -271,10 +273,6 @@ public class HomeActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_settings)
         {
-            //Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            //startActivity(settingsIntent);
-            //item.setChecked(true);
-
             Intent settingsIntent = new Intent(this, UserSettingsActivity.class);
             startActivity(settingsIntent);
 

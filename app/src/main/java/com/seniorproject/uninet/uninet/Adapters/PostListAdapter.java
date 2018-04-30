@@ -111,7 +111,9 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
                 @Override
                 public void onClick(View view) {
                     Intent otherUserProfileIntent = new Intent(mContext, OtherUserProfileActivity.class);
-                    otherUserProfileIntent.putExtra("UserID", "1");
+                    //List<Post> feedScreenPosts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+
+                    otherUserProfileIntent.putExtra("UserID", userID);
                     otherUserProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(otherUserProfileIntent);
                 }
@@ -121,7 +123,7 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
                 @Override
                 public void onClick(View view) {
                     Intent otherUserProfileIntent = new Intent(mContext, OtherUserProfileActivity.class);
-                    otherUserProfileIntent.putExtra("UserID", "1");
+                    otherUserProfileIntent.putExtra("UserID", userID);
                     otherUserProfileIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(otherUserProfileIntent);
                 }

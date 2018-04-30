@@ -38,6 +38,7 @@ public class MessagesFragment extends Fragment {
 
     SwipeRefreshLayout swipeRefreshLayout;
     String whoIsTheUser;
+    StoredUserInformation userInformation;
 
     // messages_list
     private ListView messagesList;
@@ -92,7 +93,9 @@ public class MessagesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Declaration
-        whoIsTheUser = LoggedInUser.UserId;
+        userInformation = new StoredUserInformation(getActivity());
+        whoIsTheUser = userInformation.getUserId();
+
         swipeRefreshLayout = getActivity().findViewById(R.id.messages_swiper);
         messagesList = getActivity().findViewById(R.id.messages_list);
         newMessageButton = getActivity().findViewById(R.id.new_message_button);
