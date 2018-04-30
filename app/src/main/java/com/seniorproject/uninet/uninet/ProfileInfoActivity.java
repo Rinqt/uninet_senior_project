@@ -315,7 +315,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         name = friendInfo.name;
         department = friendInfo.department;
         year = friendInfo.academicYear;
-        post = (String.valueOf(DatabaseMethods.GetFriends(friendId).size()));
+        post = (String.valueOf(DatabaseMethods.GetPosts(friendId).size()));
         friend = (String.valueOf(DatabaseMethods.GetFriends(friendId).size()));
         follow = (String.valueOf(DatabaseMethods.GetStudentFollowing(friendId).size()));
         follower = (String.valueOf(DatabaseMethods.GetStudentFollowers(friendId).size()));
