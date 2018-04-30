@@ -106,6 +106,7 @@
         <activity
             android:name=".SendNewPostActivity"
             android:label="New UniPost"
+            android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
