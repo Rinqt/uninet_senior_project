@@ -135,7 +135,14 @@ public class HomeActivity extends AppCompatActivity
             //TODO: refresh only when needed
             @Override
             public void onPageSelected(int position) {
-                RefreshCurrentPage();
+                if(LoggedInUser.FeedPostRefresh && position == 0){
+                    RefreshCurrentPage();
+                    LoggedInUser.FeedPostRefresh = false;
+                }
+                else if(LoggedInUser.ProfilePostRefresh && position == 1){
+                    RefreshCurrentPage();
+                    LoggedInUser.ProfilePostRefresh = false;
+                }
             }
 
             @Override
@@ -203,12 +210,15 @@ public class HomeActivity extends AppCompatActivity
 
         if(haveNetworkConnection())
         {
+            //TODO: Sometimes returns null when it shoudln't be null
             if(page != null){
                 if(item == 0) {
                     ((FeedFragment)page).refreshPosts();
+                    LoggedInUser.FeedPostRefresh = false;
                 }
                 else if(item == 1) {
                     ((ProfileFragment)page).refreshPosts();
+                    LoggedInUser.ProfilePostRefresh = false;
                 }
             }
         }

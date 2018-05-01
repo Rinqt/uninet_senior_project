@@ -24,8 +24,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 
@@ -33,14 +35,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class SendNewPostActivity extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class SendNewPostActivity extends AppCompatActivity{
 
     InputMethodManager keyboardHider;
     Button shareButton;
     EditText uniPostDescription;
-    GoogleApiClient mGoogleApiClient = null;
     Location mLastLocation = null;
+    FusedLocationProviderClient fusedLocationClient;
 
 
     private boolean haveNetworkConnection() {
@@ -72,26 +73,15 @@ public class SendNewPostActivity extends AppCompatActivity implements
         shareButton = findViewById(R.id.share_post_button);
         uniPostDescription = findViewById(R.id.new_post_area);
         keyboardHider = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        //TODO:Doesn't Check if the application actually has the permission
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            if (mGoogleApiClient == null) {
-                mGoogleApiClient = new GoogleApiClient.Builder(this)
-                        .addConnectionCallbacks(this)
-                        .addOnConnectionFailedListener(this)
-                        .addApi(LocationServices.API)
-                        .build();
-            }
-            if (mGoogleApiClient != null) {
-                mGoogleApiClient.connect();
-                //mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-                LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        mLastLocation = task.getResult();
-                    }
-                });
-            }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    mLastLocation = location;
+                }
+            });
         }
 
         findViewById(R.id.new_uni_post_main_container).setOnTouchListener(new View.OnTouchListener() {
@@ -129,6 +119,8 @@ public class SendNewPostActivity extends AppCompatActivity implements
                     Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
                     //New post refresh change
                     setResult(RESULT_OK);
+                    LoggedInUser.FeedPostRefresh = true;
+                    LoggedInUser.ProfilePostRefresh = true;
                     finish();
                 } else
                     Toast.makeText(SendNewPostActivity.this, getString(R.string.internet_connection_not_valid), Toast.LENGTH_SHORT).show();
@@ -137,24 +129,5 @@ public class SendNewPostActivity extends AppCompatActivity implements
             }
         });
     }
-
-    @SuppressLint("MissingPermission")
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
-
-
 }
 
