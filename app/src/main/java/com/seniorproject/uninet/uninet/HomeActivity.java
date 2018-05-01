@@ -151,6 +151,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
+
             }
 
             @Override
@@ -257,6 +258,7 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_timeTable) {
             Intent timeTableIntent = new Intent(this, TimeTableActivity.class);
             startActivity(timeTableIntent);
+
         }
 
         else if (id == R.id.nav_transcript)

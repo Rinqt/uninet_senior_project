@@ -99,6 +99,36 @@ public class StoredUserInformation {
         dataEditor.commit();
     }
 
+    private void uniPostPrivacy(String info)
+    {
+        dataEditor.putString("user_key_uni_post_privacy", info);
+        dataEditor.commit();
+    }
+
+    private void locationPrivacy(String info)
+    {
+        dataEditor.putString("user_key_location_privacy", info);
+        dataEditor.commit();
+    }
+
+    private void messagingPrivacy(String info)
+    {
+        dataEditor.putString("user_key_messaging_privacy", info);
+        dataEditor.commit();
+    }
+
+    private void birthdayPrivacy(String info)
+    {
+        dataEditor.putString("user_key_birthday_privacy", info);
+        dataEditor.commit();
+    }
+
+    private void notification(String info)
+    {
+        dataEditor.putString("user_key_notification", info);
+        dataEditor.commit();
+    }
+
 
 
     // SETTERS
@@ -170,6 +200,32 @@ public class StoredUserInformation {
     }
 
 
+    public void setUniPostPrivacy(String info)
+    {
+        uniPostPrivacy(info);
+    }
+
+    public void setLocationPrivacy(String info)
+    {
+        locationPrivacy(info);
+    }
+
+    public void setMessagingPrivacy(String info)
+    {
+        messagingPrivacy(info);
+    }
+
+    public void setBirthdayPrivacy (String info)
+    {
+        birthdayPrivacy(info);
+    }
+
+    public void setNotification (String info)
+    {
+        notification(info);
+    }
+
+
     // GETTERS
     public String getUserId()
     {
@@ -225,6 +281,28 @@ public class StoredUserInformation {
     public String getWebPage() {
         return dataPrefs.getString("user_key_total_web_page", "");
     }
+
+    public String getUniPostPrivacy() {
+        return dataPrefs.getString("user_key_uni_post_privacy", "");
+    }
+
+    public String getLocationPrivacy() {
+        return dataPrefs.getString("user_key_location_privacy", "");
+    }
+
+    public String getMessagingPrivacy() {
+        return dataPrefs.getString("user_key_messaging_privacy", "");
+    }
+
+    public String getBirthdayPrivacy() {
+        return dataPrefs.getString("user_key_birthday_privacy", "");
+    }
+
+    public String getNotification() {
+        return dataPrefs.getString("user_key_notification", "");
+    }
+
+
 
 
 }

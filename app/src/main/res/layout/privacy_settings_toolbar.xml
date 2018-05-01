@@ -13,11 +13,12 @@
         android:background="@color/colorPrimary">
 
         <RelativeLayout
+            android:id="@+id/relative_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/back_arrow_button"
+                android:id="@+id/privacy_back_arrow_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
@@ -27,20 +28,20 @@
                 />
 
             <TextView
-                android:id="@+id/profile_name"
+                android:id="@+id/privacy_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Profile"
+                android:text="Privacy"
                 android:textSize="20sp"
                 android:textColor="@color/white"
 
-                android:layout_toEndOf="@id/back_arrow_button"
+                android:layout_toEndOf="@id/privacy_back_arrow_button"
                 android:layout_marginStart="5dp"
                 />
 
             <ImageView
-                android:id="@+id/apply_settings_button"
+                android:id="@+id/privacy_apply_settings_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
@@ -52,10 +53,8 @@
 
         </RelativeLayout>
 
+
+
     </android.support.v7.widget.Toolbar>
-
-
-
-
 
 </android.support.design.widget.AppBarLayout>

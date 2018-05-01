@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -79,7 +78,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         if (!id.contains(otherUserId))
         {
-            // Posttan gidilen kullanıcının profilini yüklle:
+            // Posttan gidilen kullanıcının profilini yükle:
             loadOtherUserProfile();
         }
         else
@@ -96,10 +95,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
         setProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingsIntent = new Intent(ProfileInfoActivity.this, SettingsActivity.class);
-                settingsIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.ProfilePreferenceFragment.class.getName() );
-                settingsIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-                startActivity(settingsIntent);
+                Intent profileSettings = new Intent(ProfileInfoActivity.this, UserSettingsActivity.class);
+                profileSettings.putExtra("ProfileInfoProfileSettings", getString(R.string.pref_header_profile));
+                startActivity(profileSettings);
             }
         });
 
@@ -121,11 +119,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Class içindeki Fragmentı çağırmayı putExtra ile yapıyoruz.
-                Intent privacyIntent = new Intent(ProfileInfoActivity.this, SettingsActivity.class);
-                privacyIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.SafetyAndPrivacy.class.getName() );
-                privacyIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-                startActivity(privacyIntent);
+                Intent profileSettings = new Intent(ProfileInfoActivity.this, UserSettingsActivity.class);
+                profileSettings.putExtra("ProfileInfoPrivacy", getString(R.string.btn_title_privacy));
+                startActivity(profileSettings);
             }
         });
     }

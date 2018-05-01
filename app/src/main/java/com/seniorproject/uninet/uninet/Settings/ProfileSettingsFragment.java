@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.R;
 import com.seniorproject.uninet.uninet.StoredUserInformation;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -38,22 +41,25 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ProfileSettingsFragment extends Fragment {
+public class ProfileSettingsFragment extends Fragment{
 
     private static final String TAG = "ProfileSettingsFragment";
 
     ImageView backArrowButton;
     ImageView saveSettingsButton;
-    EditText phoneNumber;
-    EditText mailAddress;
-    EditText webPage;
-    TextView changeProfilePicture;
-    Button setRelationship;
+    EditText mPhoneNumber;
+    EditText mEmailAddress;
+    EditText mWebPage;
+    TextView mChangeProfilePicture;
+    Button mSetRelationship;
     byte[] bigProfilePictureImage;
     byte[] smallProfilePictureImage;
     String imagePath = "";
 
     StoredUserInformation userInformation;
+    StoredUserInformation storedUserInformation;
+
+    public static boolean isThereAChange;
 
     @Nullable
     @Override
@@ -70,38 +76,48 @@ public class ProfileSettingsFragment extends Fragment {
         Log.d(TAG, "onActivityCreated: ProfileSettingsFragment");
 
         userInformation = new StoredUserInformation(Objects.requireNonNull(getContext()));
+        storedUserInformation = new StoredUserInformation(getContext());
+        isThereAChange = false;
 
 
 
         backArrowButton = (getActivity()).findViewById(R.id.back_arrow_button);
         saveSettingsButton = (getActivity()).findViewById(R.id.apply_settings_button);
-        changeProfilePicture = getActivity().findViewById(R.id.change_profile_photo);
-        phoneNumber = getActivity().findViewById(R.id.phone_number);
-        mailAddress = getActivity().findViewById(R.id.mail_address);
-        webPage = getActivity().findViewById(R.id.web_page);
-        setRelationship = getActivity().findViewById(R.id.relationship_status_button);
+        mChangeProfilePicture = getActivity().findViewById(R.id.change_profile_photo);
+        mPhoneNumber = getActivity().findViewById(R.id.phone_number);
+        mEmailAddress = getActivity().findViewById(R.id.mail_address);
+        mWebPage = getActivity().findViewById(R.id.web_page);
+        mSetRelationship = getActivity().findViewById(R.id.relationship_status_button);
 
 
         // Set saved values:
-        phoneNumber.setText(userInformation.getPhoneNumber());
-        mailAddress.setText(userInformation.getMailAddress());
-        webPage.setText(userInformation.getWebPage());
-        setRelationship.setText(userInformation.getRelationshipStatus());
+        mPhoneNumber.setText(userInformation.getPhoneNumber());
+        mEmailAddress.setText(userInformation.getMailAddress());
+        mWebPage.setText(userInformation.getWebPage());
+        mSetRelationship.setText(userInformation.getRelationshipStatus());
 
 
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: Navigation to Home Activity");
+                getActivity().finish();
 
 
             }
         });
 
+        // Text listeners for edit texts
+        mPhoneNumber.addTextChangedListener(getTextWatcher(storedUserInformation.getPhoneNumber()));
+        mEmailAddress.addTextChangedListener(getTextWatcher(storedUserInformation.getMailAddress()));
+        mWebPage.addTextChangedListener(getTextWatcher(storedUserInformation.getWebPage()));
+        mSetRelationship.addTextChangedListener(getTextWatcher(storedUserInformation.getRelationshipStatus()));
 
-        setRelationship.setOnClickListener(new View.OnClickListener() {
+
+        mSetRelationship.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 setRelationship();
             }
         });
@@ -109,25 +125,76 @@ public class ProfileSettingsFragment extends Fragment {
         saveSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "done", Toast.LENGTH_SHORT).show();
 
+                Log.d(TAG, "onClick: Save Changes");
+                saveChanges();
             }
         });
 
 
-        changeProfilePicture.setOnClickListener(new View.OnClickListener() {
+        mChangeProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requestStoragePermission();
-
-
-
-
             }
         });
 
 
     }
+
+    private void saveChanges()
+    {
+        if (isThereAChange)
+        {
+
+            String userID = storedUserInformation.getUserId();
+            final String phoneNumber = mPhoneNumber.getText().toString();
+            final String mailAddress = mEmailAddress.getText().toString();
+            final String webPage = mWebPage.getText().toString();
+            final String relationshipStatus = mSetRelationship.getText().toString();
+
+            String newPhoneNumber = "";
+            String newMailAddress = "";
+            String newWebPage = "";
+            String newRelationshipStatus = "";
+
+            if (!userInformation.getPhoneNumber().equals(mPhoneNumber))
+            {
+                newPhoneNumber = phoneNumber;
+            }
+            if (!userInformation.getMailAddress().equals(mEmailAddress))
+            {
+                newMailAddress = mailAddress;
+            }
+            if (!userInformation.getWebPage().equals(mWebPage))
+            {
+                newWebPage = webPage;
+            }
+            if (!userInformation.getRelationshipStatus().equals(mSetRelationship))
+            {
+                newRelationshipStatus = relationshipStatus;
+            }
+
+            DatabaseMethods.UpdateProfileInfo(getContext(),
+                    userID,
+                    newMailAddress,
+                    newWebPage,
+                    newPhoneNumber,
+                    newRelationshipStatus,
+                    "",
+                    "");
+
+            userInformation.setMailAddress(newMailAddress);
+            userInformation.setWebPage(newWebPage);
+            userInformation.setPhoneNumber(newPhoneNumber);
+            userInformation.setRelationshipStatus(newRelationshipStatus);
+            Toast.makeText(getContext(), getString(R.string.save_settings), Toast.LENGTH_SHORT).show();
+        }
+        else
+            Toast.makeText(getContext(),  getString(R.string.no_changes), Toast.LENGTH_SHORT).show();
+
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -168,6 +235,7 @@ public class ProfileSettingsFragment extends Fragment {
         }
     }
 
+
     private void performCrop() {
         CropImage.activity().start(getContext(), this);
     }
@@ -196,7 +264,7 @@ public class ProfileSettingsFragment extends Fragment {
 
         builder.setItems(relationshipTypes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                setRelationship.setText(relationshipTypes[item]);
+                mSetRelationship.setText(relationshipTypes[item]);
                 dialog.dismiss();
             }
         });
@@ -228,5 +296,37 @@ public class ProfileSettingsFragment extends Fragment {
                         token.continuePermissionRequest();
                     }
                 }).check();
+    }
+
+
+    private TextWatcher getTextWatcher(final String info) {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+
+                if (!text.equals(info))
+                {
+                    saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
+                    isThereAChange = true;
+                }
+                else
+                {
+                    saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                    isThereAChange = false;
+                }
+
+            }
+        };
     }
 }

@@ -1,6 +1,9 @@
 package com.seniorproject.uninet.uninet;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -21,10 +24,11 @@ import java.util.ArrayList;
 
 public class UserSettingsActivity extends AppCompatActivity {
 
-    private  static final String TAG = "UserSettingsActivity";
+    private static final String TAG = "UserSettingsActivity";
 
     private Context mContext;
     private ImageView backArrow;
+    private int fragmentNo;
 
     private SettingsFragmentStatePagerAdapter pagerAdapter;
     private ViewPager mViewPager;
@@ -44,8 +48,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         setSettings();
         setFragments();
-
-
+        settingsSelector();
 
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +61,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-    private void setSettings()
-    {
+    private void setSettings() {
         Log.d(TAG, "setSettings: Create User Account Settings List");
 
         ListView settingList = findViewById(R.id.all_settings_container);
@@ -72,17 +69,15 @@ public class UserSettingsActivity extends AppCompatActivity {
         ArrayList<String> options = new ArrayList<>();
 
         /*
-        * Fragment 0: ProfileSettingsFragment
-        * Fragment 1: UniPostSettingsFragment
-        */
+         * Fragment 0: ProfileSettingsFragment
+         * Fragment 1: UniPostSettingsFragment
+         */
         options.add(getString(R.string.pref_header_profile));
-        options.add(getString(R.string.pref_header_uniPost));
+        options.add(getString(R.string.btn_title_privacy));
 
 
         final ArrayAdapter adapter = new ArrayAdapter(mContext, android.R.layout.simple_list_item_1, options);
         settingList.setAdapter(adapter);
-
-
 
         settingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,23 +89,77 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
     }
 
-    private void setFragments()
-    {
+    private void setFragments() {
         pagerAdapter = new SettingsFragmentStatePagerAdapter(getSupportFragmentManager());
 
         pagerAdapter.addFragmentToList(new ProfileSettingsFragment(), getString(R.string.pref_header_profile));
-        pagerAdapter.addFragmentToList(new UniPostSettingsFragment(), getString(R.string.pref_header_uniPost));
+        pagerAdapter.addFragmentToList(new UniPostSettingsFragment(), getString(R.string.btn_title_privacy));
     }
 
     // Responsible for navigating between fragments:
-    private void setViewPager(int fragmentNumber)
-    {
+    private void setViewPager(int fragmentNumber) {
         mRelativeLayout.setVisibility(View.GONE);
         Log.d(TAG, "setViewPager: navigate the fragment number: " + fragmentNumber);
+        fragmentNo = fragmentNumber;
 
 
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.setCurrentItem(fragmentNumber);
 
     }
+
+    private void settingsSelector() {
+        Intent intent = getIntent();
+
+        if (intent.hasExtra("ProfileInfoProfileSettings")) {
+            Log.i(TAG, "Received intent: ProfileSettings");
+            setViewPager(pagerAdapter.getFragmentNumber(getString(R.string.pref_header_profile)));
+        } else if (intent.hasExtra("ProfileInfoPrivacy")) {
+            Log.i(TAG, "Received intent: ProfileSettings");
+            setViewPager(pagerAdapter.getFragmentNumber(getString(R.string.btn_title_privacy)));
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        changeListener();
+    }
+
+    public void changeListener() {
+
+        if (ProfileSettingsFragment.isThereAChange)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setTitle(getString(R.string.unsaved_changes_title));
+            builder.setMessage(getString(R.string.unsaved_changes_description));
+
+            builder.setPositiveButton(getString(R.string.unsaved_changes_yes), new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    // Leave the page
+                    finish();
+                    dialog.dismiss();
+                }
+            });
+
+            builder.setNegativeButton(getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Stay in the page
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+        else
+            super.onBackPressed();
+
+
+    }
+
 }

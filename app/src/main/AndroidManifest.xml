@@ -17,8 +17,10 @@
         android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor"
         android:screenOrientation="portrait">
+
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
+
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
@@ -28,6 +30,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/uni_post_settings"
@@ -43,6 +46,7 @@
                 <category android:name="android.intent.category.PREFERENCE" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".VersionActivity"
             android:label="@string/title_activity_version"
@@ -52,6 +56,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.seniorproject.uninet.uninet.HomeActivity" />
         </activity>
+
         <activity
             android:name=".TranscriptActivity"
             android:label="@string/title_activity_transcript"
@@ -62,6 +67,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.seniorproject.uninet.uninet.HomeActivity" />
         </activity>
+
         <activity
             android:name=".DiningActivity"
             android:label="@string/title_activity_dining"
@@ -71,6 +77,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.seniorproject.uninet.uninet.HomeActivity" />
         </activity>
+
         <activity
             android:name=".TimeTableActivity"
             android:label="@string/title_activity_time_table"
@@ -80,6 +87,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.seniorproject.uninet.uninet.HomeActivity" />
         </activity>
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
@@ -88,11 +96,11 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".OtherUserProfileActivity"
             android:label="Other User Profile"

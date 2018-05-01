@@ -14,7 +14,7 @@
             android:layout_height="wrap_content">
 
 
-            <include layout="@layout/edit_settings_tool_bar"/>
+            <include layout="@layout/privacy_settings_toolbar"/>
 
 
         </RelativeLayout>

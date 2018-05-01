@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:maxLines="6"
-            android:inputType="textMultiLine" />
+            android:inputType="textCapSentences|textMultiLine"/>
 
         <Button
             android:id="@+id/button_message_send"

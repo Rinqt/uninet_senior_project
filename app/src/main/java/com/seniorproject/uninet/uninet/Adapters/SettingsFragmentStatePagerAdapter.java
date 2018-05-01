@@ -87,11 +87,4 @@ public class SettingsFragmentStatePagerAdapter extends FragmentStatePagerAdapter
         else
             return null;
     }
-
-
-
-
-
-
-
 }

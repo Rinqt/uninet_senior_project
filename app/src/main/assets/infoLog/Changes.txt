@@ -120,10 +120,17 @@
 30.04.2018 v 0.0.0.2.0.0.0
     1. UserID added to SharedPreferences for better loading performance
     2. Users can navigate to other user profile now.
-    3.
+
+01.05.2018 v 0.0.0.2.0.0.0
+    1. Messages keyboard starts with capital letter now.
+    2. User can change profile settings.     TODO: Update'e sadece text kısımları dahil. Fotoğraflar boş string yolluyor.
+    3. User can update profile information. textChanged control is done.
+    // TODO: değişiklikler başarılı olarak kayıt edildi mi diye kontol edicez mi ?
+    // TODO: Burayla ilgili sorularım var yüzyüzeyken konuşuruz.
 
 
 
+    TODO: Mesajlaşma ekranında conversation yoksa kısmına bi kontor lazım.
     TODO: Toplam resim sayıları hep hardcode
     TODO: App is crashing when tab layout button is pressed while phone has no connection to the Internet.
     TODO: GPA yi falan hesaplatıcaz mı ?

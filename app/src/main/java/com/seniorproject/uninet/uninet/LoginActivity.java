@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
     {
         final ProgressDialog dialog= new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage(getString(R.string.loading));
+        dialog.setMessage(getString(R.string.loading_message));
         dialog.setIndeterminate(true);
         dialog.setCancelable(false);
         dialog.setInverseBackgroundForced(false);
@@ -141,6 +141,13 @@ public class LoginActivity extends AppCompatActivity {
                 userInformation.setFollowsNumber(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
                 userInformation.setUniPostsNumber(String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()));
                 userInformation.setEducationYear(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).academicYear);
+
+                userInformation.setUniPostPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showPostEveryone);
+                userInformation.setLocationPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showLocationEveryone);
+                userInformation.setMessagingPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).receiveMessageFromEveryone);
+                userInformation.setNotification(DatabaseMethods.GetPrivacySettings(whoIsTheUser).notifications);
+                userInformation.setBirthdayPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showBirthdayEveryone);
+
                 userInformation.setPhotosNumber("0");
 
                 dialog.dismiss();

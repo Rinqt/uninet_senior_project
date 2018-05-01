@@ -28,7 +28,7 @@
                     android:contentDescription="@string/pref_description_phoneNumber" />
 
                 <Switch
-                    android:id="@+id/protect_uni_posts"
+                    android:id="@+id/protect_uni_posts_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/protect_uni_post_icon"
@@ -43,7 +43,7 @@
                     android:id="@+id/summary_protect_uni_post"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/protect_uni_posts"
+                    android:layout_below="@id/protect_uni_posts_switch"
                     android:layout_marginStart="45dp"
 
                     android:background="@null"
@@ -141,7 +141,9 @@
             </RelativeLayout>
             <!--  Message Receive Setting END-->
 
-            <!-- Birthday Setting-->
+
+
+            <!-- Notification Setting-->
             <RelativeLayout
                 android:id="@+id/r_layout_4"
                 android:layout_width="match_parent"
@@ -149,6 +151,54 @@
                 android:layout_marginTop="15dp"
                 android:background="@drawable/blue_border_bottom"
                 android:layout_below="@+id/r_layout_3">
+
+                <ImageView
+                    android:id="@+id/notification_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_notification_icon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:contentDescription="@string/pref_title_new_message_notifications" />
+
+                <Switch
+                    android:id="@+id/notification_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/notification_icon"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:hint="@string/pref_title_new_message_notifications"/>
+
+                <TextView
+                    android:id="@+id/summary_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/notification_switch"
+                    android:layout_marginStart="45dp"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:hint="@string/pref_description_notification"
+                    />
+
+            </RelativeLayout>
+            <!--  Notification Setting END-->
+
+
+
+
+
+
+            <!-- Birthday Setting-->
+            <RelativeLayout
+                android:id="@+id/r_layout_5"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/blue_border_bottom"
+                android:layout_below="@+id/r_layout_4">
 
                 <ImageView
                     android:id="@+id/birthday_icon"
@@ -186,12 +236,12 @@
 
             <!-- Birthday Setting-->
             <RelativeLayout
-                android:id="@+id/r_layout_5"
+                android:id="@+id/r_layout_6"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/blue_border_bottom"
-                android:layout_below="@+id/r_layout_4">
+                android:layout_below="@+id/r_layout_5">
 
                 <ImageView
                     android:id="@+id/blocked_icon"

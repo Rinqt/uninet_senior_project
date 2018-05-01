@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">UniNet</string>
     <string name="welcome_text">UniNete Hoşgeldiniz</string>
-    <string name="loading">Yükleniyor. Lütfen Bekleyiniz</string>
+    <string name="loading_title">Yükleniyor</string>
+    <string name="loading_message">Lütfen Bekleyiniz</string>
+
 
     <string name="navigation_drawer_open">Drawer\'ı Aç</string>
     <string name="navigation_drawer_close">Drawer\'ı Kapat</string>
@@ -210,7 +212,7 @@
 
     <!-- Settings for Notifications -->
     <string name="pref_header_notifications">Bildirimler</string>
-    <string name="pref_title_new_message_notifications">Yeni mesaj bildirimleri</string>
+    <string name="pref_title_new_message_notifications">Bildirimlere izin ver</string>
     <string name="pref_title_ringtone">Zil Sesi</string>
     <string name="pref_ringtone_silent">Sessiz</string>
     <string name="pref_title_vibrate">Titreşim</string>
@@ -224,6 +226,8 @@
     <string name="pref_description_blockedUser">Engellenmiş kullanıcı listesi</string>
     <string name="pref_title_birthday">Doğum günü</string>
     <string name="pref_description_birthday">Doğum günümü profilde göster</string>
+    <string name="pref_description_notification">Uninet\'e bildirim yollaması için izin ver</string>
+
     <!-- Settings for Safety and Privacy END -->
 
     <!-- Settings for Data & Sync -->

@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 
 import com.seniorproject.uninet.uninet.Adapters.FriendListAdapter;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
@@ -24,15 +25,19 @@ public class FriendsListActivity extends AppCompatActivity {
     private ArrayList<Friends> friendList;
     private RecyclerView friendScreen;
 
+    private Button messageWriteButton;
+
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_friends_list);
 
         // Declarations
         userInformation = new StoredUserInformation(this);
         whoIsTheUser = userInformation.getUserId();
+        messageWriteButton = findViewById(R.id.send_new_message_button);
         friendList = new ArrayList<>();
         friendScreen = findViewById(R.id.friends_list);
 
@@ -48,8 +53,8 @@ public class FriendsListActivity extends AppCompatActivity {
 
 
 
-
     }
+
 
     private void LoadFriends()
     {
@@ -65,7 +70,6 @@ public class FriendsListActivity extends AppCompatActivity {
         else
             // TODO Default değerler ekle
             friendList.add(new Friends(null, "You have no friends.", null));
-
-
     }
+
 }
