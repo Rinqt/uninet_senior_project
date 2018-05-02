@@ -61,6 +61,7 @@ public class UniPostSettingsFragment extends Fragment{
         mNotifications = getActivity().findViewById(R.id.notification_switch);
         mBirthdayPrivacy = getActivity().findViewById(R.id.birthday_switch);
 
+
         // Switch change listeners
 
         mUniPostPrivacy.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +74,14 @@ public class UniPostSettingsFragment extends Fragment{
                 {
                     saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
                     isThereAChangePrivacy = true;
+                }
+                else
+                {
+                    if (checkOtherSettings2())
+                    {
+                        saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                        isThereAChangePrivacy = false;
+                    }
                 }
 
 
@@ -89,6 +98,14 @@ public class UniPostSettingsFragment extends Fragment{
                 {
                     saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
                     isThereAChangePrivacy = true;
+                }
+                else
+                {
+                    if (checkOtherSettings2())
+                    {
+                        saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                        isThereAChangePrivacy = false;
+                    }
                 }
 
             }
@@ -108,6 +125,14 @@ public class UniPostSettingsFragment extends Fragment{
                     saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
                     isThereAChangePrivacy = true;
                 }
+                else
+                {
+                    if (checkOtherSettings2())
+                    {
+                        saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                        isThereAChangePrivacy = false;
+                    }
+                }
             }
         });
 
@@ -122,6 +147,14 @@ public class UniPostSettingsFragment extends Fragment{
                     saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
                     isThereAChangePrivacy = true;
 
+                }
+                else
+                {
+                    if (checkOtherSettings2())
+                    {
+                        saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                        isThereAChangePrivacy = false;
+                    }
                 }
             }
         });
@@ -138,6 +171,14 @@ public class UniPostSettingsFragment extends Fragment{
                     saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
                     isThereAChangePrivacy = true;
 
+                }
+                else
+                {
+                    if (checkOtherSettings2())
+                    {
+                        saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                        isThereAChangePrivacy = false;
+                    }
                 }
             }
         });
@@ -162,7 +203,7 @@ public class UniPostSettingsFragment extends Fragment{
             public void onClick(View v) {
 
                 Log.d(TAG, "onClick: Save Changes");
-                saveChanges();
+                savePrivacySettings();
             }
         });
 
@@ -171,6 +212,16 @@ public class UniPostSettingsFragment extends Fragment{
 
     private void setSwitches()
     {
+        Log.d(TAG, "----------CURRENT VALUES------------------: ");
+        Log.d(TAG, "UniPost: " + userInformation.getUserId());
+        Log.d(TAG, "UniPost: " + userInformation.getUniPostPrivacy());
+        Log.d(TAG, "Location: " + userInformation.getLocationPrivacy());
+        Log.d(TAG, "Message: " + userInformation.getMessagingPrivacy());
+        Log.d(TAG, "Notification: " + userInformation.getNotification());
+        Log.d(TAG, "Birthday: " + userInformation.getBirthdayPrivacy());
+        Log.d(TAG, "----------CURRENT VALUES END--------------: ");
+
+
         if (userInformation.getUniPostPrivacy().equals("False"))
         {
             mUniPostPrivacy.setChecked(false);
@@ -197,7 +248,7 @@ public class UniPostSettingsFragment extends Fragment{
             mNotifications.setChecked(false);
         }
         else
-            mBirthdayPrivacy.setChecked(true);
+            mNotifications.setChecked(true);
 
         if (userInformation.getBirthdayPrivacy().equals("False"))
         {
@@ -206,55 +257,80 @@ public class UniPostSettingsFragment extends Fragment{
         else
             mBirthdayPrivacy.setChecked(true);
 
+        Log.d(TAG, "----------SWITCH VALUES------------------: ");
+
+        Log.d(TAG, "SWITCH UniPost: " + String.valueOf(mUniPostPrivacy.isChecked()));
+        Log.d(TAG, "SWITCH Location: " + String.valueOf(mLocationPrivacy.isChecked()));
+        Log.d(TAG, "SWITCH Message: " + String.valueOf(mMessagePrivacy.isChecked()));
+        Log.d(TAG, "SWITCH Notification: " + String.valueOf(mNotifications.isChecked()));
+        Log.d(TAG, "SWITCH Birthday: " + String.valueOf(mBirthdayPrivacy.isChecked()));
+        Log.d(TAG, "----------SWITCH VALUES END--------------: ");
+
     }
 
-    private void saveChanges()
+    private void savePrivacySettings()
     {
         if (isThereAChangePrivacy)
         {
-
             String userID = userInformation.getUserId();
 
-            String uniPostPrivacy = String.valueOf(mUniPostPrivacy.isChecked());
-            String locationPrivacy =  String.valueOf(mLocationPrivacy.isChecked());
-            String messagingPrivacy = String.valueOf( mMessagePrivacy.isChecked());
-            String notification =  String.valueOf(mNotifications.isChecked());
-            String birthdayPrivacy =  String.valueOf(mBirthdayPrivacy.isChecked());
+            String uniPost = String.valueOf(mUniPostPrivacy.isChecked());
+            uniPost = uniPost.substring(0, 1).toUpperCase() + uniPost.substring(1);
 
-            String newUniPostPrivacy = "";
-            String newLocationPrivacy = "";
-            String newMessagingPrivacy = "";
-            String newNotification = "";
-            String newBirthdayPrivacy = "";
+            String location =  String.valueOf(mLocationPrivacy.isChecked());
+            location = location.substring(0, 1).toUpperCase() + location.substring(1);
 
-            if (!userInformation.getUniPostPrivacy().equals(uniPostPrivacy))
+            String message = String.valueOf(mMessagePrivacy.isChecked());
+            message = message.substring(0, 1).toUpperCase() + message.substring(1);
+
+            String notification = String.valueOf(mNotifications.isChecked());
+            notification = notification.substring(0, 1).toUpperCase() + notification.substring(1);
+
+            String birthday = String.valueOf(mBirthdayPrivacy.isChecked());
+            birthday = birthday.substring(0, 1).toUpperCase() + birthday.substring(1);
+
+            String newUniPostPrivacy;
+            String newLocationPrivacy;
+            String newMessagingPrivacy;
+            String newNotification;
+            String newBirthdayPrivacy;
+
+            if (!userInformation.getUniPostPrivacy().equals(uniPost))
             {
-                newUniPostPrivacy = uniPostPrivacy;
+                newUniPostPrivacy = uniPost;
             }
-            if (!userInformation.getLocationPrivacy().equals(locationPrivacy))
+            else
+                newUniPostPrivacy = userInformation.getUniPostPrivacy();
+
+            if (!userInformation.getLocationPrivacy().equals(location))
             {
-                newLocationPrivacy = locationPrivacy;
+                newLocationPrivacy = location;
             }
-            if (!userInformation.getMessagingPrivacy().equals(messagingPrivacy))
+            else
+                newLocationPrivacy = userInformation.getLocationPrivacy();
+
+            if (!userInformation.getMessagingPrivacy().equals(message))
             {
-                newMessagingPrivacy = messagingPrivacy;
+                newMessagingPrivacy = message;
             }
+            else
+                newMessagingPrivacy = userInformation.getMessagingPrivacy();
+
             if (!userInformation.getNotification().equals(notification))
             {
                 newNotification = notification;
             }
-            if (!userInformation.getBirthdayPrivacy().equals(birthdayPrivacy))
-            {
-                newBirthdayPrivacy = birthdayPrivacy;
-            }
+            else
+                newNotification = userInformation.getNotification();
 
-            DatabaseMethods.UpdatePrivacySettings(
-                    userID,
-                    newUniPostPrivacy,
-                    newLocationPrivacy,
-                    newMessagingPrivacy,
-                    newNotification,
-                    newBirthdayPrivacy);
+            if (!userInformation.getBirthdayPrivacy().equals(birthday))
+            {
+                newBirthdayPrivacy = birthday;
+            }
+            else
+                newBirthdayPrivacy = userInformation.getBirthdayPrivacy();
+
+            DatabaseMethods.UpdatePrivacySettings(userID, newUniPostPrivacy, newLocationPrivacy, newMessagingPrivacy, newNotification, newBirthdayPrivacy);
 
             userInformation.setUniPostPrivacy(newUniPostPrivacy);
             userInformation.setLocationPrivacy(newLocationPrivacy);
@@ -263,10 +339,58 @@ public class UniPostSettingsFragment extends Fragment{
             userInformation.setBirthdayPrivacy(newBirthdayPrivacy);
 
             Toast.makeText(getContext(), getString(R.string.save_settings), Toast.LENGTH_SHORT).show();
+
+            //Set apply button to gray again
+            saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+            isThereAChangePrivacy = false;
         }
         else
             Toast.makeText(getContext(),  getString(R.string.no_changes), Toast.LENGTH_SHORT).show();
 
+    }
+
+    private boolean checkOtherSettings2()
+    {
+        //TODO birthday serverdan doğru geliyor mu kontrol et..
+        // Birthday true iken if in içine giriyor :/
+
+        String uniPost = String.valueOf(mUniPostPrivacy.isChecked());
+        uniPost = uniPost.substring(0, 1).toUpperCase() + uniPost.substring(1);
+
+        String location =  String.valueOf(mLocationPrivacy.isChecked());
+        location = location.substring(0, 1).toUpperCase() + location.substring(1);
+
+        String message = String.valueOf(mMessagePrivacy.isChecked());
+        message = message.substring(0, 1).toUpperCase() + message.substring(1);
+
+        String notification = String.valueOf(mNotifications.isChecked());
+        notification = notification.substring(0, 1).toUpperCase() + notification.substring(1);
+
+        String birthday = String.valueOf(mBirthdayPrivacy.isChecked());
+        birthday = birthday.substring(0, 1).toUpperCase() + birthday.substring(1);
+
+        if (!uniPost.equals(userInformation.getUniPostPrivacy()))
+        {
+            return false;
+        }
+        else if (!location.equals(userInformation.getLocationPrivacy()))
+        {
+            return false;
+        }
+        else if (!message.equals(userInformation.getMessagingPrivacy()))
+        {
+            return false;
+        }
+        else if (!notification.equals(userInformation.getNotification()))
+        {
+            return false;
+        }
+        else if (!birthday.equals(userInformation.getBirthdayPrivacy()))
+        {
+            return false;
+        }
+
+        return true;
     }
 
 
