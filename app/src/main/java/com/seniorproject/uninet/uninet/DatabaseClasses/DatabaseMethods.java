@@ -770,7 +770,7 @@ public class DatabaseMethods {
     }
 
     public static void UpdatePrivacySettings(String userId, String showPostEveryone, String showLocationEveryone, String receiveMessageFromEveryone, String notifications, String showBirthdayEveryone){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdateProfileInfo?a="+userId+"&b="+showPostEveryone+"&c="+showLocationEveryone+"&d="+receiveMessageFromEveryone+"&e="+notifications+"&f="+showBirthdayEveryone;
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/UpdatePrivacySettings?a="+userId+"&b="+showPostEveryone+"&c="+showLocationEveryone+"&d="+receiveMessageFromEveryone+"&e="+notifications+"&f="+showBirthdayEveryone;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?
