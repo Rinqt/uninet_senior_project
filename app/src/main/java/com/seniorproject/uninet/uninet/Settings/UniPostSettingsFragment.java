@@ -266,19 +266,14 @@ public class UniPostSettingsFragment extends Fragment{
             String userID = userInformation.getUserId();
 
             String uniPost = String.valueOf(mUniPostPrivacy.isChecked());
-            uniPost = uniPost.substring(0, 1).toUpperCase() + uniPost.substring(1);
 
             String location =  String.valueOf(mLocationPrivacy.isChecked());
-            location = location.substring(0, 1).toUpperCase() + location.substring(1);
 
             String message = String.valueOf(mMessagePrivacy.isChecked());
-            message = message.substring(0, 1).toUpperCase() + message.substring(1);
 
             String notification = String.valueOf(mNotifications.isChecked());
-            notification = notification.substring(0, 1).toUpperCase() + notification.substring(1);
 
             String birthday = String.valueOf(mBirthdayPrivacy.isChecked());
-            birthday = birthday.substring(0, 1).toUpperCase() + birthday.substring(1);
 
             String newUniPostPrivacy;
             String newLocationPrivacy;
@@ -342,9 +337,6 @@ public class UniPostSettingsFragment extends Fragment{
 
     private boolean checkOtherSettings2()
     {
-        //TODO birthday serverdan doğru geliyor mu kontrol et..
-        // Birthday true iken if in içine giriyor :/
-
         String uniPost = String.valueOf(mUniPostPrivacy.isChecked());
         uniPost = uniPost.substring(0, 1).toUpperCase() + uniPost.substring(1);
 

@@ -115,7 +115,6 @@ public class MessagingScreenActivity extends AppCompatActivity {
             conversationID = friendConversationId;
         }
 
-        List<Conversation> currentUserMessages = DatabaseMethods.GetConversations(whoIsTheUser);
         List<Message> message = DatabaseMethods.GetMessages(whoIsTheUser, conversationID);
 
         if (message.size() == 0)
@@ -123,21 +122,17 @@ public class MessagingScreenActivity extends AppCompatActivity {
             Toast.makeText(this, "No message found. Start a conversation", Toast.LENGTH_LONG).show();
         }
         else
+        {
+            for (int k = 0; k < message.size(); k++)
             {
-                for (int k = 0; k < currentUserMessages.size(); k++)
+                if(message.get(k).userId.equals(whoIsTheUser))
                 {
-                    for (int i = 0; i < message.size(); i++)
-                    {
-                        if(message.get(i).userId.equals(whoIsTheUser))
-                        {
-                            messages.add(new UserConversations(whoIsTheUser, message.get(i).messageId, message.get(i).name, message.get(i).userMessage, message.get(i).messageDate, 1));
-                        }
-                        else
-                            messages.add(new UserConversations(whoIsTheUser, message.get(i).messageId, message.get(i).name, message.get(i).userMessage, message.get(i).messageDate, 0));
-                    }
+                    messages.add(new UserConversations(whoIsTheUser, message.get(k).messageId, message.get(k).name, message.get(k).userMessage, message.get(k).messageDate, 1));
                 }
+                else
+                    messages.add(new UserConversations(whoIsTheUser, message.get(k).messageId, message.get(k).name, message.get(k).userMessage, message.get(k).messageDate, 0));
             }
-
+        }
     }
 
     @Override

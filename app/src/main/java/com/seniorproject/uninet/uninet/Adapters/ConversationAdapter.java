@@ -1,6 +1,10 @@
 package com.seniorproject.uninet.uninet.Adapters;
 
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.R;
@@ -60,7 +65,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
     {
         final UserConversations message = mList.get(position);
 
@@ -69,30 +74,89 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             switch (message.getType())
             {
                 case RECEIVER:
-                    ((OtherUserMessage) holder).senderProfilePicture.setImageResource(R.mipmap.ic_launcher_round);
-                    ((OtherUserMessage) holder).senderMessage.setText(message.getUserMessage());
-                    ((OtherUserMessage) holder).senderMessageTime.setText(message.getMessageDate());
-                    ((OtherUserMessage) holder).receiver.setOnLongClickListener(new View.OnLongClickListener() {
+                    ((OtherUserMessage) holder).friendProfilePicture.setImageResource(R.mipmap.ic_launcher_round);
+                    ((OtherUserMessage) holder).friendMessage.setText(message.getUserMessage());
+                    ((OtherUserMessage) holder).friendMessageTime.setText(message.getMessageDate());
+
+                    // Gelen mesaj için onClick Listner
+                    ((OtherUserMessage) holder).friendMessageContainer.setOnLongClickListener(new View.OnLongClickListener()
+                    {
+                        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+
                         @Override
                         public boolean onLongClick(View v) {
+                            alertDialog.setItems((R.array.uni_message_settings_friend), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int whichOption) {
 
+                                    switch (whichOption)
+                                    {
+                                        case 0:
+                                            ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                                            ClipData clip = ClipData.newPlainText(mContext.getString(R.string.post_copied), message.getUserMessage() );
+                                            assert clipboard != null;
+                                            clipboard.setPrimaryClip(clip);
+                                            Toast.makeText(mContext, R.string.uni_message_copied, Toast.LENGTH_LONG).show();
+                                            break;
+                                    }
+                                }
+                            });
+                            alertDialog.show();
                             return true;
                         }
                     });
                     break;
 
                 case SENDER:
+
                     ((CurrentUserMessage) holder).currentUserMessage.setText(message.getUserMessage());
                     ((CurrentUserMessage) holder).currentUserMessageTime.setText(message.getMessageDate());
-                    ((CurrentUserMessage) holder).sender.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        //TODO aletbox ile kopyalama ve silme yaptır
-                        DatabaseMethods.EraseMessage(message.getUserId() ,message.getMessageId());
-                        Log.i("userid", ": " + message.getUserId());
-                        Log.i("message", ": " + message.getMessageId());
-                        return true;
-                    }
+
+                    ((CurrentUserMessage) holder).sender.setOnLongClickListener(new View.OnLongClickListener()
+                    {
+                        // Giden Mesaj için OnClick Listener
+                        @Override
+                        public boolean onLongClick(View v)
+                        {
+                            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+
+                            alertDialog.setItems(R.array.uni_message_settings_user, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int whichOption) {
+
+                                    switch (whichOption)
+                                    {
+                                        case 0:
+                                            ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                                            ClipData clip = ClipData.newPlainText(mContext.getString(R.string.post_copied), message.getUserMessage() );
+                                            assert clipboard != null;
+                                            clipboard.setPrimaryClip(clip);
+                                            Toast.makeText(mContext, R.string.uni_message_copied, Toast.LENGTH_LONG).show();
+                                            break;
+
+                                        case 1:
+                                            Log.i("getItem(i)", "Item Index " + message.getMessageId());
+                                            DatabaseMethods.EraseMessage(message.getUserId() ,message.getMessageId());
+                                            mList.remove(holder.getAdapterPosition());
+                                            notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position, mList.size());
+
+                                            // TODO: Add success controller. [for both places] Also check if post belongs to the user
+                                            Toast.makeText(mContext, R.string.uni_message_delete_successful, Toast.LENGTH_LONG).show();
+                                            break;
+                                    }
+                                }
+                            });
+                            alertDialog.show();
+
+
+
+
+
+
+                            return true;
+                        }
+
                 });
             }
         }
@@ -123,18 +187,18 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     // Holder Classes
     public static class OtherUserMessage extends RecyclerView.ViewHolder
     {
-        private ImageView senderProfilePicture;
-        private TextView senderMessage;
-        private TextView senderMessageTime;
+        private ImageView friendProfilePicture;
+        private TextView friendMessage;
+        private TextView friendMessageTime;
 
-        private ConstraintLayout receiver;
+        private ConstraintLayout friendMessageContainer;
 
         OtherUserMessage(View itemView) {
             super(itemView);
-            senderProfilePicture = itemView.findViewById(R.id.received_image_user_message_profile);
-            senderMessage = itemView.findViewById(R.id.received_text_message_body);
-            senderMessageTime = itemView.findViewById(R.id.received_text_message_time);
-            receiver = itemView.findViewById(R.id.receive_message_container);
+            friendProfilePicture = itemView.findViewById(R.id.received_image_user_message_profile);
+            friendMessage = itemView.findViewById(R.id.received_text_message_body);
+            friendMessageTime = itemView.findViewById(R.id.received_text_message_time);
+            friendMessageContainer = itemView.findViewById(R.id.receive_message_container);
         }
     }
 

@@ -143,6 +143,11 @@
     <string name="post_delete_successful">UniPost Deleted!</string>
     <string name="post_delete_unsuccessful">UniPost Could Not Deleted!</string>
     <!--Post END-->
+    <string name="uni_message_copied">UniMessage Copied!</string>
+    <string name="uni_message_delete_successful">UniMessage Deleted!</string>
+    <string name="uni_message_delete_unsuccessful">UniMessage Could Not Deleted!</string>
+
+    <!--Message-->
 
     <!--Profile-->
     <string name="edit_profile">Edit Profile</string>
@@ -208,6 +213,17 @@
     <string-array name="uni_post_settings">
         <item>Copy UniPost Text</item>
         <item>Delete Post</item>
+    </string-array>
+
+
+    <!-- Settings for UniMessages -->
+    <string-array name="uni_message_settings_user">
+        <item>Copy UniMessage Text</item>
+        <item>Delete UniMessage</item>
+    </string-array>
+
+    <string-array name="uni_message_settings_friend">
+        <item>Copy UniMessage Text</item>
     </string-array>
 
     <string name="uni_post_settings">UniPost Settings</string>
