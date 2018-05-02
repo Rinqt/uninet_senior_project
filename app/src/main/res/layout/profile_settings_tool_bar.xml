@@ -27,19 +27,19 @@
                 android:contentDescription="@string/description_back_arrow" />
 
             <TextView
-                android:id="@+id/profile_name"
+                android:id="@+id/profile_settings_page_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="@string/pref_header_profile"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:layout_toEndOf="@id/profile_back_arrow_button"
                 android:layout_marginStart="5dp"
                 />
 
             <ImageView
-                android:id="@+id/apply_settings_button"
+                android:id="@+id/profile_settings_apply_settings_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"

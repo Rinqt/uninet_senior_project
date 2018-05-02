@@ -1,7 +1,9 @@
 package com.seniorproject.uninet.uninet.Settings;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,8 +84,8 @@ public class ProfileSettingsFragment extends Fragment{
 
 
 
-        backArrowButton = (getActivity()).findViewById(R.id.back_arrow_button);
-        saveSettingsButton = (getActivity()).findViewById(R.id.apply_settings_button);
+        backArrowButton = (getActivity()).findViewById(R.id.profile_back_arrow_button);
+        saveSettingsButton = (getActivity()).findViewById(R.id.profile_settings_apply_settings_button);
         mChangeProfilePicture = getActivity().findViewById(R.id.change_profile_photo);
         mPhoneNumber = getActivity().findViewById(R.id.phone_number);
         mEmailAddress = getActivity().findViewById(R.id.mail_address);
@@ -128,6 +131,8 @@ public class ProfileSettingsFragment extends Fragment{
 
                 Log.d(TAG, "onClick: Save Changes");
                 saveChanges();
+                keyboardHider(getActivity(), getView());
+
             }
         });
 
@@ -146,34 +151,44 @@ public class ProfileSettingsFragment extends Fragment{
     {
         if (isThereAChange)
         {
-
             String userID = storedUserInformation.getUserId();
             final String phoneNumber = mPhoneNumber.getText().toString();
             final String mailAddress = mEmailAddress.getText().toString();
             final String webPage = mWebPage.getText().toString();
             final String relationshipStatus = mSetRelationship.getText().toString();
 
-            String newPhoneNumber = "";
-            String newMailAddress = "";
-            String newWebPage = "";
-            String newRelationshipStatus = "";
+            String newPhoneNumber;
+            String newMailAddress;
+            String newWebPage;
+            String newRelationshipStatus;
 
-            if (!userInformation.getPhoneNumber().equals(mPhoneNumber))
+            if (!userInformation.getPhoneNumber().equals(phoneNumber))
             {
                 newPhoneNumber = phoneNumber;
             }
-            if (!userInformation.getMailAddress().equals(mEmailAddress))
+            else
+                newPhoneNumber = userInformation.getPhoneNumber();
+
+            if (!userInformation.getMailAddress().equals(mailAddress))
             {
                 newMailAddress = mailAddress;
             }
-            if (!userInformation.getWebPage().equals(mWebPage))
+            else
+                newMailAddress = userInformation.getMailAddress();
+
+            if (!userInformation.getWebPage().equals(webPage))
             {
                 newWebPage = webPage;
             }
-            if (!userInformation.getRelationshipStatus().equals(mSetRelationship))
+            else
+                newWebPage = userInformation.getWebPage();
+
+            if (!userInformation.getRelationshipStatus().equals(relationshipStatus))
             {
                 newRelationshipStatus = relationshipStatus;
             }
+            else
+                newRelationshipStatus = userInformation.getRelationshipStatus();
 
             DatabaseMethods.UpdateProfileInfo(getContext(),
                     userID,
@@ -189,6 +204,10 @@ public class ProfileSettingsFragment extends Fragment{
             userInformation.setPhoneNumber(newPhoneNumber);
             userInformation.setRelationshipStatus(newRelationshipStatus);
             Toast.makeText(getContext(), getString(R.string.save_settings), Toast.LENGTH_SHORT).show();
+
+            //Set apply button to gray again
+            saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+            isThereAChange = false;
         }
         else
             Toast.makeText(getContext(),  getString(R.string.no_changes), Toast.LENGTH_SHORT).show();
@@ -272,6 +291,7 @@ public class ProfileSettingsFragment extends Fragment{
     }
 
     private void requestStoragePermission() {
+
         Dexter.withActivity(getActivity())
                 .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .withListener(new PermissionListener() {
@@ -308,7 +328,21 @@ public class ProfileSettingsFragment extends Fragment{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text = s.toString();
 
+                if (!text.equals(info))
+                {
+                    saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
+                    isThereAChange = true;
+                }
+                else
+                {
+                    if (checkOtherSettings())
+                    {
+                        saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                        isThereAChange = false;
+                    }
+                }
             }
 
             @Override
@@ -322,11 +356,48 @@ public class ProfileSettingsFragment extends Fragment{
                 }
                 else
                 {
-                    saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
-                    isThereAChange = false;
+                    if (checkOtherSettings())
+                    {
+                        saveSettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
+                        isThereAChange = false;
+                    }
                 }
 
             }
         };
+    }
+
+    public static void keyboardHider(Activity activity, View view)
+    {
+        InputMethodManager inputManager = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert inputManager != null;
+        inputManager.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+    }
+
+    private boolean checkOtherSettings()
+    {
+        String phone = mPhoneNumber.getText().toString();
+        String email =  mEmailAddress.getText().toString();
+        String webPage = mWebPage.getText().toString();
+        String relation = mSetRelationship.getText().toString();
+
+        if (!phone.equals(userInformation.getPhoneNumber()))
+        {
+            return false;
+        }
+        else if (!email.equals(userInformation.getMailAddress()))
+        {
+            return false;
+        }
+        else if (!webPage.equals(userInformation.getWebPage()))
+        {
+            return false;
+        }
+        else if (!relation.equals(userInformation.getRelationshipStatus()))
+        {
+            return false;
+        }
+
+        return  true;
     }
 }

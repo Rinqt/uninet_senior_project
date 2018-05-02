@@ -89,6 +89,7 @@ public class MessagingScreenActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private boolean conversationChecker()

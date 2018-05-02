@@ -42,7 +42,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Started");
 
         // Declarations
-        backArrow = findViewById(R.id.back_arrow_button);
+        backArrow = findViewById(R.id.settings_page_back_arrow_button);
         mViewPager = findViewById(R.id.view_pager_container);
         mRelativeLayout = findViewById(R.id.relative_layout_1);
 
@@ -128,7 +128,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     public void changeListener() {
 
-        if (ProfileSettingsFragment.isThereAChange)
+        if (ProfileSettingsFragment.isThereAChange || UniPostSettingsFragment.isThereAChangePrivacy)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 

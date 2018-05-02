@@ -17,7 +17,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/back_arrow_button"
+                android:id="@+id/settings_page_back_arrow_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="10dp"
@@ -27,28 +27,18 @@
                 />
 
             <TextView
-                android:id="@+id/profile_name"
+                android:id="@+id/profile_settings_page_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="Profile"
+                android:text="@string/settings"
                 android:textSize="20sp"
                 android:textColor="@color/white"
-
-                android:layout_toEndOf="@id/back_arrow_button"
+                android:layout_toEndOf="@id/settings_page_back_arrow_button"
                 android:layout_marginStart="5dp"
                 />
 
-            <ImageView
-                android:id="@+id/apply_settings_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_unsaved_settings"
-                android:contentDescription="@string/description_save_settings" />
+
 
         </RelativeLayout>
 
