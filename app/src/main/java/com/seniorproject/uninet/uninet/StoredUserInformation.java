@@ -51,6 +51,7 @@ public class StoredUserInformation {
     {
         dataEditor.putString("user_key_total_relationship_status", info);
         dataEditor.commit();
+
     }
 
     private void webPage(String info)

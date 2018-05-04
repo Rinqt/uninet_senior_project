@@ -2,6 +2,8 @@ package com.seniorproject.uninet.uninet.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -32,7 +34,7 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
         ImageView postPicture;
     }
 
-    public PostListAdapter(@NonNull Context context, int posts, int resource, @NonNull List<UniPosts> objects) {
+    public  PostListAdapter(@NonNull Context context, int posts, int resource, @NonNull List<UniPosts> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
@@ -44,7 +46,7 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        ViewHolder postViewHolder;
+        ViewHolder postViewHolder = null;
         final String userID = getItem(position).getUserID();
         String userName = getItem(position).getUserName();
         String postTimeStamp = getItem(position).getTimeStamp();
@@ -53,7 +55,6 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
         byte[] userProfilePicture = getItem(position).getProfilePicture();
         byte[] postInsidePicture = getItem(position).getPostImage();
 
-        if (convertView == null) {
 
             LayoutInflater postInflater = LayoutInflater.from(mContext);
             convertView = postInflater.inflate(mResource, parent, false);
@@ -67,22 +68,21 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
             postViewHolder.postPicture = convertView.findViewById(R.id.uni_post_image);
 
             convertView.setTag(postViewHolder);
-        }
-        else
-        {
-            postViewHolder = (ViewHolder) convertView.getTag();
-        }
+
+
 
         String postWithLocation = postTimeStamp + " || " + postLocation;
         postViewHolder.name.setText(userName);
         postViewHolder.timeStamp.setText(postWithLocation);
         postViewHolder.description.setText(postDescription);
-        postViewHolder.userPicture.setImageResource(R.mipmap.awesome_kaan);
         postViewHolder.postPicture.setImageResource(R.mipmap.university_logo);
-        //postViewHolder.postPicture.setImageResource(userProfilePicture[position]);
         //postViewHolder.postPicture.setImageResource(postInsidePicture[position]);
 
-
+        if (userProfilePicture != null)
+        {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(userProfilePicture, 0, userProfilePicture.length);
+            postViewHolder.userPicture.setImageBitmap(bitmap);
+        }
 
 
         /*

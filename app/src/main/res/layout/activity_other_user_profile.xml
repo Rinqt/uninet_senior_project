@@ -40,7 +40,8 @@
                     android:layout_marginEnd="8dp"
                     android:contentDescription="@string/description_profile_photo"
                     android:elevation="5dp"
-                    android:src="@mipmap/awesome_kaan"
+                    android:background="@mipmap/awesome_kaan_1"
+
                     app:layout_constraintBottom_toBottomOf="@+id/user_info_card_view"
                     app:layout_constraintEnd_toStartOf="@+id/user_info_card_view"
                     app:layout_constraintHorizontal_bias="1.0"

@@ -1,6 +1,8 @@
 package com.seniorproject.uninet.uninet;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,8 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     TextView friendFriendsLabel;
     TextView friendFollowsLabel;
 
+    ImageView friendProfilePhoto;
+
 
 
     @Override
@@ -46,12 +52,21 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         userPosts = findViewById(R.id.other_user_uni_post_list_view);
         detailedProfileButton = findViewById(R.id.user_profile_button);
 
+        friendProfilePhoto = findViewById(R.id.profile_photo);
         friendPhotosLabel = findViewById(R.id.user_total_photos_label);
         friendFriendsLabel = findViewById(R.id.user_total_friends_label);
         friendFollowsLabel = findViewById(R.id.user_total_follows_label);
 
         List<Post> postList = DatabaseMethods.GetPosts(whoIsTheUser);
         uniPosts = new ArrayList<>();
+
+        UserListingInfo user = DatabaseMethods.GetUserNamePic(whoIsTheUser);
+
+        if (user.smallProfilePicture != null)
+        {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(user.smallProfilePicture, 0, user.smallProfilePicture.length);
+            friendProfilePhoto.setImageBitmap(bitmap);
+        }
 
         refreshInformation();
 

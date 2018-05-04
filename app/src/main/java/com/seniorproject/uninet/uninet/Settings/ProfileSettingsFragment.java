@@ -190,14 +190,27 @@ public class ProfileSettingsFragment extends Fragment{
             else
                 newRelationshipStatus = userInformation.getRelationshipStatus();
 
+
+            String bigImageString = "";
+            String smallImageString = "";
+
+            for (int i = 0; i < bigProfilePictureImage.length; i++) {
+                bigImageString += i < bigProfilePictureImage.length - 1 ? (bigProfilePictureImage[i] & 0xFF) + "," : (bigProfilePictureImage[i] & 0xFF);
+            }
+
+            for (int i = 0; i < smallProfilePictureImage.length; i++) {
+                smallImageString += i < smallProfilePictureImage.length - 1 ? (smallProfilePictureImage[i] & 0xFF) + "," : (smallProfilePictureImage[i] & 0xFF);
+            }
+
+
             DatabaseMethods.UpdateProfileInfo(getContext(),
                     userID,
                     newMailAddress,
                     newWebPage,
                     newPhoneNumber,
                     newRelationshipStatus,
-                    "",
-                    "");
+                    bigImageString,
+                    smallImageString);
 
             userInformation.setMailAddress(newMailAddress);
             userInformation.setWebPage(newWebPage);
@@ -229,7 +242,7 @@ public class ProfileSettingsFragment extends Fragment{
                 Bitmap bitmap = null;
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 72, stream);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 48, stream);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -241,7 +254,7 @@ public class ProfileSettingsFragment extends Fragment{
 
                 stream = new ByteArrayOutputStream();
                 try {
-                    MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), originalUri).compress(Bitmap.CompressFormat.PNG, 72, stream);
+                    MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), originalUri).compress(Bitmap.CompressFormat.JPEG, 48, stream);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -260,16 +273,7 @@ public class ProfileSettingsFragment extends Fragment{
     }
 
     private void Save() {
-        String bigImageString = "";
-        String smallImageString = "";
 
-        for (int i = 0; i < bigProfilePictureImage.length; i++) {
-            bigImageString += i < bigProfilePictureImage.length - 1 ? (bigProfilePictureImage[i] & 0xFF) + "," : (bigProfilePictureImage[i] & 0xFF);
-        }
-
-        for (int i = 0; i < smallProfilePictureImage.length; i++) {
-            smallImageString += i < smallProfilePictureImage.length - 1 ? (smallProfilePictureImage[i] & 0xFF) + "," : (smallProfilePictureImage[i] & 0xFF);
-        }
     }
 
     private void setRelationship()
