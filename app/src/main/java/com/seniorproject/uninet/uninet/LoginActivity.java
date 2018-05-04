@@ -25,7 +25,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.FirebaseApp;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
+import com.microsoft.windowsazure.notifications.NotificationsManager;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.NotificationClasses.MyHandler;
+import com.seniorproject.uninet.uninet.NotificationClasses.NotificationSettings;
+import com.seniorproject.uninet.uninet.NotificationClasses.RegistrationIntentService;
 
 /**
  * A login screen that offers login via email/password.
@@ -43,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
     InputMethodManager keyboardHider;
 
 
-
-
+    private static final String TAG = "MainActivity";
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 
 
@@ -149,7 +162,15 @@ public class LoginActivity extends AppCompatActivity {
                 userInformation.setBirthdayPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showBirthdayEveryone);
                 userInformation.setPhotosNumber(String.valueOf(DatabaseMethods.GetPostPictures(whoIsTheUser).size()));
 
+                FirebaseApp.initializeApp(getApplicationContext());
+                NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
+                registerWithNotificationHubs();
+
                 dialog.dismiss();
+
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+
             }
         };
         getUserData.start();
@@ -166,8 +187,6 @@ public class LoginActivity extends AppCompatActivity {
     {
         if (isThereANetwork())
         {
-
-
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
                     == PackageManager.PERMISSION_GRANTED)
             {
@@ -184,15 +203,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     Log.i("attemptLogin",  LoggedInUser.UserId + " tries to sneak to app.");
 
-                    // Retrieve user data from database and save locally
-                    saveUserData();
-
                     sessionChecker.setUserLoggedIn(true); // User Session
                     sessionChecker.setLoginInfo(LoggedInUser.UserId + "," + LoggedInUser.TeacherId + "," + LoggedInUser.StudentId);
 
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-
+                    // Retrieve user data from database and save locally
+                    saveUserData();
 
                     Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_SHORT).show();
                 }
@@ -258,6 +273,41 @@ public class LoginActivity extends AppCompatActivity {
             // TODO: register the new account here.
             return true;
         }
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(TAG, "This device is not supported by Google Play Services.");
+                ToastNotify("This device is not supported by Google Play Services.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public void registerWithNotificationHubs()
+    {
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with FCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+    }
+
+    public void ToastNotify(final String notificationMessage) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), notificationMessage, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
 

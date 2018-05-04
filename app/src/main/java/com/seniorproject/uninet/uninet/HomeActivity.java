@@ -75,8 +75,7 @@ public class HomeActivity extends AppCompatActivity
 
     public static HomeActivity mainActivity;
     public static Boolean isVisible = false;
-    private static final String TAG = "MainActivity";
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,14 +97,14 @@ public class HomeActivity extends AppCompatActivity
             logout();
         }
 
-        String loginInfo = sessionChecker.GetLoginInfo();
-        String userId  = loginInfo.split(",")[0];
-        String teacherId  = loginInfo.split(",")[1];
-        String studentId  = loginInfo.split(",")[2];
+        //String loginInfo = sessionChecker.GetLoginInfo();
+        //String userId  = loginInfo.split(",")[0];
+        //String teacherId  = loginInfo.split(",")[1];
+        //String studentId  = loginInfo.split(",")[2];
 
-        LoggedInUser.UserId = userId;
-        LoggedInUser.TeacherId = teacherId.equals("null") ? null : teacherId;
-        LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
+        //LoggedInUser.UserId = userId;
+        //LoggedInUser.TeacherId = teacherId.equals("null") ? null : teacherId;
+        //LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
 
 
 
@@ -114,10 +113,7 @@ public class HomeActivity extends AppCompatActivity
         drawerLayout = findViewById(R.id.drawer_layout); // Hidden drawer tanımı
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        FirebaseApp.initializeApp(this);
         mainActivity = this;
-        NotificationsManager.handleNotifications(this, NotificationSettings.SenderId, MyHandler.class);
-        registerWithNotificationHubs();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -461,32 +457,6 @@ public class HomeActivity extends AppCompatActivity
                         token.continuePermissionRequest();
                     }
                 }).check();
-    }
-
-    private boolean checkPlayServices() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-                        .show();
-            } else {
-                Log.i(TAG, "This device is not supported by Google Play Services.");
-                ToastNotify("This device is not supported by Google Play Services.");
-                finish();
-            }
-            return false;
-        }
-        return true;
-    }
-
-    public void registerWithNotificationHubs()
-    {
-        if (checkPlayServices()) {
-            // Start IntentService to register this application with FCM.
-            Intent intent = new Intent(this, RegistrationIntentService.class);
-            startService(intent);
-        }
     }
 
     public void ToastNotify(final String notificationMessage) {
