@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.seniorproject.uninet.uninet.Courses;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Courses;
 import com.seniorproject.uninet.uninet.R;
 
 import java.util.List;

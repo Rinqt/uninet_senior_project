@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 

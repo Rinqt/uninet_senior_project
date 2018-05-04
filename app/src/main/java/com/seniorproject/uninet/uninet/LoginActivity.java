@@ -147,8 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                 userInformation.setMessagingPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).receiveMessageFromEveryone);
                 userInformation.setNotification(DatabaseMethods.GetPrivacySettings(whoIsTheUser).notifications);
                 userInformation.setBirthdayPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showBirthdayEveryone);
-
-                userInformation.setPhotosNumber("0");
+                userInformation.setPhotosNumber(String.valueOf(DatabaseMethods.GetPostPictures(whoIsTheUser).size()));
 
                 dialog.dismiss();
             }

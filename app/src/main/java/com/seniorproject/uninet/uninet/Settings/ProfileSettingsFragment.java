@@ -255,19 +255,19 @@ public class ProfileSettingsFragment extends Fragment{
                 Bitmap bitmap = null;
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 48, stream);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 smallProfilePictureImage = stream.toByteArray();
 
-                CircleImageView imageView = (CircleImageView) getActivity().findViewById(R.id.profile_fragment_profile_picture);
+                CircleImageView imageView = (CircleImageView) getActivity().findViewById(R.id.edit_profile_profile_picture);
 
                 imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(), false));
 
                 stream = new ByteArrayOutputStream();
                 try {
-                    MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), originalUri).compress(Bitmap.CompressFormat.JPEG, 48, stream);
+                    MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), originalUri).compress(Bitmap.CompressFormat.JPEG, 50, stream);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

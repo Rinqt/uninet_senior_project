@@ -116,6 +116,7 @@ public class MessagingScreenActivity extends AppCompatActivity {
         }
 
         List<Message> message = DatabaseMethods.GetMessages(whoIsTheUser, conversationID);
+        byte[] smallProfilePicture =  DatabaseMethods.GetProfileInfoStudent(friendUserId).smallProfilePicture;
 
         if (message.size() == 0)
         {
@@ -127,10 +128,10 @@ public class MessagingScreenActivity extends AppCompatActivity {
             {
                 if(message.get(k).userId.equals(whoIsTheUser))
                 {
-                    messages.add(new UserConversations(whoIsTheUser, message.get(k).messageId, message.get(k).name, message.get(k).userMessage, message.get(k).messageDate, 1));
+                    messages.add(new UserConversations(whoIsTheUser, message.get(k).messageId, message.get(k).name, message.get(k).userMessage, message.get(k).messageDate, smallProfilePicture,1));
                 }
                 else
-                    messages.add(new UserConversations(whoIsTheUser, message.get(k).messageId, message.get(k).name, message.get(k).userMessage, message.get(k).messageDate, 0));
+                    messages.add(new UserConversations(whoIsTheUser, message.get(k).messageId, message.get(k).name, message.get(k).userMessage, message.get(k).messageDate, smallProfilePicture, 0));
             }
         }
     }

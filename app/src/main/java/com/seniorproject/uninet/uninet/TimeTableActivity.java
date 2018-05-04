@@ -10,6 +10,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 
 import com.seniorproject.uninet.uninet.Adapters.CourseAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Courses;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.TimeTableCourse;
 

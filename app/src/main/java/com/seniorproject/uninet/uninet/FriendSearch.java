@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.Adapters.FriendListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
@@ -57,7 +58,7 @@ public class FriendSearch extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
 
 
-        FriendListAdapter friendSearchAdapter = new FriendListAdapter(this, friendList);
+        FriendListAdapter friendSearchAdapter = new FriendListAdapter(this, friendList, 1);
 
         friendListRecycler.setLayoutManager(linearLayoutManager);
         friendListRecycler.setItemAnimator(new DefaultItemAnimator());

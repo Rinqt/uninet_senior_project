@@ -37,6 +37,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
     Button privacyButton;
     Button addFriend;
     Button removeFriend;
+    Button blockFriend;
 
     // TextViews
     TextView userName;
@@ -70,6 +71,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
     String universityYearName;
 
     StoredUserInformation userInformation;
+    UserListingInfo otherUserInformation;
+
+    boolean isLoggedInUser;
 
 
     @Override
@@ -81,7 +85,10 @@ public class ProfileInfoActivity extends AppCompatActivity {
         userProfilePicture = findViewById(R.id.content_profile_info_profile_picture);
         addFriend = findViewById(R.id.add_friend_button);
         removeFriend = findViewById(R.id.delete_friend_button);
+        blockFriend = findViewById(R.id.block_friend_button);
         friendRequestIcon = findViewById(R.id.friend_request_icon);
+        photosButton = findViewById(R.id.friends_button);
+        setProfileButton = findViewById(R.id.set_profile_button);
 
         otherUserId = getIntent().getStringExtra("UserID");
 
@@ -92,28 +99,36 @@ public class ProfileInfoActivity extends AppCompatActivity {
             otherUserId = whoIsTheUser;
 
 
-        UserListingInfo userPhoto = DatabaseMethods.GetUserNamePic(otherUserId);
+        otherUserInformation = DatabaseMethods.GetUserNamePic(otherUserId);
 
         // If profile belongs to current user, hide add/remove buttons
         if (otherUserId.equals(userInformation.getUserId()))
         {
+            setTitle(userInformation.getUserName());
             addFriend.setVisibility(View.GONE);
             removeFriend.setVisibility(View.GONE);
+            blockFriend.setVisibility(View.GONE);
             checkFriendshipRequests();
+            isLoggedInUser = true;
         }
         else
             {
                 // If user is not a friend
+                setTitle(otherUserInformation.name);
+                isLoggedInUser = false;
                 friendRequestIcon.setVisibility(View.GONE);
                 if (DatabaseMethods.CheckFriendship(whoIsTheUser, otherUserId).equals("1"))
                 {
                     addFriend.setVisibility(View.GONE);
                     removeFriend.setVisibility(View.VISIBLE);
+                    blockFriend.setVisibility(View.VISIBLE);
+
                 }
                 else
                 {
                     addFriend.setVisibility(View.VISIBLE);
                     removeFriend.setVisibility(View.GONE);
+                    blockFriend.setVisibility(View.GONE);
                 }
 
             }
@@ -124,9 +139,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
 
 
-        if (userPhoto.smallProfilePicture != null)
+        if (otherUserInformation.smallProfilePicture != null)
         {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(userPhoto.smallProfilePicture, 0, userPhoto.smallProfilePicture.length);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(otherUserInformation.smallProfilePicture, 0, otherUserInformation.smallProfilePicture.length);
             userProfilePicture.setImageBitmap(bitmap);
         }
 
@@ -161,13 +176,20 @@ public class ProfileInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent friendScreen = new Intent(getApplication(), FriendScreenActivity.class);
+                friendScreen.putExtra("UserName", otherUserInformation.name);
+                friendScreen.putExtra("UserID", otherUserId);
 
+                startActivity(friendScreen);
             }
         });
 
         photosButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
 
             }
         });
@@ -197,7 +219,49 @@ public class ProfileInfoActivity extends AppCompatActivity {
             }
         });
 
+        blockFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockUser();
+
+            }
+        });
+
     }
+
+
+
+
+
+    private void blockUser()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(getString(R.string.description_block));
+        builder.setMessage(getString(R.string.description_block_request));
+
+        builder.setPositiveButton(getString(R.string.unsaved_changes_yes), new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "0");
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     private void checkFriendshipRequests()
     {
@@ -300,33 +364,38 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     public void imageClicked(View view)
     {
-        if (view.getId() == R.id.total_pots_image)
+        if (isLoggedInUser)
         {
-            snackBarMaker(view, getString(R.string.snack_bar_total_posts_image, totalPost.getText().toString()));
-        }
-        else if (view.getId() == R.id.university_progress_image)
-        {
-            snackBarMaker(view, getString(R.string.snack_bar_university_progress_image, universityYearName));
-        }
-        else if (view.getId() == R.id.total_photos_image_container)
-        {
-            snackBarMaker(view, getString(R.string.snack_bar_profile_image, totalPictures.getText().toString()));
-        }
-        else if (view.getId() == R.id.total_friends_container)
-        {
-            snackBarMaker(view, getString(R.string.snack_bar_total_friends_image, totalFriend.getText().toString()));
+            if (view.getId() == R.id.total_pots_image)
+            {
+                snackBarMaker(view, getString(R.string.snack_bar_total_posts_image, totalPost.getText().toString()));
+            }
+            else if (view.getId() == R.id.university_progress_image)
+            {
+                snackBarMaker(view, getString(R.string.snack_bar_university_progress_image, universityYearName));
+            }
+            else if (view.getId() == R.id.total_photos_image_container)
+            {
+                snackBarMaker(view, getString(R.string.snack_bar_profile_image, totalPictures.getText().toString()));
+            }
+            else if (view.getId() == R.id.total_friends_container)
+            {
+                snackBarMaker(view, getString(R.string.snack_bar_total_friends_image, totalFriend.getText().toString()));
+
+            }
+            else if (view.getId() == R.id.total_follows_container)
+            {
+                snackBarMaker(view, getString(R.string.snack_bar_total_follows_image, totalFollow.getText().toString()));
+
+            }
+            else if (view.getId() == R.id.total_followers_container)
+            {
+                snackBarMaker(view, getString(R.string.snack_bar_total_followers_image, totalFollower.getText().toString()));
+            }
 
         }
-        else if (view.getId() == R.id.total_follows_container)
-        {
-            snackBarMaker(view, getString(R.string.snack_bar_total_follows_image, totalFollow.getText().toString()));
 
-        }
-        else if (view.getId() == R.id.total_followers_container)
-        {
-            snackBarMaker(view, getString(R.string.snack_bar_total_followers_image, totalFollower.getText().toString()));
-        }
-        else if (view.getId() == R.id.email_text_result)
+        if (view.getId() == R.id.email_text_result)
         {
             snackBarMakerWithAction(view, userMail.getText().toString());
         }
@@ -342,6 +411,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         {
             snackBarMakerWithAction(view, userWebPage.getText().toString());
         }
+
     }
 
     private void snackBarMaker(View view, String info)
@@ -425,7 +495,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
         totalPost.setText(postNumber);
-        totalPictures.setText("0");
+        totalPictures.setText("error");
         totalFriend.setText(friend);
         totalFollow.setText(follow);
         totalFollower.setText(follower);
@@ -462,6 +532,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         photosButton = findViewById(R.id.photos_button);
         privacyButton = findViewById(R.id.privacy_button);
 
+        buttonHider();
         //TextView Declarations
         userName = findViewById(R.id.user_name);
         userDepartment = findViewById(R.id.department);
@@ -496,7 +567,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
         totalPost.setText(postNumber);
-        totalPictures.setText("0");
+        totalPictures.setText("error");
         totalFriend.setText(friend);
         totalFollow.setText(follow);
         totalFollower.setText(follower);
@@ -505,6 +576,12 @@ public class ProfileInfoActivity extends AppCompatActivity {
         userPhone.setText(phone);
         userRelationshipStatus.setText(relation);
         userWebPage.setText(webPage);
+    }
+
+    private void buttonHider()
+    {
+        setProfileButton.setVisibility(View.GONE);
+        privacyButton.setVisibility(View.GONE);
     }
 
 

@@ -13,9 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.OtherUserProfileActivity;
 import com.seniorproject.uninet.uninet.R;
-import com.seniorproject.uninet.uninet.UniPosts;
 
 import java.util.List;
 
@@ -58,18 +58,18 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
         byte[] postInsidePicture = getItem(position).getPostImage();
 
 
-            LayoutInflater postInflater = LayoutInflater.from(mContext);
-            convertView = postInflater.inflate(mResource, parent, false);
+        LayoutInflater postInflater = LayoutInflater.from(mContext);
+        convertView = postInflater.inflate(mResource, parent, false);
 
-            postViewHolder = new ViewHolder();
+        postViewHolder = new ViewHolder();
 
-            postViewHolder.name = convertView.findViewById(R.id.user_name);
-            postViewHolder.description = convertView.findViewById(R.id.uni_post_description);
-            postViewHolder.timeStamp = convertView.findViewById(R.id.time_stamp);
-            postViewHolder.userPicture = convertView.findViewById(R.id.profile_picture);
-            postViewHolder.postPicture = convertView.findViewById(R.id.uni_post_image);
+        postViewHolder.name = convertView.findViewById(R.id.user_name);
+        postViewHolder.description = convertView.findViewById(R.id.uni_post_description);
+        postViewHolder.timeStamp = convertView.findViewById(R.id.time_stamp);
+        postViewHolder.userPicture = convertView.findViewById(R.id.profile_picture);
+        postViewHolder.postPicture = convertView.findViewById(R.id.uni_post_image);
 
-            convertView.setTag(postViewHolder);
+        convertView.setTag(postViewHolder);
 
 
 

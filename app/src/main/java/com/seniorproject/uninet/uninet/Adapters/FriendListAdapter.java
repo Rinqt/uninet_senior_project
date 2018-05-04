@@ -2,6 +2,8 @@ package com.seniorproject.uninet.uninet.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,26 +11,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Conversation;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
-import com.seniorproject.uninet.uninet.Friends;
 import com.seniorproject.uninet.uninet.LoggedInUser;
 import com.seniorproject.uninet.uninet.MessagingScreenActivity;
+import com.seniorproject.uninet.uninet.OtherUserProfileActivity;
 import com.seniorproject.uninet.uninet.R;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Friends> mList;
     private Context mContext;
+    private int type;
 
-    public FriendListAdapter(Context mContext, List<Friends> mList) {
+    public FriendListAdapter(Context mContext, List<Friends> mList, int type) {
         this.mContext = mContext;
         this.mList = mList;
+        this.type = type;
     }
 
     @NonNull
@@ -47,25 +53,61 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     {
         final Friends friendList = mList.get(position);
 
-
         if (friendList != null)
         {
-            ((FriendList) holder).friendPicture.setImageResource(R.mipmap.ic_launcher_round);
+            if (friendList.getFriendPicture() != null)
+            {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(friendList.getFriendPicture(), 0, friendList.getFriendPicture().length);
+                ((FriendList) holder).friendPicture.setImageBitmap(bitmap);
+            }
+
             ((FriendList) holder).friendUserName.setText(friendList.getFriendName());
 
-            ((FriendList) holder).newMessage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("friendAdapter", "buttonClicked");
 
-                    String friendId = friendList.getFriendId();
-                    String friendName = friendList.getFriendName();
+            if (type != 0)
+            {
+                ((FriendList) holder).newMessage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("friendAdapter", "buttonClicked");
 
-                    String communicationId = findCommunication(LoggedInUser.UserId, friendName);
-                    goToMessageScreen(friendId, communicationId, friendName);
+                        String friendId = friendList.getFriendId();
+                        String friendName = friendList.getFriendName();
 
+                        String communicationId = findCommunication(LoggedInUser.UserId, friendName);
+                        goToMessageScreen(friendId, communicationId, friendName);
+
+                    }
+                });
+
+                ((FriendList) holder).friendPicture.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent friendScreen = new Intent(mContext, OtherUserProfileActivity.class);
+                        mContext.startActivity(friendScreen);
+
+                    }
+                });
+
+                ((FriendList) holder).friendUserName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent friendScreen = new Intent(mContext, OtherUserProfileActivity.class);
+                        mContext.startActivity(friendScreen);
+
+                    }
+                });
+            }
+            else
+                {
+
+                    ((FriendList) holder).newMessage.setVisibility(View.GONE);
+                    ((FriendList) holder).friendUserName.setClickable(false);
+                    ((FriendList) holder).friendPicture.setClickable(false);
                 }
-            });
+
+
+
         }
 
     }
@@ -79,7 +121,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public class FriendList extends RecyclerView.ViewHolder
     {
-        private ImageView friendPicture;
+        private CircleImageView friendPicture;
         private TextView friendUserName;
         private Button newMessage;
 

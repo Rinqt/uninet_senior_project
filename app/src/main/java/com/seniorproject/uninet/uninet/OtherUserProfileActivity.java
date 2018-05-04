@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
@@ -59,6 +60,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         friendFollowsLabel = findViewById(R.id.user_total_follows_label);
 
         List<Post> postList = DatabaseMethods.GetPosts(whoIsTheUser);
+        setTitle(DatabaseMethods.GetUserNamePic(whoIsTheUser).name);
         uniPosts = new ArrayList<>();
 
         UserListingInfo user = DatabaseMethods.GetUserNamePic(whoIsTheUser);

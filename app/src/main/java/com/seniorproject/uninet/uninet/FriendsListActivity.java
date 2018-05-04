@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 
 import com.seniorproject.uninet.uninet.Adapters.FriendListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
@@ -43,7 +44,7 @@ public class FriendsListActivity extends AppCompatActivity {
 
         LoadFriends();
 
-        FriendListAdapter friendListAdapter = new FriendListAdapter(this, friendList);
+        FriendListAdapter friendListAdapter = new FriendListAdapter(this, friendList, 1);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
         friendScreen.setLayoutManager(linearLayoutManager);

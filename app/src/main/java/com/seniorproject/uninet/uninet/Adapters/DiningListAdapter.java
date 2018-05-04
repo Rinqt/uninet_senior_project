@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.seniorproject.uninet.uninet.Lunch;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Lunch;
 import com.seniorproject.uninet.uninet.R;
 
 import java.util.List;

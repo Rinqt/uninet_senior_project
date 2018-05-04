@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.seniorproject.uninet.uninet.Courses;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Courses;
 import com.seniorproject.uninet.uninet.R;
 
 import java.util.List;
 
-import static com.seniorproject.uninet.uninet.Courses.COURSE_TYPE;
-import static com.seniorproject.uninet.uninet.Courses.FRIDAY;
-import static com.seniorproject.uninet.uninet.Courses.MONDAY;
-import static com.seniorproject.uninet.uninet.Courses.THURSDAY;
-import static com.seniorproject.uninet.uninet.Courses.TUESDAY;
-import static com.seniorproject.uninet.uninet.Courses.WEDNESDAY;
+import static com.seniorproject.uninet.uninet.ConstructorClasses.Courses.COURSE_TYPE;
+import static com.seniorproject.uninet.uninet.ConstructorClasses.Courses.FRIDAY;
+import static com.seniorproject.uninet.uninet.ConstructorClasses.Courses.MONDAY;
+import static com.seniorproject.uninet.uninet.ConstructorClasses.Courses.THURSDAY;
+import static com.seniorproject.uninet.uninet.ConstructorClasses.Courses.TUESDAY;
+import static com.seniorproject.uninet.uninet.ConstructorClasses.Courses.WEDNESDAY;
 
 public class CourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 

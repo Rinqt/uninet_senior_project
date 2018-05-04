@@ -1,4 +1,4 @@
-package com.seniorproject.uninet.uninet;
+package com.seniorproject.uninet.uninet.ConstructorClasses;
 
 public class Courses {
 
@@ -19,7 +19,7 @@ public class Courses {
     private String date;
     private int type;
 
-    Courses(String courseTime, String courseCode, String courseName, String classroom, String lecturer, String isTheory, String date, int type) {
+    public Courses(String courseTime, String courseCode, String courseName, String classroom, String lecturer, String isTheory, String date, int type) {
         this.courseTime = courseTime;
         this.courseCode = courseCode;
         this.courseName = courseName;

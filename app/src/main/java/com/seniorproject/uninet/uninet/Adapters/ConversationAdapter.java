@@ -5,6 +5,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -74,7 +76,12 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             switch (message.getType())
             {
                 case RECEIVER:
-                    ((OtherUserMessage) holder).friendProfilePicture.setImageResource(R.mipmap.ic_launcher_round);
+                    if (message.getFriendPicture()!= null)
+                    {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(message.getFriendPicture(), 0, message.getFriendPicture().length);
+                        ((OtherUserMessage) holder).friendProfilePicture.setImageBitmap(bitmap);
+                    }
+
                     ((OtherUserMessage) holder).friendMessage.setText(message.getUserMessage());
                     ((OtherUserMessage) holder).friendMessageTime.setText(message.getMessageDate());
 

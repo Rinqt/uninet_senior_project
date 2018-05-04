@@ -39,6 +39,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
+import com.seniorproject.uninet.uninet.Adapters.PagerAdapter;
 import com.seniorproject.uninet.uninet.NotificationClasses.MyHandler;
 import com.seniorproject.uninet.uninet.NotificationClasses.NotificationSettings;
 import com.seniorproject.uninet.uninet.NotificationClasses.RegistrationIntentService;

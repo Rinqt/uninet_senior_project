@@ -6,6 +6,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,8 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +122,16 @@ public class ProfileFragment extends Fragment {
 
         swipeRefreshLayout = getActivity().findViewById(R.id.uni_post_swiper);
         unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
+
+
+        UserListingInfo user = DatabaseMethods.GetUserNamePic(whoIsTheUser);
+
+        if (user.smallProfilePicture != null)
+        {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(user.smallProfilePicture, 0, user.smallProfilePicture.length);
+            profilePhoto.setImageBitmap(bitmap);
+        }
+
 
         refreshInformation();
         addDataToList();

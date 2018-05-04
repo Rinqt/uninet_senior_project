@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.Adapters.MessagesListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Messages;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Conversation;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 

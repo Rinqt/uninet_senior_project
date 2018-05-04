@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.seniorproject.uninet.uninet.Messages;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Messages;
 import com.seniorproject.uninet.uninet.MessagingScreenActivity;
 import com.seniorproject.uninet.uninet.R;
 
@@ -65,31 +65,29 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
             convertView.setTag(messagesInflater);
 
 
-        messagesViewHolder.friendName.setText(name);
-        messagesViewHolder.friendMessage.setText(message);
-        messagesViewHolder.friendProfilePhoto.setImageResource(R.mipmap.ic_launcher);
-        //messagesViewHolder.friendProfilePhoto.setImageResource(picture[position]);
+            messagesViewHolder.friendName.setText(name);
+            messagesViewHolder.friendMessage.setText(message);
 
-        if (picture != null)
-        {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(picture, 0, picture.length);
-            messagesViewHolder.friendProfilePhoto.setImageBitmap(bitmap);
-        }
-
-
-        messagesViewHolder.friendProfilePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToMessageScreen(conversationId, name);
+            if (picture != null)
+            {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(picture, 0, picture.length);
+                messagesViewHolder.friendProfilePhoto.setImageBitmap(bitmap);
             }
-        });
 
-        messagesViewHolder.friendName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToMessageScreen(conversationId, name);
-            }
-        });
+
+            messagesViewHolder.friendProfilePhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToMessageScreen(conversationId, name);
+                }
+            });
+
+            messagesViewHolder.friendName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToMessageScreen(conversationId, name);
+                }
+            });
 
 
         }

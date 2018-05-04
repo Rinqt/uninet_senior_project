@@ -60,22 +60,6 @@
         </activity>
 
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/uni_post_settings"
-            android:parentActivityName=".HomeActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.seniorproject.uninet.uninet.HomeActivity" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
-
-                <category android:name="android.intent.category.PREFERENCE" />
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".VersionActivity"
             android:label="@string/title_activity_version"
             android:parentActivityName=".HomeActivity"
@@ -183,6 +167,12 @@
             android:theme="@style/AppTheme.Fullscreen"
             >
 
+        </activity>
+        <activity android:name=".FriendScreenActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/friends"
+            android:launchMode="standard"
+            android:parentActivityName=".HomeActivity">
         </activity>
 
     </application>

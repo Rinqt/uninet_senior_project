@@ -12,9 +12,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Conversation;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
-import com.seniorproject.uninet.uninet.Friends;
 import com.seniorproject.uninet.uninet.LoggedInUser;
 import com.seniorproject.uninet.uninet.MessagingScreenActivity;
 import com.seniorproject.uninet.uninet.R;

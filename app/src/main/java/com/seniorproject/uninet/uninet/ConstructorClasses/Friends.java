@@ -1,4 +1,4 @@
-package com.seniorproject.uninet.uninet;
+package com.seniorproject.uninet.uninet.ConstructorClasses;
 
 public class Friends {
 
@@ -28,6 +28,7 @@ public class Friends {
     }
 
     public byte[] getFriendPicture() {
+
         return friendPicture;
     }
 

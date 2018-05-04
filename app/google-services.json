@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "920723194870",
+    "firebase_url": "https://asdasd-bc439.firebaseio.com",
+    "project_id": "asdasd-bc439",
+    "storage_bucket": "asdasd-bc439.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920723194870:android:8e47bf0b202e345b",
+        "android_client_info": {
+          "package_name": "com.seniorproject.uninet.uninet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920723194870-inpn56mt4bsjhqqefdcdhs1j4vgvmjjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLzK4kXRPJh293bpSwzzk0QkhAGneDDpI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

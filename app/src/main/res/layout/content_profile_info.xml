@@ -28,8 +28,8 @@
 
         <Button
             android:id="@+id/add_friend_button"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/ic_add_friend"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -37,12 +37,21 @@
 
         <Button
             android:id="@+id/delete_friend_button"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/ic_remove_friend"
             app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/block_friend_button"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_block_friend"
+            app:layout_constraintEnd_toStartOf="@+id/delete_friend_button"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -159,8 +168,9 @@
             android:id="@+id/button_holder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginTop="16dp"
+
+            app:layout_constraintBottom_toTopOf="@+id/info_header"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/card_view">
@@ -179,8 +189,8 @@
                 android:text="@string/btn_title_photos"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/set_profile_button"
-                app:layout_constraintTop_toBottomOf="@+id/set_profile_button" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/set_profile_button"
@@ -196,7 +206,8 @@
                 android:text="@string/btn_title_set_profile"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/photos_button" />
 
             <Button
                 android:id="@+id/privacy_button"
@@ -210,36 +221,35 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
+
                 android:text="@string/btn_title_privacy"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
-
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/photos_button"
+                app:layout_constraintStart_toEndOf="@+id/set_profile_button"
                 app:layout_constraintTop_toBottomOf="@+id/friends_button" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/friend_request_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="8dp"
-
+                android:layout_marginTop="16dp"
                 android:elevation="5dp"
                 android:src="@drawable/ic_friend_requestt"
-                app:civ_border_color="#FFF"
+                app:civ_border_color="@color/black"
                 app:civ_border_width="1dp"
-                app:layout_constraintBottom_toBottomOf="@+id/friends_button"
-
-                app:layout_constraintStart_toEndOf="@+id/set_profile_button" />
+                app:layout_constraintBottom_toTopOf="@+id/friends_button"
+                app:layout_constraintEnd_toEndOf="@+id/friends_button"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/friends_button"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/friends_button"
                 android:layout_width="165dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:background="@drawable/profile_button_reverse"
                 android:gravity="center"
                 android:shadowColor="#A8A8A8"
@@ -247,12 +257,12 @@
                 android:shadowDy="0"
                 android:shadowRadius="5"
                 android:text="@string/btn_title_friends"
+
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/photos_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/set_profile_button"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/photos_button" />
         </android.support.constraint.ConstraintLayout>
 
 

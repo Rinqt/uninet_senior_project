@@ -10,14 +10,16 @@ public class UserConversations {
     private String name;
     private String userMessage;
     private String messageDate;
+    private byte[] friendPicture;
     private int type;
 
-    UserConversations(String userId, String messageId, String name, String userMessage, String messageDate, int type) {
+    UserConversations(String userId, String messageId, String name, String userMessage, String messageDate, byte[] friendPicture, int type) {
         this.userId = userId;
         this.messageId = messageId;
         this.name = name;
         this.userMessage = userMessage;
         this.messageDate = messageDate;
+        this.friendPicture = friendPicture;
         this.type = type;
     }
 
@@ -59,6 +61,14 @@ public class UserConversations {
 
     public void setMessageDate(String messageDate) {
         this.messageDate = messageDate;
+    }
+
+    public byte[] getFriendPicture() {
+        return friendPicture;
+    }
+
+    public void setFriendPicture(byte[] friendPicture) {
+        this.friendPicture = friendPicture;
     }
 
     public int getType() {

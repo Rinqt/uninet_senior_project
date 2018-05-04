@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.seniorproject.uninet.uninet.Adapters.DiningListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.Lunch;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.LunchSchedule;
 
@@ -35,7 +36,7 @@ public class DiningActivity extends AppCompatActivity {
 
         for (int i = 0; i < lunchSchedules.size(); i++)
         {
-            lunches.add(new Lunch(lunchSchedules.get(i).food));
+            lunches.add(new Lunch(this, lunchSchedules.get(i).food));
         }
 
         DiningListAdapter diningListAdapter = new DiningListAdapter(this, R.layout.dining_list_template, lunches);
