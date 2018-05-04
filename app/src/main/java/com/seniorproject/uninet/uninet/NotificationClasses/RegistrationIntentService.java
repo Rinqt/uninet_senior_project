@@ -37,7 +37,7 @@ public class RegistrationIntentService extends IntentService {
             // Storing the registration ID that indicates whether the generated token has been
             // sent to your server. If it is not stored, send the token to your server,
             // otherwise your server should have already received the token.
-            if (((regID = sharedPreferences.getString("registrationID", null)).equals(null))) {
+            if (((regID=sharedPreferences.getString("registrationID", null)) == null)){
 
                 NotificationHub hub = new NotificationHub(NotificationSettings.HubName,
                         NotificationSettings.HubListenConnectionString, this);
@@ -52,12 +52,12 @@ public class RegistrationIntentService extends IntentService {
                 resultString = "New NH Registration Successfully - RegId : " + regID;
                 Log.d(TAG, resultString);
 
-                sharedPreferences.edit().putString("registrationID", regID).apply();
-                sharedPreferences.edit().putString("FCMtoken", FCM_token).apply();
+                sharedPreferences.edit().putString("registrationID", regID ).apply();
+                sharedPreferences.edit().putString("FCMtoken", FCM_token ).apply();
             }
 
             // Check if the token may have been compromised and needs refreshing.
-            else if (!(storedToken = sharedPreferences.getString("FCMtoken", "")).equals(FCM_token)) {
+            else if (!(storedToken=sharedPreferences.getString("FCMtoken", "")).equals(FCM_token)) {
 
                 NotificationHub hub = new NotificationHub(NotificationSettings.HubName,
                         NotificationSettings.HubListenConnectionString, this);
@@ -72,13 +72,15 @@ public class RegistrationIntentService extends IntentService {
                 resultString = "New NH Registration Successfully - RegId : " + regID;
                 Log.d(TAG, resultString);
 
-                sharedPreferences.edit().putString("registrationID", regID).apply();
-                sharedPreferences.edit().putString("FCMtoken", FCM_token).apply();
-            } else {
+                sharedPreferences.edit().putString("registrationID", regID ).apply();
+                sharedPreferences.edit().putString("FCMtoken", FCM_token ).apply();
+            }
+
+            else {
                 resultString = "Previously Registered Successfully - RegId : " + regID;
             }
         } catch (Exception e) {
-            Log.e(TAG, resultString = "Failed to complete registration", e);
+            Log.e(TAG, resultString="Failed to complete registration", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
         }
