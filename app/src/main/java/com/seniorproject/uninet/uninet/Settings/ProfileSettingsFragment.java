@@ -37,6 +37,7 @@ import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 import com.seniorproject.uninet.uninet.R;
 import com.seniorproject.uninet.uninet.StoredUserInformation;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -282,11 +283,12 @@ public class ProfileSettingsFragment extends Fragment{
 
 
     private void performCrop() {
-        CropImage.activity().start(getContext(), this);
-    }
-
-    private void Save() {
-
+        CropImage.activity().setCropShape(CropImageView.CropShape.OVAL)
+                .setAllowFlipping(false)
+                .setAllowRotation(false)
+                .setMaxCropResultSize(200,200)
+                .setMinCropResultSize(200,200)
+                .start(getContext(), this);
     }
 
     private void setRelationship()
