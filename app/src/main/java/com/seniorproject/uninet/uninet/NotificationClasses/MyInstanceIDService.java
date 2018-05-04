@@ -14,7 +14,7 @@ public class MyInstanceIDService extends FirebaseInstanceIdService {
 
         Log.d(TAG, "Refreshing GCM Registration Token");
 
-        Intent intent = new Intent(this, RegistrationIntentService.class);
-        startService(intent);
+        //Intent intent = new Intent(this, RegistrationIntentService.class);
+        //startService(intent);
     }
 };

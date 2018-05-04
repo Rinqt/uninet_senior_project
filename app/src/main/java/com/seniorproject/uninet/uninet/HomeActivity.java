@@ -119,8 +119,6 @@ public class HomeActivity extends AppCompatActivity
         NotificationsManager.handleNotifications(this, NotificationSettings.SenderId, MyHandler.class);
         registerWithNotificationHubs();
 
-
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +136,6 @@ public class HomeActivity extends AppCompatActivity
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-
-
-
 
         //New post refresh change
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
