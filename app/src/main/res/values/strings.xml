@@ -60,6 +60,10 @@
     <string name="description_save_settings">Save Settings</string>
     <string name="description_back_arrow">Home Screen</string>
     <string name="description_go_to_lecture">Go To Lecture</string>
+    <string name="description_friendship_request">Do you want to add user as a friend?</string>
+    <string name="description_friendship_removal">Do you want to remove the user from friend list?</string>
+    <string name="description_add_friend">Add</string>
+    <string name="description_remove_friend">Remove</string>
 
     <string name="snack_bar_total_friends_image" formatted="true">You have %1$s friends.</string>
     <string name="snack_bar_university_progress_image" formatted="true">You are a %1$s Student</string>

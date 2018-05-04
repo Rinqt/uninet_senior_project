@@ -33,15 +33,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/profile_photo"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/other_user_profile_picture"
                     android:layout_width="87dp"
                     android:layout_height="90dp"
                     android:layout_marginEnd="8dp"
                     android:contentDescription="@string/description_profile_photo"
                     android:elevation="5dp"
-                    android:background="@mipmap/awesome_kaan_1"
-
+                    android:src="@color/white"
+                    app:civ_border_width="1dp"
+                    app:civ_border_color="#000"
                     app:layout_constraintBottom_toBottomOf="@+id/user_info_card_view"
                     app:layout_constraintEnd_toStartOf="@+id/user_info_card_view"
                     app:layout_constraintHorizontal_bias="1.0"

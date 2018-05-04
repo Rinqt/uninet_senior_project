@@ -27,7 +27,7 @@
 
 
             <ImageView
-                android:id="@+id/profile_photo"
+                android:id="@+id/profile_fragment_profile_picture"
                 android:layout_width="108dp"
                 android:layout_height="108dp"
                 android:layout_marginStart="8dp"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/profile_divider"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/profile_photo"
+                app:layout_constraintStart_toEndOf="@+id/profile_fragment_profile_picture"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
@@ -131,8 +131,8 @@
                 android:background="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintRight_toRightOf="@id/main_container"
-                app:layout_constraintStart_toStartOf="@+id/profile_photo"
-                app:layout_constraintTop_toBottomOf="@+id/profile_photo" />
+                app:layout_constraintStart_toStartOf="@+id/profile_fragment_profile_picture"
+                app:layout_constraintTop_toBottomOf="@+id/profile_fragment_profile_picture" />
 
             <ListView
 

@@ -37,7 +37,7 @@ public class FriendsListActivity extends AppCompatActivity {
         // Declarations
         userInformation = new StoredUserInformation(this);
         whoIsTheUser = userInformation.getUserId();
-        messageWriteButton = findViewById(R.id.send_new_message_button);
+        messageWriteButton = findViewById(R.id.friend_search_add_friend);
         friendList = new ArrayList<>();
         friendScreen = findViewById(R.id.friends_list);
 

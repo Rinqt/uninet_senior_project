@@ -244,6 +244,7 @@ public class FeedFragment extends Fragment {
 
         for (int i = feedScreenPosts.size() - 1 ; i >= 0; i--)
         {
+            // TODO Post Image?
             uniPosts.add(new UniPosts(feedScreenPosts.get(i).userId,
                     feedScreenPosts.get(i).postId,
                     feedScreenPosts.get(i).name,

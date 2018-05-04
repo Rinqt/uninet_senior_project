@@ -19,6 +19,8 @@ import com.seniorproject.uninet.uninet.UniPosts;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PostListAdapter extends ArrayAdapter<UniPosts> {
 
 
@@ -30,7 +32,7 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
         TextView name;
         TextView timeStamp;
         TextView description;
-        ImageView userPicture;
+        CircleImageView userPicture;
         ImageView postPicture;
     }
 

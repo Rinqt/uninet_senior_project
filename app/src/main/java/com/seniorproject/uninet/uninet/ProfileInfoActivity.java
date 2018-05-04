@@ -1,9 +1,13 @@
 package com.seniorproject.uninet.uninet;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -16,6 +20,9 @@ import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
+import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by kaany on 27.02.2018.
@@ -28,6 +35,8 @@ public class ProfileInfoActivity extends AppCompatActivity {
     Button friendsButton;
     Button photosButton;
     Button privacyButton;
+    Button addFriend;
+    Button removeFriend;
 
     // TextViews
     TextView userName;
@@ -52,6 +61,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
     ImageView totalFollowsImage;
     ImageView getTotalFollowersImage;
 
+    CircleImageView userProfilePicture;
+    CircleImageView friendRequestIcon;
+
 
     String whoIsTheUser;
     String otherUserId;
@@ -66,17 +78,61 @@ public class ProfileInfoActivity extends AppCompatActivity {
         setContentView(R.layout.content_profile_info);
 
         userInformation = new StoredUserInformation(this);
+        userProfilePicture = findViewById(R.id.content_profile_info_profile_picture);
+        addFriend = findViewById(R.id.add_friend_button);
+        removeFriend = findViewById(R.id.delete_friend_button);
+        friendRequestIcon = findViewById(R.id.friend_request_icon);
+
         otherUserId = getIntent().getStringExtra("UserID");
 
-        String id;
-
-        id = userInformation.getUserId();
+        whoIsTheUser = userInformation.getUserId();
 
         // Eğer kullanıcı direk profilinden detaylara gitmek isterse otherUserId null dönüyor
         if (otherUserId == null)
-            otherUserId = id;
+            otherUserId = whoIsTheUser;
 
-        if (!id.contains(otherUserId))
+
+        UserListingInfo userPhoto = DatabaseMethods.GetUserNamePic(otherUserId);
+
+        // If profile belongs to current user, hide add/remove buttons
+        if (otherUserId.equals(userInformation.getUserId()))
+        {
+            addFriend.setVisibility(View.GONE);
+            removeFriend.setVisibility(View.GONE);
+            checkFriendshipRequests();
+        }
+        else
+            {
+                // If user is not a friend
+                friendRequestIcon.setVisibility(View.GONE);
+                if (DatabaseMethods.CheckFriendship(whoIsTheUser, otherUserId).equals("1"))
+                {
+                    addFriend.setVisibility(View.GONE);
+                    removeFriend.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    addFriend.setVisibility(View.VISIBLE);
+                    removeFriend.setVisibility(View.GONE);
+                }
+
+            }
+
+
+
+
+
+
+
+        if (userPhoto.smallProfilePicture != null)
+        {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(userPhoto.smallProfilePicture, 0, userPhoto.smallProfilePicture.length);
+            userProfilePicture.setImageBitmap(bitmap);
+        }
+
+
+
+        if (!whoIsTheUser.contains(otherUserId))
         {
             // Posttan gidilen kullanıcının profilini yükle:
             loadOtherUserProfile();
@@ -124,9 +180,89 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 startActivity(profileSettings);
             }
         });
+
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendFriendRequest();
+
+            }
+        });
+
+        removeFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeUser();
+
+            }
+        });
+
     }
 
+    private void checkFriendshipRequests()
+    {
+        //TODO Friendship requeste göre kırmızı butonu aç kapa
+        // Eğer request varsa Arkadaşlar butonunda kaç request olduğunu gösteren bir yazı çıkıcak
+    }
 
+    private void sendFriendRequest()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //builder.setTitle(getString(R.string.unsaved_changes_title));
+        builder.setMessage(getString(R.string.description_friendship_request));
+
+        builder.setPositiveButton(getString(R.string.description_add_friend), new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Leave the page
+                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "1");
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Stay in the page
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void removeUser()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //builder.setTitle(getString(R.string.unsaved_changes_title));
+        builder.setMessage(getString(R.string.description_friendship_removal));
+
+        builder.setPositiveButton(getString(R.string.description_remove_friend), new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Leave the page
+                DatabaseMethods.RemoveFriend(whoIsTheUser, otherUserId);
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Stay in the page
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
 
     private String calculateYearName(int year)
     {

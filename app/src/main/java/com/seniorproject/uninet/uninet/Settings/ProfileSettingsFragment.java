@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,6 +33,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 import com.seniorproject.uninet.uninet.R;
 import com.seniorproject.uninet.uninet.StoredUserInformation;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -62,6 +64,9 @@ public class ProfileSettingsFragment extends Fragment{
     StoredUserInformation userInformation;
     StoredUserInformation storedUserInformation;
 
+    CircleImageView profilePicture;
+
+
     public static boolean isThereAChange;
 
     @Nullable
@@ -87,6 +92,7 @@ public class ProfileSettingsFragment extends Fragment{
         backArrowButton = (getActivity()).findViewById(R.id.profile_back_arrow_button);
         saveSettingsButton = (getActivity()).findViewById(R.id.profile_settings_apply_settings_button);
         mChangeProfilePicture = getActivity().findViewById(R.id.change_profile_photo);
+        profilePicture = getActivity().findViewById(R.id.edit_profile_profile_picture);
         mPhoneNumber = getActivity().findViewById(R.id.phone_number);
         mEmailAddress = getActivity().findViewById(R.id.mail_address);
         mWebPage = getActivity().findViewById(R.id.web_page);
@@ -99,6 +105,13 @@ public class ProfileSettingsFragment extends Fragment{
         mWebPage.setText(userInformation.getWebPage());
         mSetRelationship.setText(userInformation.getRelationshipStatus());
 
+        UserListingInfo userPhoto = DatabaseMethods.GetUserNamePic(userInformation.getUserId());
+
+        if (userPhoto.smallProfilePicture != null)
+        {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(userPhoto.smallProfilePicture, 0, userPhoto.smallProfilePicture.length);
+            profilePicture.setImageBitmap(bitmap);
+        }
 
         backArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,7 +261,7 @@ public class ProfileSettingsFragment extends Fragment{
                 }
                 smallProfilePictureImage = stream.toByteArray();
 
-                CircleImageView imageView = (CircleImageView) getActivity().findViewById(R.id.profile_photo);
+                CircleImageView imageView = (CircleImageView) getActivity().findViewById(R.id.profile_fragment_profile_picture);
 
                 imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(), false));
 

@@ -60,7 +60,7 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
 
             messagesViewHolder.friendName = convertView.findViewById(R.id.friend_user_name);
             messagesViewHolder.friendMessage = convertView.findViewById(R.id.friend_last_message);
-            messagesViewHolder.friendProfilePhoto = convertView.findViewById(R.id.friend_list_friend_profile_picture);
+            messagesViewHolder.friendProfilePhoto = convertView.findViewById(R.id.friend_profile_picture);
 
             convertView.setTag(messagesInflater);
 

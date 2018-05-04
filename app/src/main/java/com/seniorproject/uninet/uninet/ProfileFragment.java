@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,9 +52,10 @@ public class ProfileFragment extends Fragment {
 
     Button profileButton;
 
-        TextView userPhotosLabel;
-        TextView userFriendsLabel;
-        TextView userFollowsLabel;
+    TextView userPhotosLabel;
+    TextView userFriendsLabel;
+    TextView userFollowsLabel;
+    ImageView profilePhoto;
 
     String whoIsTheUser;
 
@@ -108,6 +110,7 @@ public class ProfileFragment extends Fragment {
 
         // Declaration
         whoIsTheUser = userInformation.getUserId();
+        profilePhoto = getActivity().findViewById(R.id.profile_fragment_profile_picture);
         profileButton = getActivity().findViewById(R.id.user_profile_button);
         userPhotosLabel = getActivity().findViewById(R.id.user_total_photos_label);
         userFriendsLabel = getActivity().findViewById(R.id.user_total_friends_label);

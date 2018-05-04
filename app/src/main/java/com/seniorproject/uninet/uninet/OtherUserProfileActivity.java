@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +22,8 @@ import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OtherUserProfileActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
     TextView friendFriendsLabel;
     TextView friendFollowsLabel;
 
-    ImageView friendProfilePhoto;
+    CircleImageView friendProfilePhoto;
 
 
 
@@ -52,7 +53,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         userPosts = findViewById(R.id.other_user_uni_post_list_view);
         detailedProfileButton = findViewById(R.id.user_profile_button);
 
-        friendProfilePhoto = findViewById(R.id.profile_photo);
+        friendProfilePhoto = findViewById(R.id.other_user_profile_picture);
         friendPhotosLabel = findViewById(R.id.user_total_photos_label);
         friendFriendsLabel = findViewById(R.id.user_total_friends_label);
         friendFollowsLabel = findViewById(R.id.user_total_follows_label);

@@ -41,6 +41,8 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
 
+
+
     //Circle ImageView
     implementation 'de.hdodenhof:circleimageview:2.1.0'
 
