@@ -286,8 +286,7 @@ public class ProfileSettingsFragment extends Fragment{
         CropImage.activity().setCropShape(CropImageView.CropShape.OVAL)
                 .setAllowFlipping(false)
                 .setAllowRotation(false)
-                .setMaxCropResultSize(200,200)
-                .setMinCropResultSize(200,200)
+                .setFixAspectRatio(true)
                 .start(getContext(), this);
     }
 
