@@ -84,13 +84,13 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+
         //Set Toolbar
         final Toolbar myToolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle(R.string.app_name);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-
 
         //Session
         sessionChecker = new SessionChecker(this);
@@ -271,9 +271,7 @@ public class HomeActivity extends AppCompatActivity
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-
-
+            moveTaskToBack(true);
         }
     }
 
