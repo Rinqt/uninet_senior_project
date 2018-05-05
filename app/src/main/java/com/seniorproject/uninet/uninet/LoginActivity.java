@@ -218,10 +218,6 @@ public class LoginActivity extends AppCompatActivity {
                     sessionChecker.setUserLoggedIn(true); // User Session
                     sessionChecker.setLoginInfo(LoggedInUser.UserId + "," + LoggedInUser.TeacherId + "," + LoggedInUser.StudentId);
 
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-
-
                     Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_SHORT).show();
                 }
                 else
