@@ -27,11 +27,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.FirebaseApp;
+import com.microsoft.windowsazure.notifications.NotificationsManager;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 import com.seniorproject.uninet.uninet.DatabaseClasses.PrivacySettings;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
+import com.seniorproject.uninet.uninet.NotificationClasses.MyHandler;
+import com.seniorproject.uninet.uninet.NotificationClasses.NotificationSettings;
 import com.seniorproject.uninet.uninet.NotificationClasses.RegistrationIntentService;
 
 import java.util.List;
@@ -168,9 +172,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 userInformation.setPhotosNumber(String.valueOf(pictureCount));
-                //FirebaseApp.initializeApp(getApplicationContext());
-                //NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
-                //registerWithNotificationHubs();
+                FirebaseApp.initializeApp(getApplicationContext());
+                NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
+                registerWithNotificationHubs();
 
                 dialog.dismiss();
 
