@@ -182,7 +182,13 @@
             android:launchMode="standard"
             android:parentActivityName=".HomeActivity">
         </activity>
-        <activity android:name=".LectureDetailsActivity" />
+
+        <activity
+            android:name=".LectureDetailsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/search_user"
+            android:launchMode="standard"
+            android:parentActivityName=".HomeActivity"/>
 
     </application>
 
