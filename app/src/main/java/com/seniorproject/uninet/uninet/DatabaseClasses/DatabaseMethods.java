@@ -613,6 +613,11 @@ public class DatabaseMethods {
     }
 
     public static void SendMessage(String otherUserId, String userId, String userMessage){
+        try {
+            userMessage = URLEncoder.encode(userMessage, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessage?a="+otherUserId+"&b="+userId+"&c="+userMessage;
         try {
             new DatabaseClass().execute(url, "POST").get();
@@ -623,6 +628,11 @@ public class DatabaseMethods {
     }
 
     public static void SendMessageExistingConversation(String conversationId, String userId, String userMessage){
+        try {
+            userMessage = URLEncoder.encode(userMessage, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         String url = "http://uninetapplication.cloudapp.net/Service1.svc/SendMessageExistingConversation?a="+conversationId+"&b="+userId+"&c="+userMessage;
         try {
             new DatabaseClass().execute(url, "POST").get();
@@ -678,7 +688,7 @@ public class DatabaseMethods {
                 tempMessage.userId = course.getString("userId");
                 tempMessage.messageId = course.getString("messageId");
                 tempMessage.name = course.getString("name");
-                tempMessage.userMessage = course.getString("userMessage");
+                tempMessage.userMessage = URLDecoder.decode(course.getString("userMessage"), "utf-8");
                 tempMessage.messageDate = course.getString("messageDate");
                 result.add(tempMessage);
             }

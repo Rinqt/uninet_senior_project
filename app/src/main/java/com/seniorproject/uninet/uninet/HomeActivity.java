@@ -97,14 +97,14 @@ public class HomeActivity extends AppCompatActivity
             logout();
         }
 
-        //String loginInfo = sessionChecker.GetLoginInfo();
-        //String userId  = loginInfo.split(",")[0];
-        //String teacherId  = loginInfo.split(",")[1];
-        //String studentId  = loginInfo.split(",")[2];
+        String loginInfo = sessionChecker.GetLoginInfo();
+        String userId  = loginInfo.split(",")[0];
+        String teacherId  = loginInfo.split(",")[1];
+        String studentId  = loginInfo.split(",")[2];
 
-        //LoggedInUser.UserId = userId;
-        //LoggedInUser.TeacherId = teacherId.equals("null") ? null : teacherId;
-        //LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
+        LoggedInUser.UserId = userId;
+        LoggedInUser.TeacherId = teacherId.equals("null") ? null : teacherId;
+        LoggedInUser.StudentId = studentId.equals("null") ? null : studentId;
 
 
 
