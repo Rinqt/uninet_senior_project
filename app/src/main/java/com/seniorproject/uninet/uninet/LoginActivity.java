@@ -37,6 +37,8 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.PrivacySettings;
+import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
 import com.seniorproject.uninet.uninet.NotificationClasses.MyHandler;
 import com.seniorproject.uninet.uninet.NotificationClasses.NotificationSettings;
 import com.seniorproject.uninet.uninet.NotificationClasses.RegistrationIntentService;
@@ -144,24 +146,26 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
 
                 //TODO: Check if user ID belong to student or lecturer
+                ProfileInfoStudent profileInfoStudent = DatabaseMethods.GetProfileInfoStudent(whoIsTheUser);
                 userInformation.setUserId(whoIsTheUser);
-                userInformation.setUserName(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).name);
-                userInformation.setDepartment(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).department);
-                userInformation.setMailAddress(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).email);
-                userInformation.setPhoneNumber(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).phoneNumber);
-                userInformation.setRelationshipStatus(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).relationship);
-                userInformation.setWebPage(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).webPage);
+                userInformation.setUserName(profileInfoStudent.name);
+                userInformation.setDepartment(profileInfoStudent.department);
+                userInformation.setMailAddress(profileInfoStudent.email);
+                userInformation.setPhoneNumber(profileInfoStudent.phoneNumber);
+                userInformation.setRelationshipStatus(profileInfoStudent.relationship);
+                userInformation.setWebPage(profileInfoStudent.webPage);
                 userInformation.setFriendsNumber(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
                 userInformation.setFollowersNumber(String.valueOf(DatabaseMethods.GetStudentFollowers(whoIsTheUser).size()));
                 userInformation.setFollowsNumber(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
                 userInformation.setUniPostsNumber(String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()));
-                userInformation.setEducationYear(DatabaseMethods.GetProfileInfoStudent(whoIsTheUser).academicYear);
+                userInformation.setEducationYear(profileInfoStudent.academicYear);
 
-                userInformation.setUniPostPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showPostEveryone);
-                userInformation.setLocationPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showLocationEveryone);
-                userInformation.setMessagingPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).receiveMessageFromEveryone);
-                userInformation.setNotification(DatabaseMethods.GetPrivacySettings(whoIsTheUser).notifications);
-                userInformation.setBirthdayPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showBirthdayEveryone);
+                PrivacySettings privacySettings = DatabaseMethods.GetPrivacySettings(whoIsTheUser);
+                userInformation.setUniPostPrivacy(privacySettings.showPostEveryone);
+                userInformation.setLocationPrivacy(privacySettings.showLocationEveryone);
+                userInformation.setMessagingPrivacy(privacySettings.receiveMessageFromEveryone);
+                userInformation.setNotification(privacySettings.notifications);
+                userInformation.setBirthdayPrivacy(privacySettings.showBirthdayEveryone);
                 userInformation.setPhotosNumber(String.valueOf(DatabaseMethods.GetPostPictures(whoIsTheUser).size()));
                 //FirebaseApp.initializeApp(getApplicationContext());
                 //NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
