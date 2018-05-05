@@ -2,6 +2,7 @@ package com.seniorproject.uninet.uninet;
 
 
 import android.Manifest;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -81,6 +82,13 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        if(getIntent().getStringExtra("startMessageFragment") != null){
+            
+        }
+        else if(getIntent().getStringExtra("startFeedFragment") != null){
+
+        }
 
         //Set Toolbar
         final Toolbar myToolbar = findViewById(R.id.mainToolbar);
