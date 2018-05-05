@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
@@ -119,12 +120,15 @@ public class FeedFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 Log.i("Long click check", "Item Index " + i);
 
-                alertDialog.setItems(R.array.uni_post_settings, new DialogInterface.OnClickListener()
+                UniPosts selectedPost;
+                selectedPost = postListAdapter.getItem(i);
+                int settings = selectedPost.getUserID().equals(LoggedInUser.UserId) ? R.array.uni_post_settings : R.array.uni_post_settings_other_user;
+
+                alertDialog.setItems(settings, new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int whichOption) {
                         UniPosts selectedPost;
-
                         switch (whichOption)
                         {
                             case 0:

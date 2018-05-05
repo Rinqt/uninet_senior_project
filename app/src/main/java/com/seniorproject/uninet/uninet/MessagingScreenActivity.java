@@ -113,13 +113,13 @@ public class MessagingScreenActivity extends AppCompatActivity {
 
     private void loadMessages()
     {
-        List<Message> message = DatabaseMethods.GetMessages(whoIsTheUser, conversationID);
+
 
         if(friendConversationId != null && !friendConversationId.isEmpty())
         {
             conversationID = friendConversationId;
         }
-
+        List<Message> message = DatabaseMethods.GetMessages(whoIsTheUser, conversationID);
 
         if (message.size() == 0)
         {

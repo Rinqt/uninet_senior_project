@@ -230,6 +230,10 @@
         <item>Delete Post</item>
     </string-array>
 
+    <string-array name="uni_post_settings_other_user">
+        <item>Copy UniPost Text</item>
+    </string-array>
+
 
     <!-- Settings for UniMessages -->
     <string-array name="uni_message_settings_user">

@@ -245,7 +245,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "0", null);
+                DatabaseMethods.RemoveFriendFollowUponBlock(whoIsTheUser, otherUserId);
                 dialog.dismiss();
+                finish();
             }
         });
 
@@ -282,6 +284,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 // Leave the page
                 DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "1", "1");
                 dialog.dismiss();
+                finish();
             }
         });
 
@@ -311,6 +314,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
                 // Leave the page
                 DatabaseMethods.RemoveFriend(whoIsTheUser, otherUserId);
                 dialog.dismiss();
+                finish();
             }
         });
 

@@ -198,6 +198,10 @@
         <item>UniPostu sil</item>
     </string-array>
 
+    <string-array name="uni_post_settings_other_user">
+        <item>UniPost içeriğini kopyala</item>
+    </string-array>
+
     <string name="uni_post_settings">UniPost Ayarları</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">UniPost Gizliliği</string>
