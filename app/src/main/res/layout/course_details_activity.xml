@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Assignments -->
+    <RelativeLayout
+        android:id="@+id/r_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/assignments_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/lectures_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/pref_description_phoneNumber" />
+
+        <TextView
+            android:id="@+id/assignments_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="45dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:hint="@string/course_assignment"/>
+
+    </RelativeLayout>
+    <!-- Assignments END-->
+
+    <!--  Course Weeks -->
+    <RelativeLayout
+        android:id="@+id/r_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/r_layout_1">
+
+        <ImageView
+            android:id="@+id/course_weeks_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_lecture_weeks"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/pref_description_phoneNumber" />
+
+        <TextView
+            android:id="@+id/course_weeks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="45dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:hint="@string/course_weeks"/>
+
+    </RelativeLayout>
+    <!-- Course Weeks END-->
+
+    <!--  Announcements -->
+    <RelativeLayout
+        android:id="@+id/r_layout_3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/r_layout_2">
+
+        <ImageView
+            android:id="@+id/announcements_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_lecture_announcements"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/pref_description_phoneNumber" />
+
+        <TextView
+            android:id="@+id/announcements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="45dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:hint="@string/course_announcements"/>
+
+    </RelativeLayout>
+    <!-- Announcements END-->
+
+</RelativeLayout>

@@ -172,6 +172,12 @@
     <string name="total_follows"> 1 </string>
     <!--Profile END-->
 
+    <!--Lectures-->
+    <string name="course_assignment">Assignments</string>
+    <string name="course_weeks">Weeks</string>
+    <string name="course_announcements">Announcements</string>
+    <!--Lectures END-->
+
     <!--Hidden Drawer-->
     <string name="time_table">Time Table</string>
     <string name="transcript">Transcript</string>

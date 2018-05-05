@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -39,6 +41,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.seniorproject.uninet.uninet.Adapters.PagerAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;

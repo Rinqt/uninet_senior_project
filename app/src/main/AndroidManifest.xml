@@ -182,6 +182,7 @@
             android:launchMode="standard"
             android:parentActivityName=".HomeActivity">
         </activity>
+        <activity android:name=".LectureDetailsActivity" />
 
     </application>
 

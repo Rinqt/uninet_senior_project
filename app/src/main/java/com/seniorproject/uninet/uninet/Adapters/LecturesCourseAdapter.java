@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.ConstructorClasses.LecturesSystemCourses;
+import com.seniorproject.uninet.uninet.LectureDetailsActivity;
 import com.seniorproject.uninet.uninet.R;
-import com.seniorproject.uninet.uninet.TranscriptActivity;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(mContext, TranscriptActivity.class);
+        Intent intent = new Intent(mContext, LectureDetailsActivity.class);
         mContext.startActivity(intent);
     }
 
