@@ -16,8 +16,6 @@
             <stroke
                 android:width="2dp"
                 android:color="@color/colorPrimary"/>
-            <solid
-                android:color="@color/feed_bg"/>
 
         </shape>
     </item>

@@ -8,7 +8,8 @@
         android:id="@+id/r_layout_1"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:background="@drawable/blue_border_bottom_with_no_background">
 
         <ImageView
             android:id="@+id/assignments_icon"
@@ -38,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/r_layout_1">
+        android:layout_below="@id/r_layout_1"
+        android:background="@drawable/blue_border_bottom_with_no_background">
 
         <ImageView
             android:id="@+id/course_weeks_icon"
@@ -68,7 +70,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/r_layout_2">
+        android:layout_below="@id/r_layout_2"
+        android:background="@drawable/blue_border_bottom_with_no_background">
 
         <ImageView
             android:id="@+id/announcements_icon"

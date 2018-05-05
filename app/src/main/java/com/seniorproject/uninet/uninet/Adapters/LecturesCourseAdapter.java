@@ -16,10 +16,11 @@ import com.seniorproject.uninet.uninet.R;
 
 import java.util.List;
 
-public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<LecturesSystemCourses> mLecturesCourses;
     private Context mContext;
+
 
     public LecturesCourseAdapter(Context context, List<LecturesSystemCourses> lecturesCourses) {
         this.mContext = context;
@@ -40,19 +41,40 @@ public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
     {
-        LecturesSystemCourses lecturesCourse = mLecturesCourses.get(position);
-
+        final LecturesSystemCourses lecturesCourse = mLecturesCourses.get(position);
+        final String lectureName = lecturesCourse.getLectureName();
         if(lecturesCourse != null)
         {
             ((LectureList) holder).lectureCode.setText(lecturesCourse.getLectureCode());
             ((LectureList) holder).lectureName.setText(lecturesCourse.getLectureName());
             ((LectureList) holder).goToLecture.setImageResource(R.drawable.ic_enter_arrow);
 
-            ((LectureList) holder).lectureCode.setOnClickListener(this);
-            ((LectureList) holder).lectureName.setOnClickListener(this);
-            ((LectureList) holder).goToLecture.setOnClickListener(this);
+
+
         }
 
+        ((LectureList) holder).lectureCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToDetails(lectureName);
+            }
+        });
+
+        ((LectureList) holder).lectureName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToDetails(lectureName);
+
+            }
+        });
+
+        ((LectureList) holder).goToLecture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToDetails(lectureName);
+
+            }
+        });
     }
 
     @Override
@@ -62,9 +84,9 @@ public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return mLecturesCourses.size();
     }
 
-    @Override
-    public void onClick(View v) {
+    private void goToDetails(String lecture_name) {
         Intent intent = new Intent(mContext, LectureDetailsActivity.class);
+        intent.putExtra("Lecture_Name", lecture_name);
         mContext.startActivity(intent);
     }
 
@@ -82,4 +104,6 @@ public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             goToLecture = itemView.findViewById(R.id.go_to_lecture_button);
         }
     }
+
+
 }

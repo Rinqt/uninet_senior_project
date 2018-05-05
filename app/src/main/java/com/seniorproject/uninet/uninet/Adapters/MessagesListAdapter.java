@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.ConstructorClasses.Messages;
@@ -47,11 +46,11 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
 
-        ViewHolder messagesViewHolder;
+        final ViewHolder messagesViewHolder;
         final String name = Objects.requireNonNull(getItem(position)).getFriendUserName();
         final String conversationId = Objects.requireNonNull(getItem(position)).getConversationID();
         String message = Objects.requireNonNull(getItem(position)).getLastMessage();
-        byte[] picture = Objects.requireNonNull(getItem(position)).getFriendSmallProfilePicture();
+        final byte[] picture = Objects.requireNonNull(getItem(position)).getFriendSmallProfilePicture();
 
         if (convertView == null)
         {
@@ -79,14 +78,14 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
             messagesViewHolder.friendProfilePhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    goToMessageScreen(conversationId, name);
+                    goToMessageScreen(conversationId, name, picture);
                 }
             });
 
             messagesViewHolder.friendName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    goToMessageScreen(conversationId, name);
+                    goToMessageScreen(conversationId, name, picture);
                 }
             });
 
@@ -98,11 +97,12 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
         return convertView;
     }
 
-    private void goToMessageScreen(String value, String name)
+    private void goToMessageScreen(String value, String name, byte[] photo)
     {
         Intent messageScreen = new Intent(mContext, MessagingScreenActivity.class);
         messageScreen.putExtra("conversationId", value);
         messageScreen.putExtra("UserName", name);
+        messageScreen.putExtra("photo", photo);
         messageScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(messageScreen);
     }

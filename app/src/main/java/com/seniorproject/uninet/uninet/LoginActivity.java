@@ -27,20 +27,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.FirebaseApp;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
-import com.microsoft.windowsazure.notifications.NotificationsManager;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.PrivacySettings;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
-import com.seniorproject.uninet.uninet.NotificationClasses.MyHandler;
-import com.seniorproject.uninet.uninet.NotificationClasses.NotificationSettings;
 import com.seniorproject.uninet.uninet.NotificationClasses.RegistrationIntentService;
 
 /**
@@ -191,8 +181,6 @@ public class LoginActivity extends AppCompatActivity {
     {
         if (isThereANetwork())
         {
-
-
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
                     == PackageManager.PERMISSION_GRANTED)
             {

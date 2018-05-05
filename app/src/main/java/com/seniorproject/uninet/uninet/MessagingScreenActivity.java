@@ -36,6 +36,8 @@ public class MessagingScreenActivity extends AppCompatActivity {
     private ArrayList<UserConversations> messages;
     private EditText messageBox;
 
+    byte[] photo;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -48,6 +50,7 @@ public class MessagingScreenActivity extends AppCompatActivity {
         // Data from MessagingFragment
         conversationID = getIntent().getStringExtra("conversationId");
         userName = getIntent().getStringExtra("UserName");
+        photo = getIntent().getByteArrayExtra("photo");
 
         // Data from FriendListScreen
         friendUserId = getIntent().getStringExtra("FriendId");
@@ -110,13 +113,13 @@ public class MessagingScreenActivity extends AppCompatActivity {
 
     private void loadMessages()
     {
+        List<Message> message = DatabaseMethods.GetMessages(whoIsTheUser, conversationID);
+
         if(friendConversationId != null && !friendConversationId.isEmpty())
         {
             conversationID = friendConversationId;
         }
 
-        List<Message> message = DatabaseMethods.GetMessages(whoIsTheUser, conversationID);
-        byte[] smallProfilePicture =  DatabaseMethods.GetProfileInfoStudent(friendUserId).smallProfilePicture;
 
         if (message.size() == 0)
         {
@@ -126,6 +129,8 @@ public class MessagingScreenActivity extends AppCompatActivity {
         {
             for (int k = 0; k < message.size(); k++)
             {
+                byte[] smallProfilePicture =  photo;
+
                 if(message.get(k).userId.equals(whoIsTheUser))
                 {
                     messages.add(new UserConversations(whoIsTheUser, message.get(k).messageId, message.get(k).name, message.get(k).userMessage, message.get(k).messageDate, smallProfilePicture,1));
