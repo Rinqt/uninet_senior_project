@@ -55,7 +55,6 @@ public class MyHandler extends NotificationsHandler {
         }
         else if (key.equals("post")) {
             intent = new Intent(ctx, HomeActivity.class);
-            intent.putExtra("startFeedFragment", "notiFeed");
             notiTitle = "New Post";
         }
         else if (key.equals("friendship")) {

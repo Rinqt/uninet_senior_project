@@ -83,13 +83,6 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        if(getIntent().getStringExtra("startMessageFragment") != null){
-
-        }
-        else if(getIntent().getStringExtra("startFeedFragment") != null){
-
-        }
-
         //Set Toolbar
         final Toolbar myToolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(myToolbar);
@@ -203,6 +196,10 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
+
+        if(getIntent().getStringExtra("startMessageFragment") != null){
+            tabLayout.getTabAt(3).select();
+        }
     }
 
     //New post refresh change
