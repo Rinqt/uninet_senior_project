@@ -170,8 +170,8 @@ public class LoginActivity extends AppCompatActivity {
                     if(!DatabaseMethods.GetPostPictures(userPosts.get(i).postId).isEmpty())
                         pictureCount++;
                 }
-
                 userInformation.setPhotosNumber(String.valueOf(pictureCount));
+
                 FirebaseApp.initializeApp(getApplicationContext());
                 NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
                 registerWithNotificationHubs();

@@ -36,28 +36,29 @@ public class RegistrationIntentService extends IntentService {
             // Storing the registration ID that indicates whether the generated token has been
             // sent to your server. If it is not stored, send the token to your server,
             // otherwise your server should have already received the token.
-            if (((regID=sharedPreferences.getString("registrationID", null)) == null)){
+            //storedToken=sharedPreferences.getString("FCMtoken", "");
+            //if (((regID=sharedPreferences.getString("registrationID", null)) == null)){
 
-                NotificationHub hub = new NotificationHub(NotificationSettings.HubName,
-                        NotificationSettings.HubListenConnectionString, this);
-                Log.d(TAG, "Attempting a new registration with NH using FCM token : " + FCM_token);
-                String userTag = "user" + LoggedInUser.UserId;
-                regID = hub.register(FCM_token, userTag).getRegistrationId();
+            NotificationHub hub = new NotificationHub(NotificationSettings.HubName,
+                    NotificationSettings.HubListenConnectionString, this);
+            Log.d(TAG, "Attempting a new registration with NH using FCM token : " + FCM_token);
+            String userTag = "user" + LoggedInUser.UserId;
+            regID = hub.register(FCM_token, userTag).getRegistrationId();
 
-                // If you want to use tags...
-                // Refer to : https://azure.microsoft.com/documentation/articles/notification-hubs-routing-tag-expressions/
-                // regID = hub.register(token, "tag1,tag2").getRegistrationId();
+            // If you want to use tags...
+            // Refer to : https://azure.microsoft.com/documentation/articles/notification-hubs-routing-tag-expressions/
+            // regID = hub.register(token, "tag1,tag2").getRegistrationId();
 
-                resultString = "New NH Registration Successfully - RegId : " + regID;
-                Log.d(TAG, resultString);
+            resultString = "New NH Registration Successfully - RegId : " + regID;
+            Log.d(TAG, resultString);
 
-                sharedPreferences.edit().putString("registrationID", regID ).apply();
-                sharedPreferences.edit().putString("FCMtoken", FCM_token ).apply();
-            }
+            sharedPreferences.edit().putString("registrationID", regID).apply();
+            sharedPreferences.edit().putString("FCMtoken", FCM_token).apply();
+            //}
 
             // Check if the token may have been compromised and needs refreshing.
-            else if (!(storedToken=sharedPreferences.getString("FCMtoken", "")).equals(FCM_token)) {
-
+            //else if (!storedToken.equals(FCM_token)) {
+/*
                 NotificationHub hub = new NotificationHub(NotificationSettings.HubName,
                         NotificationSettings.HubListenConnectionString, this);
                 Log.d(TAG, "NH Registration refreshing with token : " + FCM_token);
@@ -73,13 +74,14 @@ public class RegistrationIntentService extends IntentService {
 
                 sharedPreferences.edit().putString("registrationID", regID ).apply();
                 sharedPreferences.edit().putString("FCMtoken", FCM_token ).apply();
-            }
+*/
+            //}
 
-            else {
-                resultString = "Previously Registered Successfully - RegId : " + regID;
-            }
+            //else {
+            //    resultString = "Previously Registered Successfully - RegId : " + regID;
+            //}
         } catch (Exception e) {
-            Log.e(TAG, resultString="Failed to complete registration", e);
+            Log.e(TAG, resultString = "Failed to complete registration", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
         }
