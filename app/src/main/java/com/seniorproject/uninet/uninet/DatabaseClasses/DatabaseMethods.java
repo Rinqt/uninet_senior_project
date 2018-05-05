@@ -247,8 +247,8 @@ public class DatabaseMethods {
         return result;
     }
 
-    public static void InsertRelation(String userId, String otherUserId, String relationType){
-        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertRelation?a="+userId+"&b="+otherUserId+"&c="+relationType;
+    public static void InsertRelation(String userId, String otherUserId, String relationType, String acceptOrRequest){
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/InsertRelation?a="+userId+"&b="+otherUserId+"&c="+relationType+"&d="+acceptOrRequest;
         try {
             new DatabaseClass().execute(url, "POST").get();
             //Successful Message?

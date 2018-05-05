@@ -244,7 +244,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
 
-                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "0");
+                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "0", null);
                 dialog.dismiss();
             }
         });
@@ -280,7 +280,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
                 // Leave the page
-                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "1");
+                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "1", "1");
                 dialog.dismiss();
             }
         });
