@@ -24,6 +24,7 @@ import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+import com.seniorproject.uninet.uninet.DatabaseClasses.PostPicture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -251,6 +252,12 @@ public class FeedFragment extends Fragment {
 
         for (int i = feedScreenPosts.size() - 1 ; i >= 0; i--)
         {
+            List<PostPicture> picturesOfPost = DatabaseMethods.GetPostPictures(feedScreenPosts.get(i).postId);
+            byte[] picturePost = null;
+            if(!picturesOfPost.isEmpty())
+                picturePost = picturesOfPost.get(0).picture;
+            else
+                picturePost = null;
             // TODO Post Image?
             uniPosts.add(new UniPosts(feedScreenPosts.get(i).userId,
                     feedScreenPosts.get(i).postId,
@@ -259,7 +266,7 @@ public class FeedFragment extends Fragment {
                     feedScreenPosts.get(i).postText,
                     feedScreenPosts.get(i).location,
                     feedScreenPosts.get(i).smallProfilePicture,
-                    feedScreenPosts.get(i).smallProfilePicture));
+                    picturePost));
         }
     }
 

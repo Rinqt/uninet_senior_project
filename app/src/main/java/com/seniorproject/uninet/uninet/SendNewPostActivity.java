@@ -2,13 +2,19 @@ package com.seniorproject.uninet.uninet;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,18 +31,25 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class SendNewPostActivity extends AppCompatActivity{
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class SendNewPostActivity extends AppCompatActivity {
 
     InputMethodManager keyboardHider;
     Button shareButton;
+    Button photoButton;
     EditText uniPostDescription;
     Location mLastLocation = null;
     FusedLocationProviderClient fusedLocationClient;
+    byte[] imageBytes = null;
 
 
     private boolean haveNetworkConnection() {
@@ -66,6 +79,7 @@ public class SendNewPostActivity extends AppCompatActivity{
         setContentView(R.layout.send_new_uni_post_template);
 
         shareButton = findViewById(R.id.share_post_button);
+        photoButton = findViewById(R.id.upload_post_picture);
         uniPostDescription = findViewById(R.id.new_post_area);
         keyboardHider = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -85,6 +99,15 @@ public class SendNewPostActivity extends AppCompatActivity{
 
                 keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 return true;
+            }
+        });
+
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, 6);
             }
         });
 
@@ -110,7 +133,13 @@ public class SendNewPostActivity extends AppCompatActivity{
                     userLocation = "None";
                 //TODO: Server kapalıyken post atılırsa uygulama yanıt vermiyor.
                 if (haveNetworkConnection()) {
-                    DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, null);
+                    String stringBytes = "";
+                    if(imageBytes != null){
+                        for (int i = 0; i < imageBytes.length; i++) {
+                            stringBytes += i < imageBytes.length - 1 ? (imageBytes[i] & 0xFF) + "," : (imageBytes[i] & 0xFF);
+                        }
+                    }
+                    DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, stringBytes);
                     Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
                     //New post refresh change
                     setResult(RESULT_OK);
@@ -123,6 +152,28 @@ public class SendNewPostActivity extends AppCompatActivity{
 
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 6) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK && data != null) {
+
+                Uri pickedImage = data.getData();
+                String[] filePath = {MediaStore.Images.Media.DATA};
+
+                Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
+                cursor.moveToFirst();
+
+                String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 30, stream);
+                imageBytes = stream.toByteArray();
+            }
+        }
     }
 }
 

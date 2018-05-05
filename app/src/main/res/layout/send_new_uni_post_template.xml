@@ -47,7 +47,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/upload_post_picture"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="bottom"

@@ -77,13 +77,17 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
         postViewHolder.name.setText(userName);
         postViewHolder.timeStamp.setText(postWithLocation);
         postViewHolder.description.setText(postDescription);
-        postViewHolder.postPicture.setImageResource(R.mipmap.university_logo);
-        //postViewHolder.postPicture.setImageResource(postInsidePicture[position]);
 
         if (userProfilePicture != null)
         {
             Bitmap bitmap = BitmapFactory.decodeByteArray(userProfilePicture, 0, userProfilePicture.length);
             postViewHolder.userPicture.setImageBitmap(bitmap);
+        }
+
+        if (postInsidePicture != null)
+        {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(postInsidePicture, 0, postInsidePicture.length);
+            postViewHolder.postPicture.setImageBitmap(bitmap);
         }
 
 
