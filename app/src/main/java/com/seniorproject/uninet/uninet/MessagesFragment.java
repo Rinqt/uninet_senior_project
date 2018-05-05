@@ -213,9 +213,7 @@ public class MessagesFragment extends Fragment {
 
 
 
-
-
-        for (int i = conversations.size() - 1 ; i >= 0; i--)
+        for (int i = 0; i < conversations.size(); i++)
         {
             messages.add(new Messages(conversations.get(i).name, conversations.get(i).userMessage, conversations.get(i).conversationId, conversations.get(i).smallProfilePicture));
         }

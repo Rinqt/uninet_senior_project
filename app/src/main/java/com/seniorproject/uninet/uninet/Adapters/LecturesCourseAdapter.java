@@ -1,6 +1,7 @@
 package com.seniorproject.uninet.uninet.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.seniorproject.uninet.uninet.LecturesSystemCourses;
+import com.seniorproject.uninet.uninet.ConstructorClasses.LecturesSystemCourses;
 import com.seniorproject.uninet.uninet.R;
+import com.seniorproject.uninet.uninet.TranscriptActivity;
 
 import java.util.List;
 
-public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
 
     private List<LecturesSystemCourses> mLecturesCourses;
     private Context mContext;
@@ -45,6 +47,10 @@ public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             ((LectureList) holder).lectureCode.setText(lecturesCourse.getLectureCode());
             ((LectureList) holder).lectureName.setText(lecturesCourse.getLectureName());
             ((LectureList) holder).goToLecture.setImageResource(R.drawable.ic_enter_arrow);
+
+            ((LectureList) holder).lectureCode.setOnClickListener(this);
+            ((LectureList) holder).lectureName.setOnClickListener(this);
+            ((LectureList) holder).goToLecture.setOnClickListener(this);
         }
 
     }
@@ -54,6 +60,12 @@ public class LecturesCourseAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if (mLecturesCourses == null)
             return 0;
         return mLecturesCourses.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(mContext, TranscriptActivity.class);
+        mContext.startActivity(intent);
     }
 
     public static class LectureList extends RecyclerView.ViewHolder

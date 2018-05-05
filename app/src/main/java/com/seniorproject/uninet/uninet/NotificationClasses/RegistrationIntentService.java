@@ -6,11 +6,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.microsoft.windowsazure.messaging.NotificationHub;
 import com.seniorproject.uninet.uninet.HomeActivity;
-import com.seniorproject.uninet.uninet.LoggedInUser;
+import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 
 public class RegistrationIntentService extends IntentService {
 

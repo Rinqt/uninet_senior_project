@@ -53,6 +53,7 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 messageView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recieved_message_template, parent, false);
                 return new OtherUserMessage(messageView);
 
+
             // If logged in user sends a message to another user.
             case SENDER:
                 messageView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sent_message_template, parent, false);

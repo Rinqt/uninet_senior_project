@@ -1,4 +1,4 @@
-package com.seniorproject.uninet.uninet;
+package com.seniorproject.uninet.uninet.ConstructorClasses;
 
 public class LoggedInUser {
     public static String UserId = null;

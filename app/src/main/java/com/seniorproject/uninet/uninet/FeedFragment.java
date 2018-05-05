@@ -113,12 +113,14 @@ public class FeedFragment extends Fragment {
 
 
         //Postlar için LongPress Alert Dialog
-        uniPostFeed.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        uniPostFeed.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 Log.i("Long click check", "Item Index " + i);
 
-                alertDialog.setItems(R.array.uni_post_settings, new DialogInterface.OnClickListener() {
+                alertDialog.setItems(R.array.uni_post_settings, new DialogInterface.OnClickListener()
+                {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int whichOption) {
                         UniPosts selectedPost;

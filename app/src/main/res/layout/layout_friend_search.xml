@@ -2,17 +2,33 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/friend_search_recycler_view"
+    <EditText
+        android:id="@+id/search_user"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="51dp"
         android:layout_marginEnd="8dp"
+
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:hint="Search.."
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/friend_search_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/search_user"
+        app:layout_constraintStart_toStartOf="@+id/search_user"
+        app:layout_constraintTop_toBottomOf="@+id/search_user" />
 </android.support.constraint.ConstraintLayout>

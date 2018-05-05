@@ -26,9 +26,6 @@ public class FriendsListActivity extends AppCompatActivity {
     private ArrayList<Friends> friendList;
     private RecyclerView friendScreen;
 
-    private Button messageWriteButton;
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -38,7 +35,6 @@ public class FriendsListActivity extends AppCompatActivity {
         // Declarations
         userInformation = new StoredUserInformation(this);
         whoIsTheUser = userInformation.getUserId();
-        messageWriteButton = findViewById(R.id.friend_search_add_friend);
         friendList = new ArrayList<>();
         friendScreen = findViewById(R.id.friends_list);
 

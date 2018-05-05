@@ -12,25 +12,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/drawerProfilePhoto"
-        android:layout_width="71dp"
-        android:layout_height="81dp"
+        android:layout_width="86dp"
+        android:layout_height="86dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/awesome_kaan"
+        android:src="@mipmap/profile_icon"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="1dp"
         android:clickable="true"
         android:focusable="true"/>
+
     <TextView
+        android:id="@+id/logged_in_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Kaan YÖŞ"
+        android:textSize="18sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UniNet" />
+        android:text="Öğrenci"
+        android:textSize="12sp"/>
 
 </LinearLayout>

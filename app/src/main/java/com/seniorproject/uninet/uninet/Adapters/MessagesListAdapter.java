@@ -20,6 +20,8 @@ import com.seniorproject.uninet.uninet.R;
 import java.util.List;
 import java.util.Objects;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class MessagesListAdapter extends ArrayAdapter<Messages> {
 
@@ -29,7 +31,7 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
     static class ViewHolder  {
         TextView friendName;
         TextView friendMessage;
-        ImageView friendProfilePhoto;
+        CircleImageView friendProfilePhoto;
     }
 
     public MessagesListAdapter(@NonNull Context context, int resource, @NonNull List<Messages> objects) {
@@ -62,7 +64,6 @@ public class MessagesListAdapter extends ArrayAdapter<Messages> {
             messagesViewHolder.friendMessage = convertView.findViewById(R.id.friend_last_message);
             messagesViewHolder.friendProfilePhoto = convertView.findViewById(R.id.friend_profile_picture);
 
-            convertView.setTag(messagesInflater);
 
 
             messagesViewHolder.friendName.setText(name);

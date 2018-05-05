@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.seniorproject.uninet.uninet.Adapters.LecturesCourseAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.LecturesSystemCourses;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.LecturesCourse;
 
@@ -99,8 +100,6 @@ public class LecturesFragment extends Fragment {
 
         mLectureCourses = new ArrayList<>();
 
-        addCourse = getActivity().findViewById(R.id.lecture_add_button);
-
         addLectureToList();
 
         LecturesCourseAdapter adapter = new LecturesCourseAdapter(getContext(), mLectureCourses);
@@ -117,16 +116,6 @@ public class LecturesFragment extends Fragment {
 
 
 
-
-
-
-
-        addCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
 

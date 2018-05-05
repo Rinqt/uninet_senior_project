@@ -2,7 +2,6 @@ package com.seniorproject.uninet.uninet;
 
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,24 +27,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.FirebaseApp;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.microsoft.windowsazure.notifications.NotificationsManager;
 import com.seniorproject.uninet.uninet.Adapters.PagerAdapter;
-import com.seniorproject.uninet.uninet.NotificationClasses.MyHandler;
-import com.seniorproject.uninet.uninet.NotificationClasses.NotificationSettings;
-import com.seniorproject.uninet.uninet.NotificationClasses.RegistrationIntentService;
-
+import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -62,6 +58,8 @@ public class HomeActivity extends AppCompatActivity
     DrawerLayout drawerLayout;
     SessionChecker sessionChecker;
     StoredUserInformation userInformation;
+
+    CircleImageView drawerProfilePhoto;
 
     ActionBarDrawerToggle toggle;
 
@@ -89,6 +87,8 @@ public class HomeActivity extends AppCompatActivity
         myToolbar.setTitle(R.string.app_name);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+
+
         //Session
         sessionChecker = new SessionChecker(this);
         userInformation = new StoredUserInformation(this);
@@ -112,6 +112,9 @@ public class HomeActivity extends AppCompatActivity
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabs);
         drawerLayout = findViewById(R.id.drawer_layout); // Hidden drawer tanımı
+
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         mainActivity = this;
@@ -126,10 +129,27 @@ public class HomeActivity extends AppCompatActivity
         });
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout,  R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
         drawerLayout.addDrawerListener(toggle);
         toggle.setDrawerSlideAnimationEnabled(false);
+        toggle.setDrawerIndicatorEnabled(true);
 
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_home);
+
+        drawerProfilePhoto = headerView.findViewById(R.id.drawerProfilePhoto);
+        TextView userName = headerView.findViewById(R.id.logged_in_user_name);
+
+        userName.setText(userInformation.getUserName());
+
+        byte[] picture = DatabaseMethods.GetUserBigPic(userInformation.getUserId());
+
+        if (picture != null)
+        {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(picture, 0, picture.length);
+            drawerProfilePhoto.setImageBitmap(bitmap);
+        }
+
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -196,10 +216,6 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
-
-        if(getIntent().getStringExtra("startMessageFragment") != null){
-            tabLayout.getTabAt(3).select();
-        }
     }
 
     //New post refresh change
@@ -268,6 +284,9 @@ public class HomeActivity extends AppCompatActivity
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.search:
+                Intent searchUser = new Intent(this, FriendSearch.class);
+                startActivity(searchUser);
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -322,6 +341,7 @@ public class HomeActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         drawer.closeDrawer(GravityCompat.START);
 
 

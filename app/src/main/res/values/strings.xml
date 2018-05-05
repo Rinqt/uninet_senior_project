@@ -181,7 +181,7 @@
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
     <string name="version">earlyDevelopment 0.0.0.2.0.0.0 </string>
-    <string name="version_hidden_drawer">v 0.0.0.2.0.0.0 </string>
+    <string name="version_hidden_drawer">v 1.0 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->
@@ -307,7 +307,7 @@
     <string name="hint_phone_number">XXX XXX XXXX</string>
     <string name="hint_web_page">myWebsite.com</string>
     <string name="hint_mail_address">mail@address.com</string>
-    <string name="hint_login_user_name">University Number</string>
+    <string name="hint_login_user_name">User Name</string>
     <string name="hint_login_user_password">Password</string>
     <string name="hint_course_days">Days</string>
     <!-- Edit Text Hints END -->

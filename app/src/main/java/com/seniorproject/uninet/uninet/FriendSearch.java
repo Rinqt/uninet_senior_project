@@ -9,30 +9,36 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.Adapters.FriendListAdapter;
+import com.seniorproject.uninet.uninet.Adapters.UserSearchAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
+import com.seniorproject.uninet.uninet.ConstructorClasses.User;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FriendSearch extends AppCompatActivity {
 
     private String whoIsTheUser;
     StoredUserInformation userInformation;
 
-    SearchView searchView;
+    EditText searcBox;
     RecyclerView friendListRecycler;
-    private ArrayList<Friends> friendList;
+    private ArrayList<User> userList;
 
     private Button addFriend;
     private Button messageFriend;
@@ -49,111 +55,66 @@ public class FriendSearch extends AppCompatActivity {
         friendListRecycler = findViewById(R.id.friend_search_recycler_view);
         addFriend = findViewById(R.id.friend_search_add_friend);
         messageFriend = findViewById(R.id.friend_search_message_friend);
+        searcBox = findViewById(R.id.search_user);
 
-        friendList = new ArrayList<>();
+        userList = new ArrayList<>();
 
-        LoadFriends();
+        LoadUsers();
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
 
-
-        FriendListAdapter friendSearchAdapter = new FriendListAdapter(this, friendList, 1);
+        final UserSearchAdapter userSearchAdapter = new UserSearchAdapter(userList, this);
 
         friendListRecycler.setLayoutManager(linearLayoutManager);
         friendListRecycler.setItemAnimator(new DefaultItemAnimator());
-        friendListRecycler.setAdapter(friendSearchAdapter);
+        friendListRecycler.setAdapter(userSearchAdapter);
 
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.options_search, menu);
-
-        final MenuItem friend = menu.findItem(R.id.search);
-
-        searchView = (SearchView) friend.getActionView();
-
-        searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searcBox.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query)
-            {
-                if (!searchView.isIconified())
-                {
-                    searchView  .setIconified(true);
-                }
-
-                friend.collapseActionView();
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //Search or Filter
+                String who = searcBox.getText().toString().toLowerCase(Locale.getDefault());
+                userSearchAdapter.myFilter(who);
             }
 
             @Override
-            public boolean onQueryTextChange(String newText)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
 
-                return false;
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-        return true;
     }
 
-    private void changeSearchViewTextColor(View view) {
-        if (view != null) {
-            if (view instanceof TextView) {
-                ((TextView) view).setTextColor(Color.WHITE);
-                return;
-            } else if (view instanceof ViewGroup) {
-                ViewGroup viewGroup = (ViewGroup) view;
-                for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                    changeSearchViewTextColor(viewGroup.getChildAt(i));
-                }
-            }
-        }
-    }
 
-    private List<ClipData.Item> filter(List<ClipData.Item> pl, String query)
-    {
-        query=query.toLowerCase();
-        final List<ClipData.Item> filteredModeList=new ArrayList<>();
-        for (ClipData.Item model:pl)
-        {
-            final String text=model.toString().toLowerCase();
-            if (text.startsWith(query))
-            {
-                filteredModeList.add(model);
-            }
-        }
-        return filteredModeList;
-    }
-
-    private void LoadFriends()
-    {
-        List<UserListingInfo> userListingInfo = DatabaseMethods.GetFriends(whoIsTheUser);
+    private void LoadUsers() {
+        List<UserListingInfo> userListingInfo = DatabaseMethods.SearchUser("Alican");
+        List<UserListingInfo> friends = DatabaseMethods.GetFriends(whoIsTheUser);
 
         if (userListingInfo != null)
         {
             for (int i = 0; i < userListingInfo.size(); i++)
             {
-                friendList.add(new Friends(userListingInfo.get(i).userId, userListingInfo.get(i).name,  userListingInfo.get(i).smallProfilePicture));
+                for (int k = 0; k < friends.size(); k++)
+                {
+                    if(friends.get(k).userId.equals(userListingInfo.get(i).userId))
+                    {
+                        userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, userListingInfo.get(i).smallProfilePicture, 0));
+                        break;
+                    }
+                    else if (!friends.get(k).userId.equals(userListingInfo.get(i).userId))
+                        userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, userListingInfo.get(i).smallProfilePicture, 1));
+
+                }
+                // Check if searched user is a friend or not
+
             }
         }
-        else
-            // TODO Default değerler ekle
-            friendList.add(new Friends(null, "You have no friends.", null));
+
     }
 }

@@ -35,6 +35,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.microsoft.windowsazure.notifications.NotificationsManager;
+import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.NotificationClasses.MyHandler;
 import com.seniorproject.uninet.uninet.NotificationClasses.NotificationSettings;
@@ -138,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         Thread getUserData = new Thread() {
             // TODO User ID yi shared pref'e ekle.
             String whoIsTheUser = LoggedInUser.UserId;
+
             @Override
             public void run() {
 
@@ -161,10 +163,9 @@ public class LoginActivity extends AppCompatActivity {
                 userInformation.setNotification(DatabaseMethods.GetPrivacySettings(whoIsTheUser).notifications);
                 userInformation.setBirthdayPrivacy(DatabaseMethods.GetPrivacySettings(whoIsTheUser).showBirthdayEveryone);
                 userInformation.setPhotosNumber(String.valueOf(DatabaseMethods.GetPostPictures(whoIsTheUser).size()));
-
-                FirebaseApp.initializeApp(getApplicationContext());
-                NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
-                registerWithNotificationHubs();
+                //FirebaseApp.initializeApp(getApplicationContext());
+                //NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
+                //registerWithNotificationHubs();
 
                 dialog.dismiss();
 
@@ -174,7 +175,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         getUserData.start();
-        //TODO: Threadi kapatmak gerekiyor mu ?
     }
 
 
@@ -187,6 +187,8 @@ public class LoginActivity extends AppCompatActivity {
     {
         if (isThereANetwork())
         {
+
+
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
                     == PackageManager.PERMISSION_GRANTED)
             {
@@ -208,6 +210,13 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Retrieve user data from database and save locally
                     saveUserData();
+
+                    sessionChecker.setUserLoggedIn(true); // User Session
+                    sessionChecker.setLoginInfo(LoggedInUser.UserId + "," + LoggedInUser.TeacherId + "," + LoggedInUser.StudentId);
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+
 
                     Toast.makeText(getApplicationContext(), R.string.welcome_text, Toast.LENGTH_SHORT).show();
                 }
@@ -284,7 +293,7 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
             } else {
                 Log.i(TAG, "This device is not supported by Google Play Services.");
-                ToastNotify("This device is not supported by Google Play Services.");
+                //ToastNotify("This device is not supported by Google Play Services.");
                 finish();
             }
             return false;

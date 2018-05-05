@@ -147,7 +147,7 @@
         <activity
             android:name=".MessagingScreenActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
+            android:launchMode="standard"
             android:label="UserName"
             android:parentActivityName=".HomeActivity">
 
@@ -158,7 +158,7 @@
             android:name=".FriendsListActivity"
             android:screenOrientation="portrait"
             android:label="@string/friends"
-            android:launchMode="singleInstance"
+            android:launchMode="standard"
             android:parentActivityName=".HomeActivity">
         </activity>
 
@@ -171,6 +171,14 @@
         <activity android:name=".FriendScreenActivity"
             android:screenOrientation="portrait"
             android:label="@string/friends"
+            android:launchMode="standard"
+            android:parentActivityName=".HomeActivity">
+        </activity>
+
+        <activity
+            android:name=".FriendSearch"
+            android:screenOrientation="portrait"
+            android:label="@string/search_user"
             android:launchMode="standard"
             android:parentActivityName=".HomeActivity">
         </activity>

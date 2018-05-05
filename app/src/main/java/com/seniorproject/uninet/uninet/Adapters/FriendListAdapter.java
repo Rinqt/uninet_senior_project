@@ -16,10 +16,10 @@ import android.widget.TextView;
 import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Conversation;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
-import com.seniorproject.uninet.uninet.LoggedInUser;
+import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.MessagingScreenActivity;
-import com.seniorproject.uninet.uninet.OtherUserProfileActivity;
 import com.seniorproject.uninet.uninet.R;
+import com.seniorproject.uninet.uninet.StoredUserInformation;
 
 import java.util.List;
 
@@ -30,11 +30,14 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<Friends> mList;
     private Context mContext;
     private int type;
+    StoredUserInformation userInformation;
 
     public FriendListAdapter(Context mContext, List<Friends> mList, int type) {
         this.mContext = mContext;
         this.mList = mList;
         this.type = type;
+
+        userInformation = new StoredUserInformation(mContext);
     }
 
     @NonNull
@@ -66,15 +69,15 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (type != 0)
             {
+                String loggedInUserID = userInformation.getUserId();
+                final String friendId = friendList.getFriendId();
+                final String friendName = friendList.getFriendName();
+                final String communicationId = findCommunication(loggedInUserID, friendName);
+
                 ((FriendList) holder).newMessage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Log.d("friendAdapter", "buttonClicked");
-
-                        String friendId = friendList.getFriendId();
-                        String friendName = friendList.getFriendName();
-
-                        String communicationId = findCommunication(LoggedInUser.UserId, friendName);
                         goToMessageScreen(friendId, communicationId, friendName);
 
                     }
@@ -83,8 +86,7 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((FriendList) holder).friendPicture.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent friendScreen = new Intent(mContext, OtherUserProfileActivity.class);
-                        mContext.startActivity(friendScreen);
+                        goToMessageScreen(friendId, communicationId, friendName);
 
                     }
                 });
@@ -92,15 +94,13 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ((FriendList) holder).friendUserName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent friendScreen = new Intent(mContext, OtherUserProfileActivity.class);
-                        mContext.startActivity(friendScreen);
+                        goToMessageScreen(friendId, communicationId, friendName);
 
                     }
                 });
             }
             else
                 {
-
                     ((FriendList) holder).newMessage.setVisibility(View.GONE);
                     ((FriendList) holder).friendUserName.setClickable(false);
                     ((FriendList) holder).friendPicture.setClickable(false);
