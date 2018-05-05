@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         if(getIntent().getStringExtra("startMessageFragment") != null){
-            
+
         }
         else if(getIntent().getStringExtra("startFeedFragment") != null){
 
