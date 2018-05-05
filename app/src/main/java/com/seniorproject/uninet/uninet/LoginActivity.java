@@ -29,9 +29,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 import com.seniorproject.uninet.uninet.DatabaseClasses.PrivacySettings;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
 import com.seniorproject.uninet.uninet.NotificationClasses.RegistrationIntentService;
+
+import java.util.List;
 
 /**
  * A login screen that offers login via email/password.
@@ -137,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //TODO: Check if user ID belong to student or lecturer
                 ProfileInfoStudent profileInfoStudent = DatabaseMethods.GetProfileInfoStudent(whoIsTheUser);
+                List<Post> userPosts = DatabaseMethods.GetPosts(whoIsTheUser);
                 userInformation.setUserId(whoIsTheUser);
                 userInformation.setUserName(profileInfoStudent.name);
                 userInformation.setDepartment(profileInfoStudent.department);
@@ -147,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                 userInformation.setFriendsNumber(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
                 userInformation.setFollowersNumber(String.valueOf(DatabaseMethods.GetStudentFollowers(whoIsTheUser).size()));
                 userInformation.setFollowsNumber(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
-                userInformation.setUniPostsNumber(String.valueOf(DatabaseMethods.GetPosts(whoIsTheUser).size()));
+                userInformation.setUniPostsNumber(String.valueOf(userPosts.size()));
                 userInformation.setEducationYear(profileInfoStudent.academicYear);
 
                 PrivacySettings privacySettings = DatabaseMethods.GetPrivacySettings(whoIsTheUser);
@@ -156,7 +160,14 @@ public class LoginActivity extends AppCompatActivity {
                 userInformation.setMessagingPrivacy(privacySettings.receiveMessageFromEveryone);
                 userInformation.setNotification(privacySettings.notifications);
                 userInformation.setBirthdayPrivacy(privacySettings.showBirthdayEveryone);
-                userInformation.setPhotosNumber(String.valueOf(DatabaseMethods.GetPostPictures(whoIsTheUser).size()));
+
+                int pictureCount = 0;
+                for (int i = 0; i < userPosts.size(); i++){
+                    if(!DatabaseMethods.GetPostPictures(userPosts.get(i).postId).isEmpty())
+                        pictureCount++;
+                }
+
+                userInformation.setPhotosNumber(String.valueOf(pictureCount));
                 //FirebaseApp.initializeApp(getApplicationContext());
                 //NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
                 //registerWithNotificationHubs();

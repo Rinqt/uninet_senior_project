@@ -445,12 +445,13 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     private void loadCurrentUserProfile()
     {
-        String id, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage;
+        String id, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage, postPicture;
 
         name = userInformation.getUserName();
         department = userInformation.getDepartment();
         year = userInformation.getEducationYear();
         post = userInformation.getUniPostsNumber();
+        postPicture = userInformation.getPhotosNumber();
         friend = userInformation.getFriendsNumber();
         follow = userInformation.getFollowsNumber();
         follower = userInformation.getFollowersNumber();
@@ -499,7 +500,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
         totalPost.setText(postNumber);
-        totalPictures.setText("error");
+        totalPictures.setText(postPicture);
         totalFriend.setText(friend);
         totalFollow.setText(follow);
         totalFollower.setText(follower);
