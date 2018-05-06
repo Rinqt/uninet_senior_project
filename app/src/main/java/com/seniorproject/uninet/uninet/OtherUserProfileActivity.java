@@ -4,21 +4,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.Adapters.UniPostAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+import com.seniorproject.uninet.uninet.DatabaseClasses.PostPicture;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
 import java.util.ArrayList;
@@ -28,8 +31,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class OtherUserProfileActivity extends AppCompatActivity {
 
-    private ListView userPosts;
-    private PostListAdapter postListAdapter;
+    private UniPostAdapter uniPostAdapter;
+    private RecyclerView userPostFeed;
     private ArrayList<UniPosts> uniPosts;
     private String whoIsTheUser;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -51,7 +54,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         // Declaration
         whoIsTheUser = getIntent().getStringExtra("UserID");
         swipeRefreshLayout = findViewById(R.id.other_user_profile_swiper);
-        userPosts = findViewById(R.id.other_user_uni_post_list_view);
+        userPostFeed = findViewById(R.id.other_user_uni_post_list_view);
         detailedProfileButton = findViewById(R.id.user_profile_button);
 
         friendProfilePhoto = findViewById(R.id.other_user_profile_picture);
@@ -59,11 +62,8 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         friendFriendsLabel = findViewById(R.id.user_total_friends_label);
         friendFollowsLabel = findViewById(R.id.user_total_follows_label);
 
-        List<Post> postList = DatabaseMethods.GetPosts(whoIsTheUser);
-        setTitle(DatabaseMethods.GetUserNamePic(whoIsTheUser).name);
-        uniPosts = new ArrayList<>();
-
         UserListingInfo user = DatabaseMethods.GetUserNamePic(whoIsTheUser);
+        setTitle(user.name);
 
         if (user.smallProfilePicture != null)
         {
@@ -71,46 +71,30 @@ public class OtherUserProfileActivity extends AppCompatActivity {
             friendProfilePhoto.setImageBitmap(bitmap);
         }
 
+        addUserPosts();
         refreshInformation();
 
-        for (int i = postList.size() - 1 ; i >= 0; i--)
-        {
-            //TODO: Am i missing post Picture or DatabaseMethods.GetPosts is not returning post Picture?
-            uniPosts.add(new UniPosts(whoIsTheUser, postList.get(i).postId,
-                    postList.get(i).name,
-                    postList.get(i).postDate,
-                    postList.get(i).postText,
-                    postList.get(i).location,
-                    postList.get(i).smallProfilePicture,
-                    postList.get(i).smallProfilePicture));
-        }
+        uniPostAdapter = new UniPostAdapter(this,  uniPosts, 1);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
 
-        postListAdapter = new PostListAdapter(this, 0, R.layout.edit_uni_post_template, uniPosts);
-        userPosts.setAdapter(postListAdapter);
+        userPostFeed.setLayoutManager(linearLayoutManager);
+        userPostFeed.setItemAnimator(new DefaultItemAnimator());
+        userPostFeed.setAdapter(uniPostAdapter);
 
-        // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
-        // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
-        userPosts.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(firstVisibleItem == 0 && isListAtTop()){
-                    swipeRefreshLayout.setEnabled(true);
-                }else{
-                    swipeRefreshLayout.setEnabled(false);
-                }
-            }
-        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
-                Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
-                refreshPosts();
+            public void onRefresh()
+            {
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override public void run() {
+
+                        refreshPosts();
+                        refreshInformation();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 1500);
             }
         });
 
@@ -125,21 +109,50 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         });
     }
 
+    private void addUserPosts()
+    {
+        List<Post> posts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        uniPosts = new ArrayList<>();
+
+        for (int i = posts.size() - 1 ; i >= 0; i--)
+        {
+            if (posts.get(i).userId.equals(whoIsTheUser))
+            {
+                List<PostPicture> picturesOfPost = DatabaseMethods.GetPostPictures(posts.get(i).postId);
+                byte[] picturePost;
+                if (!picturesOfPost.isEmpty())
+                    picturePost = picturesOfPost.get(0).picture;
+                else
+                    picturePost = null;
+                // TODO Post Image?
+                uniPosts.add(new UniPosts
+                        (whoIsTheUser,
+                                posts.get(i).postId,
+                                posts.get(i).name,
+                                posts.get(i).postDate,
+                                posts.get(i).postText,
+                                posts.get(i).location,
+                                posts.get(i).smallProfilePicture,
+                                picturePost,
+                                0)
+                );
+            }
+        }
+
+    }
+
     private void refreshPosts()
     {
-        postListAdapter.notifyDataSetChanged();
-        userPosts.setAdapter(new PostListAdapter(this, 0, R.layout.edit_uni_post_template, uniPosts));
+        swipeRefreshLayout.setRefreshing(true);
+        userPostFeed.removeAllViews();
+
+        uniPostAdapter = new UniPostAdapter(this, uniPosts, 1);
+        userPostFeed.setAdapter(uniPostAdapter);
 
         Toast.makeText(this, R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    // To check if we are at top of the UniPost List.
-    private boolean isListAtTop()
-    {
-        if(userPosts.getChildCount() == 0) return true;
-        return userPosts.getChildAt(0).getTop() == 0;
-    }
 
     protected void refreshInformation()
     {

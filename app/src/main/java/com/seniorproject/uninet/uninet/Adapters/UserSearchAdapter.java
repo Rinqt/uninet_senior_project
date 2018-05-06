@@ -1,6 +1,9 @@
 package com.seniorproject.uninet.uninet.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
@@ -12,7 +15,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.seniorproject.uninet.uninet.ConstructorClasses.User;
+import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
+import com.seniorproject.uninet.uninet.MessagingScreenActivity;
 import com.seniorproject.uninet.uninet.R;
+import com.seniorproject.uninet.uninet.StoredUserInformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +34,9 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<User> mList;
     private Context mContext;
-    ArrayList<User> peopleArray;
+
+    private ArrayList<User> peopleArray;
+    private ArrayList<UserListingInfo> userArray;
 
     public UserSearchAdapter(List<User> mList, Context mContext) {
         this.mList = mList;
@@ -55,8 +64,11 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position)
     {
+        StoredUserInformation storedUserInformation = new StoredUserInformation(mContext);
+        final String whoIsTheUser = storedUserInformation.getUserId();
+
         final User user = mList.get(position);
 
         if (user != null)
@@ -74,24 +86,24 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     //TODO ONCLİCK LISTENERLAR
 
-                    ((FriendResult) holder).addFriend.setOnClickListener(new View.OnClickListener() {
+                    ((FriendResult) holder).blockFriend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            sendFriendRequest(whoIsTheUser, mList.get(position).getUserId());
                         }
                     });
 
-                    ((FriendResult) holder).followFriend.setOnClickListener(new View.OnClickListener() {
+                    ((FriendResult) holder).removeFriend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            removeUser(whoIsTheUser, mList.get(position).getUserId());
                         }
                     });
 
                     ((FriendResult) holder).messageFriend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            //goToMessageScreen(mList.get(position).getUserId());
                         }
                     });
 
@@ -101,8 +113,6 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 case NOT_FRIEND:
 
                     ((NotFriendResult) holder).notFriendName.setText(user.getUserName());
-
-
                     //TODO ONCLİCK LISTENERLAR
                     break;
 
@@ -118,10 +128,14 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mList.clear();
         if (name.length() == 0){
             mList.addAll(peopleArray);
-        } else {
-            for (User PL : peopleArray){
-                if (PL.getUserName().toLowerCase(Locale.getDefault()).contains(name)){
-                    peopleArray.add(PL);
+        }
+        else
+        {
+            List<UserListingInfo> users = DatabaseMethods.SearchUser(name);
+            for (int i = 0; i < users.size(); i++)
+            {
+                if (users.get(i).name.toLowerCase(Locale.getDefault()).contains(name)){
+                    userArray.add(users.get(i));
                 }
             }
         }
@@ -152,19 +166,19 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private CircleImageView friendProfilePhoto;
         private TextView friendName;
 
-        private Button  addFriend;
-        private Button  followFriend;
+        private Button  removeFriend;
+        private Button  blockFriend;
         private Button  messageFriend;
 
 
-        public FriendResult(View userView)
+        FriendResult(View userView)
         {
             super(userView);
-            friendProfilePhoto = itemView.findViewById(R.id.lecture_profile_photo);
-            friendName = itemView.findViewById(R.id.search_activity_user_name);
-            addFriend = itemView.findViewById(R.id.search_activity_lecture_add_friend);
-            followFriend = itemView.findViewById(R.id.search_activity_lecture_follow);
-            messageFriend = itemView.findViewById(R.id.search_activity_lecture_send_message);
+            friendProfilePhoto = itemView.findViewById(R.id.already_friend_profile_photo);
+            friendName = itemView.findViewById(R.id.already_friend_user_name);
+            removeFriend = itemView.findViewById(R.id.already_friend_remove_friend_button);
+            blockFriend = itemView.findViewById(R.id.already_friend_block_button);
+            messageFriend = itemView.findViewById(R.id.already_friend_send_message);
         }
     }
 
@@ -172,20 +186,94 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     {
         private CircleImageView notFriendProfilePhoto;
         private TextView notFriendName;
+        private TextView notFriendTitle;
 
         private Button  addNotFriend;
         private Button  followNotFriend;
         private Button  messageNotFriend;
 
 
-        public NotFriendResult(View userView)
+        NotFriendResult(View userView)
         {
             super(userView);
-            notFriendProfilePhoto = itemView.findViewById(R.id.student_profile_photo);
-            notFriendName = itemView.findViewById(R.id.search_activity_student_name);
-            addNotFriend = itemView.findViewById(R.id.search_activity_student_add_friend);
-            followNotFriend = itemView.findViewById(R.id.search_activity_student_follow);
-            messageNotFriend = itemView.findViewById(R.id.search_activity_student_send_message);
+            notFriendProfilePhoto = itemView.findViewById(R.id.not_friend_profile_photo);
+            notFriendName = itemView.findViewById(R.id.not_friend_user_name);
+            notFriendTitle = itemView.findViewById(R.id.not_friend_user_title);
+            addNotFriend = itemView.findViewById(R.id.not_friend_student_add_friend);
+            followNotFriend = itemView.findViewById(R.id.not_friend_student_follow);
+            messageNotFriend = itemView.findViewById(R.id.not_friend_student_send_message);
         }
+    }
+
+
+    private void removeUser(final String whoIsTheUser, final String otherUserId)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        //builder.setTitle(getString(R.string.unsaved_changes_title));
+        builder.setMessage(mContext.getString(R.string.description_friendship_removal));
+
+        builder.setPositiveButton(mContext.getString(R.string.description_remove_friend), new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Remove Friend
+                DatabaseMethods.RemoveFriend(whoIsTheUser, otherUserId);
+                dialog.dismiss();
+
+            }
+        });
+
+        builder.setNegativeButton(mContext.getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Stay in the page
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
+    private void sendFriendRequest(final String whoIsTheUser, final String otherUserId)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        //builder.setTitle(getString(R.string.unsaved_changes_title));
+        builder.setMessage(mContext.getString(R.string.description_friendship_request));
+
+        builder.setPositiveButton(mContext.getString(R.string.description_add_friend), new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Leave the page
+                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "1", "1");
+                dialog.dismiss();
+
+            }
+        });
+
+        builder.setNegativeButton(mContext.getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Stay in the page
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private  void goToMessageScreen(String friendID, String communicationID, String friendName)
+    {
+        Intent messageScreen = new Intent(mContext, MessagingScreenActivity.class);
+        messageScreen.putExtra("FriendId", friendID);
+        messageScreen.putExtra("FriendName", friendName);
+        messageScreen.putExtra("FriendCommunicationId", communicationID);
+        messageScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(messageScreen);
     }
 }

@@ -1,7 +1,5 @@
 package com.seniorproject.uninet.uninet;
 
-import android.content.ClipData;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,39 +7,41 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.seniorproject.uninet.uninet.Adapters.FriendListAdapter;
 import com.seniorproject.uninet.uninet.Adapters.UserSearchAdapter;
-import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
 import com.seniorproject.uninet.uninet.ConstructorClasses.User;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class FriendSearch extends AppCompatActivity {
+
+    private static final String TAG = "FriendSearch";
 
     private String whoIsTheUser;
     StoredUserInformation userInformation;
 
-    EditText searcBox;
+    EditText searchBox;
     RecyclerView friendListRecycler;
     private ArrayList<User> userList;
 
+    private Button searchButton;
+
     private Button addFriend;
     private Button messageFriend;
+
+    int textlength = 0;
+    private List<UserListingInfo> tempUsers = new ArrayList<>();
 
 
     @Override
@@ -53,13 +53,13 @@ public class FriendSearch extends AppCompatActivity {
         whoIsTheUser = userInformation.getUserId();
 
         friendListRecycler = findViewById(R.id.friend_search_recycler_view);
+        searchButton = findViewById(R.id.search_button);
         addFriend = findViewById(R.id.friend_search_add_friend);
         messageFriend = findViewById(R.id.friend_search_message_friend);
-        searcBox = findViewById(R.id.search_user);
+        searchBox = findViewById(R.id.search_user);
 
         userList = new ArrayList<>();
 
-        LoadUsers();
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
@@ -71,50 +71,64 @@ public class FriendSearch extends AppCompatActivity {
         friendListRecycler.setAdapter(userSearchAdapter);
 
 
-        searcBox.addTextChangedListener(new TextWatcher() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //Search or Filter
-                String who = searcBox.getText().toString().toLowerCase(Locale.getDefault());
-                userSearchAdapter.myFilter(who);
+            public void onClick(View v) {
+                Log.d(TAG, "searchButton OnClick");
+                String searchText = searchBox.getText().toString();
+                startUserSearch(searchText);
+                searchBox.setText("");
             }
+        });
 
+        searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL)
+                {
+                    String searchText = searchBox.getText().toString();
+                    startUserSearch(searchText);
+                    searchBox.setText("");
+                }
+                return false;
             }
         });
     }
 
+    private void startUserSearch(String name)
+    {
+        friendListRecycler.removeAllViews();
+        userList.clear();
 
-    private void LoadUsers() {
-        List<UserListingInfo> userListingInfo = DatabaseMethods.SearchUser("Alican");
-        List<UserListingInfo> friends = DatabaseMethods.GetFriends(whoIsTheUser);
 
-        if (userListingInfo != null)
+        if (name.equals("") || name.trim().isEmpty())
+        {
+            name = null;
+        }
+        List<UserListingInfo> userListingInfo = DatabaseMethods.SearchUser(name);
+
+        if (userListingInfo.size() == 0)
+        {
+            Toast.makeText(this, "No User found", Toast.LENGTH_SHORT).show();
+        }
+        else
         {
             for (int i = 0; i < userListingInfo.size(); i++)
             {
-                for (int k = 0; k < friends.size(); k++)
+                if (!userListingInfo.get(i).userId.equals(whoIsTheUser))
                 {
-                    if(friends.get(k).userId.equals(userListingInfo.get(i).userId))
-                    {
-                        userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, userListingInfo.get(i).smallProfilePicture, 0));
-                        break;
-                    }
-                    else if (!friends.get(k).userId.equals(userListingInfo.get(i).userId))
+                    // Check if searched user is a friend
+                     if(DatabaseMethods.CheckFriendship(whoIsTheUser, userListingInfo.get(i).userId).equals("1"))
+                     {
+                         // Add searched user as a friends to recycler view by using TPYE 0
+                         userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, userListingInfo.get(i).smallProfilePicture, 0));
+                     }
+                     else
+                        // Add searched user as not friends to recycler view by using TPYE 1
                         userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, userListingInfo.get(i).smallProfilePicture, 1));
-
                 }
-                // Check if searched user is a friend or not
-
             }
         }
-
     }
 }
+

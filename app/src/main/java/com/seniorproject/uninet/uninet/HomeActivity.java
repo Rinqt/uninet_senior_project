@@ -22,13 +22,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +75,7 @@ public class HomeActivity extends AppCompatActivity
             R.mipmap.messages_icon
     };
 
+    // TODO STATIC OLMAM
     public static HomeActivity mainActivity;
     public static Boolean isVisible = false;
 
@@ -83,18 +84,15 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
+        //Session
+        sessionChecker = new SessionChecker(this);
+        userInformation = new StoredUserInformation(this);
 
         //Set Toolbar
         final Toolbar myToolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle(R.string.app_name);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
-        //Session
-        sessionChecker = new SessionChecker(this);
-        userInformation = new StoredUserInformation(this);
 
         if(!sessionChecker.loggedIn())
         {
@@ -115,8 +113,6 @@ public class HomeActivity extends AppCompatActivity
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabs);
         drawerLayout = findViewById(R.id.drawer_layout); // Hidden drawer tanımı
-
-
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -140,18 +136,23 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header_home);
 
+
+        //TODO getUserName çalışmıyor
+        // Hidden Drawer Setup
         drawerProfilePhoto = headerView.findViewById(R.id.drawerProfilePhoto);
         TextView userName = headerView.findViewById(R.id.logged_in_user_name);
 
         userName.setText(userInformation.getUserName());
 
-        byte[] picture = DatabaseMethods.GetUserBigPic(userInformation.getUserId());
+        byte[] picture = DatabaseMethods.GetProfileInfoStudent(userInformation.getUserId()).smallProfilePicture;
 
         if (picture != null)
         {
             Bitmap bitmap = BitmapFactory.decodeByteArray(picture, 0, picture.length);
             drawerProfilePhoto.setImageBitmap(bitmap);
         }
+        // Hidden Drawer Setup END \\
+
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -204,19 +205,27 @@ public class HomeActivity extends AppCompatActivity
                 if(tab.getPosition() == 0)
                 {
                     android.support.v4.app.Fragment feedList = getSupportFragmentManager().findFragmentByTag(myFragmentTags[0]);
-                    ListView fList = ((FeedFragment)feedList).uniPostFeed;
-                    int fListHeight = fList.getHeight();
-                    fList.smoothScrollToPositionFromTop(0, fListHeight/2, 10);
+                    if (feedList != null)
+                    {
+                        RecyclerView fList = ((FeedFragment)feedList).uniPostFeed;
+                        if(fList != null)
+                        {
+                            ((FeedFragment)feedList).uniPostFeed.getLayoutManager().scrollToPosition(0);
+                        }
+                    }
                 }
                 else if (tab.getPosition() == 1)
                 {
                     android.support.v4.app.Fragment profileList = getSupportFragmentManager().findFragmentByTag(myFragmentTags[1]);
-                    ListView pList = ((ProfileFragment)profileList).unipost_list;
-                    int pListHeight = pList.getHeight();
-                    pList.smoothScrollToPositionFromTop(0, pListHeight/2, 10);
+                    if (profileList != null)
+                    {
+                        RecyclerView fList = ((ProfileFragment)profileList).userUniPostFeed;
+                        if(fList != null)
+                        {
+                            ((ProfileFragment)profileList).userUniPostFeed.getLayoutManager().scrollToPosition(0);
+                        }
+                    }
                 }
-
-
             }
         });
 
@@ -385,6 +394,7 @@ public class HomeActivity extends AppCompatActivity
         MessagesFragment messages = new MessagesFragment();
         adapter.addFragment(messages);
         getSupportFragmentManager().beginTransaction().add(messages, "MyMessagesFragment");
+
 
         viewPager.setAdapter(adapter);
     }

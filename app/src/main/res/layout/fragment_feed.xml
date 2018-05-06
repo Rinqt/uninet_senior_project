@@ -19,7 +19,7 @@
             android:paddingTop="8dp">
 
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/uni_post_feed_list"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -59,9 +59,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 messageView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sent_message_template, parent, false);
                 return new CurrentUserMessage(messageView);
         }
-
-
-
         return null;
     }
 
@@ -210,7 +207,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public static class CurrentUserMessage extends RecyclerView.ViewHolder{
+    public static class CurrentUserMessage extends RecyclerView.ViewHolder
+    {
         private ConstraintLayout sender;
         private TextView currentUserMessage;
         private TextView currentUserMessageTime;
