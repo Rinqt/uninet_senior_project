@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -215,5 +216,19 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         friendPhotosLabel.setText(photosLabel);
         friendFriendsLabel.setText(friendsLabel);
         friendFollowsLabel.setText(followsLabel);
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }

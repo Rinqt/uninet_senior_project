@@ -3,6 +3,7 @@ package com.seniorproject.uninet.uninet;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.seniorproject.uninet.uninet.Adapters.DiningListAdapter;
@@ -41,17 +42,19 @@ public class DiningActivity extends AppCompatActivity {
 
         DiningListAdapter diningListAdapter = new DiningListAdapter(this, R.layout.dining_list_template, lunches);
         diningList.setAdapter(diningListAdapter);
+    }
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
 
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }

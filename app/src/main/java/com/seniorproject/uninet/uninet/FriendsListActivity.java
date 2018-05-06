@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.seniorproject.uninet.uninet.Adapters.FriendListAdapter;
@@ -67,6 +68,20 @@ public class FriendsListActivity extends AppCompatActivity {
         else
             // TODO Default değerler ekle
             friendList.add(new Friends(null, "You have no friends.", null));
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 
 }

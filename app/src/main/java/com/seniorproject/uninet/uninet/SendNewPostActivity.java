@@ -19,6 +19,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -199,6 +200,20 @@ public class SendNewPostActivity extends AppCompatActivity {
         Log.i("Connection WIFI", "" + haveConnectedWifi);
         Log.i("Connection MOBILE", "" + haveConnectedMobile);
         return haveConnectedWifi || haveConnectedMobile;
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }
 

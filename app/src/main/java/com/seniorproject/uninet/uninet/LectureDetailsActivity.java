@@ -3,6 +3,7 @@ package com.seniorproject.uninet.uninet;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 public class LectureDetailsActivity extends AppCompatActivity {
 
@@ -19,5 +20,19 @@ public class LectureDetailsActivity extends AppCompatActivity {
         setTitle(title);
 
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }

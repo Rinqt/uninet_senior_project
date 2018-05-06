@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.seniorproject.uninet.uninet.Adapters.FriendListAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.Friends;
@@ -77,6 +78,20 @@ public class FriendScreenActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 
 }

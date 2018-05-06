@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.seniorproject.uninet.uninet.Adapters.TranscriptAdapter;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
@@ -210,5 +211,19 @@ public class TranscriptActivity extends AppCompatActivity {
         courses.add(new TranscriptRecords("", "", "", "", "", "", "", 3));
         courses.add(new TranscriptRecords("", "", "", "", "", "", "", 4));
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }
