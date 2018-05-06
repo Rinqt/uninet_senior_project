@@ -36,6 +36,19 @@ public class DatabaseMethods {
         return result;
     }
 
+    public static String GetUserType(String userId){
+        String result = "";
+        String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserType?a="+userId;
+        try {
+            JSONObject jsonResult = new JSONObject(new DatabaseClass().execute(url, "GET").get());
+            result = jsonResult.getString("GetUserTypeResult");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public static UserListingInfo GetUserNamePic(String userId){
         UserListingInfo result = new UserListingInfo();
         String url = "http://uninetapplication.cloudapp.net/Service1.svc/GetUserNamePic?a="+userId;

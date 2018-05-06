@@ -244,7 +244,6 @@ public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         uniPostAdapter = new UniPostAdapter(getContext(), uniPosts, 0);
         uniPostFeed.setAdapter(uniPostAdapter);
 
-        Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }
 }

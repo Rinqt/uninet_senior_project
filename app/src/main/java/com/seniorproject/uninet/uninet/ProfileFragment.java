@@ -260,7 +260,9 @@ public class ProfileFragment extends Fragment {
         uniPostAdapter = new UniPostAdapter(getContext(), userUniPosts,0 );
         userUniPostFeed.setAdapter(uniPostAdapter);
 
-        Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
+        userUniPostFeed.getAdapter().notifyItemRangeChanged(0, userUniPosts.size());
+        userUniPostFeed.getAdapter().notifyDataSetChanged();
+
         swipeRefreshLayout.setRefreshing(false);
     }
 

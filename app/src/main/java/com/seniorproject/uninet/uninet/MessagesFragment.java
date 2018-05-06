@@ -228,8 +228,6 @@ public class MessagesFragment extends Fragment {
         messagesListAdapter = new MessagesListAdapter(getContext().getApplicationContext(), R.layout.messages_list_template, messages);
         messagesList.setAdapter(messagesListAdapter);
 
-
-        Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
     }
 
