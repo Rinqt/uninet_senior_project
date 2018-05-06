@@ -98,7 +98,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
         if (otherUserId == null)
             otherUserId = whoIsTheUser;
 
-
         otherUserInformation = DatabaseMethods.GetUserNamePic(otherUserId);
 
         // If profile belongs to current user, hide add/remove buttons
@@ -133,19 +132,11 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
             }
 
-
-
-
-
-
-
         if (otherUserInformation.smallProfilePicture != null)
         {
             Bitmap bitmap = BitmapFactory.decodeByteArray(otherUserInformation.smallProfilePicture, 0, otherUserInformation.smallProfilePicture.length);
             userProfilePicture.setImageBitmap(bitmap);
         }
-
-
 
         if (!whoIsTheUser.contains(otherUserId))
         {

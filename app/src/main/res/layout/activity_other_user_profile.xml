@@ -184,22 +184,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/other_user_profile_button_holder" />
 
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
 
                 android:id="@+id/other_user_uni_post_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical"
-
                 android:paddingBottom="125dp"
-
                 app:layout_constraintEnd_toEndOf="@id/other_user_profile_profile_divider"
                 app:layout_constraintRight_toRightOf="@id/other_user_profile_profile_divider"
                 app:layout_constraintStart_toEndOf="@id/other_user_profile_main_container"
                 app:layout_constraintStart_toStartOf="@id/other_user_profile_profile_divider"
                 app:layout_constraintTop_toBottomOf="@id/other_user_profile_profile_divider">
 
-            </ListView>
+            </android.support.v7.widget.RecyclerView>
 
         </android.support.constraint.ConstraintLayout>
 

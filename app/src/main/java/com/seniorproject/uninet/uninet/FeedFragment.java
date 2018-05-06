@@ -1,26 +1,22 @@
 package com.seniorproject.uninet.uninet;
 
-import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
-import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
+import com.seniorproject.uninet.uninet.Adapters.UniPostAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
@@ -38,7 +34,7 @@ import java.util.List;
  * Use the {@link FeedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,12 +44,9 @@ public class FeedFragment extends Fragment {
     StoredUserInformation userInformation;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    // unipost_list_view
-    public ListView uniPostFeed;
-    PostListAdapter postListAdapter;
+    public RecyclerView uniPostFeed;
+    UniPostAdapter uniPostAdapter;
     ArrayList<UniPosts> uniPosts;
-
-
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -106,95 +99,16 @@ public class FeedFragment extends Fragment {
 
         addDataToList();
 
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.edit_uni_post_template, uniPosts);
-        uniPostFeed.setAdapter(postListAdapter);
+        UniPostAdapter uniPostAdapter = new UniPostAdapter(getContext(), uniPosts, 0);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), OrientationHelper.VERTICAL, false);
 
+        uniPostFeed.setLayoutManager(linearLayoutManager);
+        uniPostFeed.setItemAnimator(new DefaultItemAnimator());
+        uniPostFeed.setAdapter(uniPostAdapter);
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-
-
-        //Postlar için LongPress Alert Dialog
-        uniPostFeed.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
-        {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                Log.i("Long click check", "Item Index " + i);
-
-                UniPosts selectedPost;
-                selectedPost = postListAdapter.getItem(i);
-                int settings = selectedPost.getUserID().equals(LoggedInUser.UserId) ? R.array.uni_post_settings : R.array.uni_post_settings_other_user;
-
-                alertDialog.setItems(settings, new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int whichOption) {
-                        UniPosts selectedPost;
-                        switch (whichOption)
-                        {
-                            case 0:
-                                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                selectedPost = postListAdapter.getItem(i);
-
-                                ClipData clip = ClipData.newPlainText(getString(R.string.post_copied), selectedPost.getDescription());
-                                assert clipboard != null;
-                                clipboard.setPrimaryClip(clip);
-                                Toast.makeText(getContext(), R.string.post_copied, Toast.LENGTH_LONG).show();
-                                break;
-
-                            case 1:
-                                selectedPost = postListAdapter.getItem(i);
-                                Log.i("getItem(i)", "Item Index " + selectedPost.getUniPostId());
-
-                                // TODO: Add success controller. [for both places] Also check if post belongs to the user
-                                DatabaseMethods.RemovePost(selectedPost.getUniPostId());
-                                Toast.makeText(getContext(), R.string.post_delete_successful, Toast.LENGTH_LONG).show();
-                                uniPosts.remove(i);
-                                postListAdapter.notifyDataSetChanged();
-                                break;
-                        }
-                    }
-                });
-                alertDialog.show();
-                return false;
-            }
-        });
-
-
-
-        // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
-        // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
-        uniPostFeed.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(firstVisibleItem == 0 && isListAtTop()){
-                    swipeRefreshLayout.setEnabled(true);
-                }else{
-                    swipeRefreshLayout.setEnabled(false);
-                }
-            }
-        });
-
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
-                refreshPosts();
-            }
-        });
-
-
-
-
-
-
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
+
 
 
 
@@ -229,6 +143,20 @@ public class FeedFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+
+            @Override public void run() {
+
+                refreshPosts();
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        }, 1500);
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -247,55 +175,76 @@ public class FeedFragment extends Fragment {
 
     private void addDataToList()
     {
-        List<Post> feedScreenPosts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        List<Post> posts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
         uniPosts = new ArrayList<>();
 
-        for (int i = feedScreenPosts.size() - 1 ; i >= 0; i--)
+        if (posts.size() == 0)
         {
-            List<PostPicture> picturesOfPost = DatabaseMethods.GetPostPictures(feedScreenPosts.get(i).postId);
-            byte[] picturePost = null;
-            if(!picturesOfPost.isEmpty())
-                picturePost = picturesOfPost.get(0).picture;
-            else
-                picturePost = null;
-            // TODO Post Image?
-            uniPosts.add(new UniPosts(feedScreenPosts.get(i).userId,
-                    feedScreenPosts.get(i).postId,
-                    feedScreenPosts.get(i).name,
-                    feedScreenPosts.get(i).postDate,
-                    feedScreenPosts.get(i).postText,
-                    feedScreenPosts.get(i).location,
-                    feedScreenPosts.get(i).smallProfilePicture,
-                    picturePost));
+            Toast.makeText(getContext(), "No post found", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            for (int i = posts.size() - 1; i >= 0;  i--)
+            {
+                if (posts.get(i).userId.equals(whoIsTheUser))
+                {
+                    // Means post belogns to logged in user. That's why TYPE = 1
+                    List<PostPicture> picturesOfPost = DatabaseMethods.GetPostPictures(posts.get(i).postId);
+                    byte[] picturePost = null;
+
+                    if(!picturesOfPost.isEmpty())
+                        picturePost = picturesOfPost.get(0).picture;
+                    else
+                        picturePost = null;
+
+                    uniPosts.add(new UniPosts
+                            (whoIsTheUser,
+                            posts.get(i).postId,
+                            posts.get(i).name,
+                            posts.get(i).postDate,
+                            posts.get(i).postText,
+                            posts.get(i).location,
+                            posts.get(i).smallProfilePicture,
+                            picturePost,
+                            1)
+                    );
+                }
+                else
+                {
+                    // Means post belongs to friend of the logged in user. That's why TYPE = 0
+                    List<PostPicture> picturesOfPost = DatabaseMethods.GetPostPictures(posts.get(i).postId);
+                    byte[] picturePost = null;
+
+                    if(!picturesOfPost.isEmpty())
+                        picturePost = picturesOfPost.get(0).picture;
+                    else
+                        picturePost = null;
+
+                    uniPosts.add(new UniPosts
+                            (posts.get(i).userId,
+                            posts.get(i).postId,
+                            posts.get(i).name,
+                            posts.get(i).postDate,
+                            posts.get(i).postText,
+                            posts.get(i).location,
+                            posts.get(i).smallProfilePicture,
+                            picturePost,
+                            0)
+                    );
+                }
+            }
         }
     }
 
-
     protected void refreshPosts()
     {
-        postListAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(true);
+        uniPostFeed.removeAllViews();
 
-        addDataToList();
-
-
-
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 1, R.layout.edit_uni_post_template, uniPosts);
-        uniPostFeed.setAdapter(postListAdapter);
+        uniPostAdapter = new UniPostAdapter(getContext(), uniPosts, 0);
+        uniPostFeed.setAdapter(uniPostAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
-
         swipeRefreshLayout.setRefreshing(false);
     }
-
-    // To check if we are at top of the UniPost List.
-    private boolean isListAtTop()
-    {
-        if(uniPostFeed.getChildCount() == 0) return true;
-        return uniPostFeed.getChildAt(0).getTop() == 0;
-    }
-
-
-
-    //-----------------------------
-
 }

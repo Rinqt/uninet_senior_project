@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/search_user"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+
         android:layout_height="51dp"
         android:layout_marginEnd="8dp"
-
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:hint="Search.."
-        android:textSize="22dp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintDimensionRatio="w,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/search_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="8dp"
+        android:text="Ara"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_user" />
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/friend_search_recycler_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/search_user"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/search_button"
         app:layout_constraintStart_toStartOf="@+id/search_user"
         app:layout_constraintTop_toBottomOf="@+id/search_user" />
+
+
 </android.support.constraint.ConstraintLayout>

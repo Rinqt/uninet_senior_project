@@ -1,38 +1,38 @@
 package com.seniorproject.uninet.uninet;
 
-import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.seniorproject.uninet.uninet.Adapters.PostListAdapter;
+import com.seniorproject.uninet.uninet.Adapters.UniPostAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
+import com.seniorproject.uninet.uninet.DatabaseClasses.PostPicture;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -61,14 +61,11 @@ public class ProfileFragment extends Fragment {
     TextView userFollowsLabel;
     ImageView profilePhoto;
 
-    String whoIsTheUser;
-
+    private String whoIsTheUser;
+    public RecyclerView userUniPostFeed;
     SwipeRefreshLayout swipeRefreshLayout;
-
-    // unipost_list
-    public ListView unipost_list;
-    PostListAdapter postListAdapter;
-    ArrayList<UniPosts> uniPosts;
+    UniPostAdapter uniPostAdapter;
+    ArrayList<UniPosts> userUniPosts;
 
     StoredUserInformation userInformation;
 
@@ -121,7 +118,7 @@ public class ProfileFragment extends Fragment {
         userFollowsLabel = getActivity().findViewById(R.id.user_total_follows_label);
 
         swipeRefreshLayout = getActivity().findViewById(R.id.uni_post_swiper);
-        unipost_list = getActivity().findViewById(R.id.uni_post_list_view);
+        userUniPostFeed = getActivity().findViewById(R.id.uni_post_list_view);
 
 
         UserListingInfo user = DatabaseMethods.GetUserNamePic(whoIsTheUser);
@@ -136,74 +133,29 @@ public class ProfileFragment extends Fragment {
         refreshInformation();
         addDataToList();
 
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.edit_uni_post_template, uniPosts);
-        unipost_list.setAdapter(postListAdapter);
+        uniPostAdapter = new UniPostAdapter(getContext(),  userUniPosts, 0);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), OrientationHelper.VERTICAL, false);
 
+        userUniPostFeed.setLayoutManager(linearLayoutManager);
+        userUniPostFeed.setItemAnimator(new DefaultItemAnimator());
+        userUniPostFeed.setAdapter(uniPostAdapter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.i("TAG", "onRefresh called from SwipeRefreshLayout");
-                refreshPosts();
-                refreshInformation();
-            }
-        });
-
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-
-
-        //Postlar için LongPress Alert Dialog
-        unipost_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                Log.i("Long click check", "Item Index " + i);
-
-                alertDialog.setItems(R.array.uni_post_settings, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int whichOption) {
-                        UniPosts selectedPost;
-
-                        switch (whichOption)
-                        {
-                            case 0:
-                                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                                selectedPost = postListAdapter.getItem(i);
-                                ClipData clip = ClipData.newPlainText(getString(R.string.post_copied), selectedPost.getDescription());
-                                assert clipboard != null;
-                                clipboard.setPrimaryClip(clip);
-                                Toast.makeText(getContext(), R.string.post_copied, Toast.LENGTH_LONG).show();
-                            case 1:
-                                selectedPost = postListAdapter.getItem(i);
-                                //Log.i("getItem(i)", "Item Index " + selectedPost.getUniPostId());
-
-                                // TODO: Add success controller. [for both places]
-                                DatabaseMethods.RemovePost(selectedPost.getUniPostId());
-                                Toast.makeText(getContext(), R.string.post_delete_successful, Toast.LENGTH_LONG).show();
-                        }
+                new Handler().postDelayed(new Runnable()
+                {
+                    @Override public void run()
+                    {
+                        refreshPosts();
+                        refreshInformation();
+                        swipeRefreshLayout.setRefreshing(false);
                     }
-                });
-                alertDialog.show();
-                return false;
+                }, 1500);
             }
         });
 
-            // uniPostların olduğu list view refreshToSwipe özelliği ile çakışıyordu.
-            // View ilk elemana ulaştığı zaman swipe yapılabilir kontrolü eklendi.
-        unipost_list.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if(firstVisibleItem == 0 && isListAtTop()){
-                    swipeRefreshLayout.setEnabled(true);
-                }else{
-                    swipeRefreshLayout.setEnabled(false);
-                }
-            }
-        });
 
 
         profileButton.setOnClickListener(new View.OnClickListener() {
@@ -217,12 +169,12 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
@@ -271,30 +223,42 @@ public class ProfileFragment extends Fragment {
 
     private void addDataToList()
     {
-        List<Post> uniPost = DatabaseMethods.GetPosts(whoIsTheUser);
-        uniPosts = new ArrayList<>();
+        List<Post> posts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        userUniPosts = new ArrayList<>();
 
-
-        for (int i = uniPost.size() - 1 ; i >= 0; i--)
+        for (int i = posts.size() - 1 ; i >= 0; i--)
         {
-            uniPosts.add(new UniPosts(whoIsTheUser, uniPost.get(i).postId,
-                    uniPost.get(i).name,
-                    uniPost.get(i).postDate,
-                    uniPost.get(i).postText,
-                    uniPost.get(i).location,
-                    uniPost.get(i).smallProfilePicture,
-                    uniPost.get(i).smallProfilePicture));
+            if (posts.get(i).userId.equals(whoIsTheUser))
+            {
+                List<PostPicture> picturesOfPost = DatabaseMethods.GetPostPictures(posts.get(i).postId);
+                byte[] picturePost;
+                if (!picturesOfPost.isEmpty())
+                    picturePost = picturesOfPost.get(0).picture;
+                else
+                    picturePost = null;
+                // TODO Post Image?
+                userUniPosts.add(new UniPosts
+                        (whoIsTheUser,
+                                posts.get(i).postId,
+                                posts.get(i).name,
+                                posts.get(i).postDate,
+                                posts.get(i).postText,
+                                posts.get(i).location,
+                                posts.get(i).smallProfilePicture,
+                                picturePost,
+                                1)
+                );
+            }
         }
     }
 
     protected void refreshPosts()
     {
-        postListAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(true);
+        userUniPostFeed.removeAllViews();
 
-        addDataToList();
-
-        postListAdapter = new PostListAdapter(getContext().getApplicationContext(), 0, R.layout.edit_uni_post_template, uniPosts);
-        unipost_list.setAdapter(postListAdapter);
+        uniPostAdapter = new UniPostAdapter(getContext(), userUniPosts,0 );
+        userUniPostFeed.setAdapter(uniPostAdapter);
 
         Toast.makeText(getContext(), R.string.refresh_successful, Toast.LENGTH_LONG).show();
         swipeRefreshLayout.setRefreshing(false);
@@ -303,7 +267,7 @@ public class ProfileFragment extends Fragment {
     protected void refreshInformation()
     {
 
-        userInformation = new StoredUserInformation(getContext());
+        userInformation = new StoredUserInformation(Objects.requireNonNull(getContext()));
 
         String friendsLabel, photosLabel, followsLabel;
 
@@ -315,11 +279,4 @@ public class ProfileFragment extends Fragment {
         userFriendsLabel.setText(friendsLabel);
         userFollowsLabel.setText(followsLabel);
     }
-
-
-    // To check if we are at top of the UniPost List.
-    private boolean isListAtTop() {
-        return unipost_list.getChildCount() == 0 || unipost_list.getChildAt(0).getTop() == 0;
-    }
-
 }

@@ -113,12 +113,16 @@ public class MessagingScreenActivity extends AppCompatActivity {
 
     private void loadMessages()
     {
-
-
         if(friendConversationId != null && !friendConversationId.isEmpty())
         {
             conversationID = friendConversationId;
         }
+
+        if (photo == null)
+        {
+            photo = DatabaseMethods.GetProfileInfoStudent(friendUserId).smallProfilePicture;
+        }
+
         List<Message> message = DatabaseMethods.GetMessages(whoIsTheUser, conversationID);
 
         if (message.size() == 0)

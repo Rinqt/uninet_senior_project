@@ -1,105 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/feed_bg"
-
-    android:paddingTop="8dp">
+    android:background="@drawable/pink_border_bottom_with_no_background"
+    android:paddingTop="10dp"
+    android:layout_marginBottom="12dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/lecture_profile_photo"
+        android:id="@+id/already_friend_profile_photo"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/description_messages_user_profile_photo"
         android:src="@mipmap/profile_icon"
         app:civ_border_color="@color/black"
         app:civ_border_width="1dp"
-        android:contentDescription="@string/description_messages_user_profile_photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/search_activity_user_name"
+        android:id="@+id/already_friend_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text=""
+        android:textColor="@color/user_name"
         android:textSize="14sp"
-        android:textColor="@color/user_name"
-        app:layout_constraintLeft_toRightOf="@+id/lecture_profile_photo"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/search_activity_user_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text=""
-        android:textColor="@color/user_name"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@+id/lecture_profile_photo"
-        app:layout_constraintTop_toBottomOf="@+id/search_activity_user_name" />
-
-
+        app:layout_constraintStart_toEndOf="@+id/already_friend_profile_photo"
+        app:layout_constraintTop_toTopOf="@+id/already_friend_profile_photo" />
 
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/search_activity_button_holder"
+        android:id="@+id/already_friend_button_holder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/search_activity_user_name"
+        app:layout_constraintStart_toEndOf="@+id/already_friend_user_name"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/search_activity_lecture_send_message"
+            android:id="@+id/already_friend_send_message"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
+            android:elevation="3dp"
             android:background="@drawable/ic_message_friend"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/search_activity_lecture_add_friend"
+            android:id="@+id/already_friend_remove_friend_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_add_friend_circle"
-            app:layout_constraintBottom_toBottomOf="@+id/search_activity_lecture_send_message"
-            app:layout_constraintEnd_toStartOf="@+id/search_activity_lecture_send_message"
-            app:layout_constraintTop_toTopOf="@+id/search_activity_lecture_send_message" />
+            android:elevation="3dp"
+            android:background="@drawable/ic_remove_friend"
+            app:layout_constraintBottom_toBottomOf="@+id/already_friend_send_message"
+            app:layout_constraintEnd_toStartOf="@+id/already_friend_send_message"
+            app:layout_constraintTop_toTopOf="@+id/already_friend_send_message" />
 
         <Button
-            android:id="@+id/search_activity_lecture_follow"
+            android:id="@+id/already_friend_block_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
-
-            android:background="@drawable/ic_followers_image_black_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/search_activity_lecture_add_friend"
-            app:layout_constraintEnd_toStartOf="@+id/search_activity_lecture_add_friend"
+            android:elevation="3dp"
+            android:background="@drawable/ic_block_friend"
+            app:layout_constraintBottom_toBottomOf="@+id/already_friend_remove_friend_button"
+            app:layout_constraintEnd_toStartOf="@+id/already_friend_remove_friend_button"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/search_activity_lecture_add_friend" />
+            app:layout_constraintTop_toTopOf="@+id/already_friend_remove_friend_button" />
 
     </android.support.constraint.ConstraintLayout>
 
