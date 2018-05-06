@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.OtherUserProfileActivity;
@@ -195,6 +196,10 @@ public class UniPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                             mList.remove(holder.getAdapterPosition());
                                             notifyItemRemoved(position);
                                             notifyItemRangeChanged(position, mList.size());
+                                            if(mType == 0)
+                                                LoggedInUser.ProfilePostRefresh = true;
+                                            else if(mType == 1)
+                                                LoggedInUser.FeedPostRefresh = true;
 
                                             break;
                                     }

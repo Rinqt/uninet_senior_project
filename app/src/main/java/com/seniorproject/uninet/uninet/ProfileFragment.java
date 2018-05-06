@@ -133,7 +133,7 @@ public class ProfileFragment extends Fragment {
         refreshInformation();
         addDataToList();
 
-        uniPostAdapter = new UniPostAdapter(getContext(),  userUniPosts, 0);
+        uniPostAdapter = new UniPostAdapter(getContext(),  userUniPosts, 1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), OrientationHelper.VERTICAL, false);
 
         userUniPostFeed.setLayoutManager(linearLayoutManager);
@@ -223,7 +223,7 @@ public class ProfileFragment extends Fragment {
 
     private void addDataToList()
     {
-        List<Post> posts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        List<Post> posts = DatabaseMethods.GetPosts(whoIsTheUser);
         userUniPosts = new ArrayList<>();
 
         for (int i = posts.size() - 1 ; i >= 0; i--)
@@ -255,13 +255,11 @@ public class ProfileFragment extends Fragment {
     protected void refreshPosts()
     {
         swipeRefreshLayout.setRefreshing(true);
-        userUniPostFeed.removeAllViews();
 
-        uniPostAdapter = new UniPostAdapter(getContext(), userUniPosts,0 );
+        addDataToList();
+
+        uniPostAdapter = new UniPostAdapter(getContext(), userUniPosts,1 );
         userUniPostFeed.setAdapter(uniPostAdapter);
-
-        userUniPostFeed.getAdapter().notifyItemRangeChanged(0, userUniPosts.size());
-        userUniPostFeed.getAdapter().notifyDataSetChanged();
 
         swipeRefreshLayout.setRefreshing(false);
     }

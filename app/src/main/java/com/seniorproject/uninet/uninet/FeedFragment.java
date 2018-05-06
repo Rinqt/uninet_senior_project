@@ -241,6 +241,8 @@ public class FeedFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout.setRefreshing(true);
         uniPostFeed.removeAllViews();
 
+        addDataToList();
+
         uniPostAdapter = new UniPostAdapter(getContext(), uniPosts, 0);
         uniPostFeed.setAdapter(uniPostAdapter);
 
