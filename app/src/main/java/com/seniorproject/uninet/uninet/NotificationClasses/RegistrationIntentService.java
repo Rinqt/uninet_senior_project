@@ -88,7 +88,7 @@ public class RegistrationIntentService extends IntentService {
 
         // Notify UI that registration has completed.
         if (HomeActivity.isVisible) {
-            HomeActivity.mainActivity.ToastNotify(resultString);
+            //HomeActivity.mainActivity.ToastNotify(resultString);
         }
     }
 }
