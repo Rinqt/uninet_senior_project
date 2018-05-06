@@ -130,6 +130,12 @@ public class StoredUserInformation {
         dataEditor.commit();
     }
 
+    private void birthday(String info)
+    {
+        dataEditor.putString("user_birth_day", info);
+        dataEditor.commit();
+    }
+
 
 
     // SETTERS
@@ -226,6 +232,11 @@ public class StoredUserInformation {
         notification(info);
     }
 
+    public void setBityhday (String info)
+    {
+        birthday(info);
+    }
+
 
     // GETTERS
     public String getUserId()
@@ -301,6 +312,10 @@ public class StoredUserInformation {
 
     public String getNotification() {
         return dataPrefs.getString("user_key_notification", "");
+    }
+
+    public String getBirthday() {
+        return dataPrefs.getString("user_birth_day", "");
     }
 
 

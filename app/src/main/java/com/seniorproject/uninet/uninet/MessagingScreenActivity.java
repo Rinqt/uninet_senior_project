@@ -9,6 +9,7 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class MessagingScreenActivity extends AppCompatActivity {
     private String friendConversationId;
     private ArrayList<UserConversations> messages;
     private EditText messageBox;
+    InputMethodManager keyboardHider;
 
     byte[] photo;
 
@@ -60,19 +62,20 @@ public class MessagingScreenActivity extends AppCompatActivity {
         // Declarations
         messages = new ArrayList<>();
         whoIsTheUser = userInformation.getUserId();
-        RecyclerView chatScreen = findViewById(R.id.message_list_recycler_view);
+        final RecyclerView chatScreen = findViewById(R.id.message_list_recycler_view);
         Button sendMessage = findViewById(R.id.button_message_send);
         messageBox = findViewById(R.id.message_box);
 
         clearMessages();
         loadMessages();
 
-        ConversationAdapter messageAdapter = new ConversationAdapter(this, messages);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
+        final ConversationAdapter messageAdapter = new ConversationAdapter(this, messages);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
 
         // Scroll view to the last message:
         linearLayoutManager.setStackFromEnd(true);
-
+        clearMessages();
+        loadMessages();
         chatScreen.setLayoutManager(linearLayoutManager);
         chatScreen.setItemAnimator(new DefaultItemAnimator());
         chatScreen.setAdapter(messageAdapter);
@@ -81,17 +84,26 @@ public class MessagingScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
                 // Check if we have a conversation with the friend
                 if(conversationChecker())
                 {
-                    sendMessageToConversation();
+                    sendMessageToConversation(chatScreen);
                 }
                 else
                     startNewConversation();
 
             }
         });
+
+        chatScreen.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, final int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                linearLayoutManager.setStackFromEnd(true);
+                chatScreen.setLayoutManager(linearLayoutManager);
+            }
+        });
+
+
 
     }
 
@@ -167,10 +179,12 @@ public class MessagingScreenActivity extends AppCompatActivity {
         }
     }
 
-    private void sendMessageToConversation()
+    private void sendMessageToConversation(RecyclerView recyclerView)
     {
         String userMessage = messageBox.getText().toString();
         DatabaseMethods.SendMessageExistingConversation(conversationID, whoIsTheUser, userMessage);
+        recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+
         Log.i("SEND", "Message send to the conversation");
 
         messageBox.getText().clear();

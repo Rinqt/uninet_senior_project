@@ -23,7 +23,6 @@ import com.seniorproject.uninet.uninet.StoredUserInformation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -88,8 +87,10 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                     ((FriendResult) holder).blockFriend.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
-                            sendFriendRequest(whoIsTheUser, mList.get(position).getUserId());
+                        public void onClick(View v)
+                        {
+                            blockUser(whoIsTheUser, mList.get(position).getUserId());
+
                         }
                     });
 
@@ -100,10 +101,13 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         }
                     });
 
-                    ((FriendResult) holder).messageFriend.setOnClickListener(new View.OnClickListener() {
+                    ((FriendResult) holder).messageFriend.setOnClickListener(new View.OnClickListener()
+                    {
                         @Override
-                        public void onClick(View v) {
-                            //goToMessageScreen(mList.get(position).getUserId());
+                        public void onClick(View v)
+                        {
+                            String conversationId = findCommunication(whoIsTheUser, mList.get(position).getUserId());
+                            goToMessageScreen(mList.get(position).getUserId(), conversationId, mList.get(position).getUserName());
                         }
                     });
 
@@ -120,26 +124,6 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-    }
-
-    public void myFilter(String name){
-
-        name = name.toLowerCase(Locale.getDefault());
-        mList.clear();
-        if (name.length() == 0){
-            mList.addAll(peopleArray);
-        }
-        else
-        {
-            List<UserListingInfo> users = DatabaseMethods.SearchUser(name);
-            for (int i = 0; i < users.size(); i++)
-            {
-                if (users.get(i).name.toLowerCase(Locale.getDefault()).contains(name)){
-                    userArray.add(users.get(i));
-                }
-            }
-        }
-        notifyDataSetChanged();
     }
 
     @Override
@@ -267,6 +251,37 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         alert.show();
     }
 
+    private void blockUser(final String whoIsTheUser, final String otherUserId)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+
+        builder.setTitle(mContext.getString(R.string.description_block));
+        builder.setMessage(mContext.getString(R.string.description_block_request));
+
+        builder.setPositiveButton(mContext.getString(R.string.unsaved_changes_yes), new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+
+                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "0", null);
+                DatabaseMethods.RemoveFriendFollowUponBlock(whoIsTheUser, otherUserId);
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton(mContext.getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
     private  void goToMessageScreen(String friendID, String communicationID, String friendName)
     {
         Intent messageScreen = new Intent(mContext, MessagingScreenActivity.class);
@@ -275,5 +290,17 @@ public class UserSearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         messageScreen.putExtra("FriendCommunicationId", communicationID);
         messageScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(messageScreen);
+    }
+
+    private String findCommunication(String whoIsTheUser, String friendId)
+    {
+        String comId = DatabaseMethods.CheckExistingConversation(whoIsTheUser, friendId);
+
+        if (!comId.equals(""))
+        {
+            return comId;
+        }
+
+        return comId = null;
     }
 }

@@ -32,6 +32,7 @@
     <string name="user_phone_number">Phone:</string>
     <string name="user_relationship_status">Relationship Status:</string>
     <string name="user_web_page">Web Page:</string>
+    <string name="user_birthday">Birthday:</string>
     <!--Profile Page END-->
 
     <!--Default Info-->
@@ -41,6 +42,7 @@
     <string name="default_user_phone_number">no phone information</string>
     <string name="default_user_relationship_status">No relationship information</string>
     <string name="default_user_web_page">No web page information</string>
+    <string name="default_user_birthday">No birthday information</string>
 
     <string name="default_course_name">No Course Name</string>
     <string name="default_course_time">No Course Time</string>

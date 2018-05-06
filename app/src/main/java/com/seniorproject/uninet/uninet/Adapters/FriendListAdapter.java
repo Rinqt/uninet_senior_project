@@ -153,9 +153,9 @@ public class FriendListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mContext.startActivity(messageScreen);
     }
 
-    private String findCommunication(String whoIsTheUser, String friendUserName)
+    private String findCommunication(String whoIsTheUser, String friendId)
     {
-        String comId = DatabaseMethods.CheckExistingConversation(whoIsTheUser, friendUserName);
+        String comId = DatabaseMethods.CheckExistingConversation(whoIsTheUser, friendId);
 
         if (!comId.equals(""))
         {

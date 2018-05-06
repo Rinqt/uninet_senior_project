@@ -32,14 +32,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SendNewPostActivity extends AppCompatActivity {
 
@@ -51,32 +48,14 @@ public class SendNewPostActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationClient;
     byte[] imageBytes = null;
 
-
-    private boolean haveNetworkConnection() {
-
-        boolean haveConnectedWifi = false;
-        boolean haveConnectedMobile = false;
-
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] networkStatus = connectivityManager.getAllNetworkInfo();
-        for (NetworkInfo status : networkStatus) {
-            if (status.getTypeName().equalsIgnoreCase("WIFI"))
-                if (status.isConnected())
-                    haveConnectedWifi = true;
-            if (status.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (status.isConnected())
-                    haveConnectedMobile = true;
-        }
-
-        Log.i("Connection WIFI", "" + haveConnectedWifi);
-        Log.i("Connection MOBILE", "" + haveConnectedMobile);
-        return haveConnectedWifi || haveConnectedMobile;
-    }
+    StoredUserInformation userInformation;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.send_new_uni_post_template);
+
+        userInformation = new StoredUserInformation(this);
 
         shareButton = findViewById(R.id.share_post_button);
         photoButton = findViewById(R.id.upload_post_picture);
@@ -114,39 +93,63 @@ public class SendNewPostActivity extends AppCompatActivity {
         // share butonu için click listener
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 String userLocation = "";
-                if (mLastLocation != null) {
+                if (mLastLocation != null)
+                {
                     Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
                     List<Address> addresses = null;
-                    try {
+
+                    try
+                    {
                         addresses = gcd.getFromLocation(mLastLocation.getLatitude(), mLastLocation.getLongitude(), 1);
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e)
+                    {
                         e.printStackTrace();
                     }
                     if (addresses.size() > 0)
                         userLocation = addresses.get(0).getAdminArea() + "-" + addresses.get(0).getSubAdminArea();
                 }
+
                 Log.i("locationPERMISSION", Manifest.permission.ACCESS_FINE_LOCATION);
                 String postText = uniPostDescription.getText().toString();
+
                 if (userLocation.equals("") || userLocation.equals(null))
                     userLocation = "None";
                 //TODO: Server kapalıyken post atılırsa uygulama yanıt vermiyor.
                 if (haveNetworkConnection()) {
                     String stringBytes = "";
-                    if(imageBytes != null){
-                        for (int i = 0; i < imageBytes.length; i++) {
+                    if(imageBytes != null)
+                    {
+                        for (int i = 0; i < imageBytes.length; i++)
+                        {
                             stringBytes += i < imageBytes.length - 1 ? (imageBytes[i] & 0xFF) + "," : (imageBytes[i] & 0xFF);
                         }
                     }
-                    DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, stringBytes);
-                    Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+
+                    if (userInformation.getLocationPrivacy().equals("False"))
+                    {
+                        DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, stringBytes);
+                        Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+
+                    }
+                    else
+                        {
+                            DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, stringBytes);
+                            Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+                        }
+
+
                     //New post refresh change
                     setResult(RESULT_OK);
                     LoggedInUser.FeedPostRefresh = true;
                     LoggedInUser.ProfilePostRefresh = true;
                     finish();
-                } else
+
+                }
+                else
                     Toast.makeText(SendNewPostActivity.this, getString(R.string.internet_connection_not_valid), Toast.LENGTH_SHORT).show();
 
 
@@ -174,6 +177,28 @@ public class SendNewPostActivity extends AppCompatActivity {
                 imageBytes = stream.toByteArray();
             }
         }
+    }
+
+
+    private boolean haveNetworkConnection() {
+
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkStatus = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo status : networkStatus) {
+            if (status.getTypeName().equalsIgnoreCase("WIFI"))
+                if (status.isConnected())
+                    haveConnectedWifi = true;
+            if (status.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (status.isConnected())
+                    haveConnectedMobile = true;
+        }
+
+        Log.i("Connection WIFI", "" + haveConnectedWifi);
+        Log.i("Connection MOBILE", "" + haveConnectedMobile);
+        return haveConnectedWifi || haveConnectedMobile;
     }
 }
 

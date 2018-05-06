@@ -53,6 +53,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
     TextView userPhone;
     TextView userRelationshipStatus;
     TextView userWebPage;
+    TextView userBirthDay;
 
     // ImageViews
     ImageView uniPostImage;
@@ -436,7 +437,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     private void loadCurrentUserProfile()
     {
-        String id, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage, postPicture;
+        String id, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage, postPicture, birthday;
 
         name = userInformation.getUserName();
         department = userInformation.getDepartment();
@@ -450,6 +451,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         phone = userInformation.getPhoneNumber();
         relation = userInformation.getRelationshipStatus();
         webPage = userInformation.getWebPage();
+        birthday = userInformation.getBirthday();
 
         //Button Declarations
         setProfileButton = findViewById(R.id.set_profile_button);
@@ -472,6 +474,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         userPhone = findViewById(R.id.user_phone_number_text_result);
         userRelationshipStatus = findViewById(R.id.user_relationship_text_result);
         userWebPage = findViewById(R.id.user_web_page_text_result);
+        userBirthDay = findViewById(R.id.user_birthday_text_result);
 
         // ImageView Declarations
         uniPostImage = findViewById(R.id.total_pots_image);
@@ -500,11 +503,12 @@ public class ProfileInfoActivity extends AppCompatActivity {
         userPhone.setText(phone);
         userRelationshipStatus.setText(relation);
         userWebPage.setText(webPage);
+        userBirthDay.setText(birthday);
     }
 
     private void loadOtherUserProfile()
     {
-        String friendId, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage;
+        String friendId, name, department, year, post, friend, follow, follower, mail, phone, relation, webPage, birthday;
 
         friendId = otherUserId;
 
@@ -521,6 +525,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         phone = friendInfo.phoneNumber;
         relation = friendInfo.relationship;
         webPage = friendInfo.webPage;
+        birthday = friendInfo.birthday;
 
         //Button Declarations
         setProfileButton = findViewById(R.id.set_profile_button);
@@ -544,6 +549,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         userPhone = findViewById(R.id.user_phone_number_text_result);
         userRelationshipStatus = findViewById(R.id.user_relationship_text_result);
         userWebPage = findViewById(R.id.user_web_page_text_result);
+        userBirthDay = findViewById(R.id.user_birthday_text_result);
 
         // ImageView Declarations
         uniPostImage = findViewById(R.id.total_pots_image);
@@ -572,6 +578,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         userPhone.setText(phone);
         userRelationshipStatus.setText(relation);
         userWebPage.setText(webPage);
+        userBirthDay.setText(birthday);
     }
 
     private void buttonHider()

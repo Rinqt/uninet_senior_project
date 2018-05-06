@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.Adapters.UniPostAdapter;
+import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
 import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
@@ -111,7 +112,53 @@ public class OtherUserProfileActivity extends AppCompatActivity {
 
     private void addUserPosts()
     {
-        List<Post> posts = DatabaseMethods.GetNewsFeed(whoIsTheUser);
+        if (DatabaseMethods.GetPrivacySettings(whoIsTheUser).showPostEveryone.equals("True"))
+        {
+            loadOpenProfile();
+        }
+        else
+            loadCloseProfile();
+    }
+
+    private void loadCloseProfile()
+    {
+        List<Post> posts = DatabaseMethods.GetPosts(whoIsTheUser);
+        uniPosts = new ArrayList<>();
+
+        if (DatabaseMethods.CheckFriendship(LoggedInUser.UserId, whoIsTheUser).equals("False"))
+        {
+            for (int i = posts.size() - 1 ; i >= 0; i--)
+            {
+                if (posts.get(i).userId.equals(whoIsTheUser))
+                {
+                    List<PostPicture> picturesOfPost = DatabaseMethods.GetPostPictures(posts.get(i).postId);
+                    byte[] picturePost;
+                    if (!picturesOfPost.isEmpty())
+                        picturePost = picturesOfPost.get(0).picture;
+                    else
+                        picturePost = null;
+
+                    uniPosts.add(new UniPosts
+                            (whoIsTheUser,
+                                    posts.get(i).postId,
+                                    posts.get(i).name,
+                                    posts.get(i).postDate,
+                                    posts.get(i).postText,
+                                    posts.get(i).location,
+                                    posts.get(i).smallProfilePicture,
+                                    picturePost,
+                                    0)
+                    );
+                }
+            }
+        }
+        else
+            Toast.makeText(this, "Kullanıcının profili kapalıdır", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadOpenProfile()
+    {
+        List<Post> posts = DatabaseMethods.GetPosts(whoIsTheUser);
         uniPosts = new ArrayList<>();
 
         for (int i = posts.size() - 1 ; i >= 0; i--)
@@ -124,7 +171,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
                     picturePost = picturesOfPost.get(0).picture;
                 else
                     picturePost = null;
-                // TODO Post Image?
+
                 uniPosts.add(new UniPosts
                         (whoIsTheUser,
                                 posts.get(i).postId,
@@ -138,6 +185,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
                 );
             }
         }
+
 
     }
 

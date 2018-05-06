@@ -370,17 +370,17 @@
 
 
         <TextView
-            android:id="@+id/user_web_page_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/user_web_page"
-            android:textColor="@color/gray"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/user_relationship_text_result" />
+        android:id="@+id/user_web_page_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/user_web_page"
+        android:textColor="@color/gray"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/user_relationship_text_result" />
 
         <TextView
             android:id="@+id/user_web_page_text_result"
@@ -393,6 +393,31 @@
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/user_web_page_text"
             app:layout_constraintStart_toEndOf="@+id/user_web_page_text"/>
+
+        <TextView
+            android:id="@+id/user_birthday_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/user_birthday"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/user_web_page_text" />
+
+        <TextView
+            android:id="@+id/user_birthday_text_result"
+            android:onClick="imageClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/default_user_birthday"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/user_birthday_text"
+            app:layout_constraintStart_toEndOf="@+id/user_birthday_text"/>
 
 
 
