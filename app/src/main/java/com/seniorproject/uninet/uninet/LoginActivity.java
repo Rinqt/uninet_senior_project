@@ -156,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                 userInformation.setFollowsNumber(String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
                 userInformation.setUniPostsNumber(String.valueOf(userPosts.size()));
                 userInformation.setEducationYear(profileInfoStudent.academicYear);
+                userInformation.setBityhday(profileInfoStudent.birthday);
 
                 PrivacySettings privacySettings = DatabaseMethods.GetPrivacySettings(whoIsTheUser);
                 userInformation.setUniPostPrivacy(privacySettings.showPostEveryone);
@@ -171,21 +172,19 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 userInformation.setPhotosNumber(String.valueOf(pictureCount));
 
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(intent);
+
                 FirebaseApp.initializeApp(getApplicationContext());
                 NotificationsManager.handleNotifications(getApplicationContext(), NotificationSettings.SenderId, MyHandler.class);
                 registerWithNotificationHubs();
 
                 dialog.dismiss();
 
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
 
             }
         };
         getUserData.start();
-
-
-        getUserData.interrupt();
     }
 
 

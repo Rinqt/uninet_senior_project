@@ -158,8 +158,5 @@ public class UserSettingsActivity extends AppCompatActivity {
         }
         else
             super.onBackPressed();
-
-
     }
-
 }

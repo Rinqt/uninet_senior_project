@@ -247,7 +247,8 @@ public class ProfileSettingsFragment extends Fragment{
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK)
+            {
 
                 Uri resultUri = result.getUri();
                 Uri originalUri = result.getOriginalUri();
@@ -275,7 +276,10 @@ public class ProfileSettingsFragment extends Fragment{
                 bigProfilePictureImage = stream.toByteArray();
 
                 int a = 0;
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                saveSettingsButton.setImageResource(R.drawable.ic_apply_settings);
+                isThereAChange = true;
+            }
+            else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }
