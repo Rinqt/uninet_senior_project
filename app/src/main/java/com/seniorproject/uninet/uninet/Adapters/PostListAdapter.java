@@ -136,28 +136,5 @@ public class PostListAdapter extends ArrayAdapter<UniPosts> {
 
 
         return convertView;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

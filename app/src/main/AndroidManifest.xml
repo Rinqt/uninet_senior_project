@@ -197,6 +197,7 @@
             android:label="@string/lecture_detail_name"
             android:launchMode="standard"
             android:parentActivityName=".HomeActivity"/>
+        <activity android:name=".UserPhotosActivity" />
 
     </application>
 

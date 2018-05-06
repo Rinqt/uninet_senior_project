@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.StringRequest;
 import com.seniorproject.uninet.uninet.Adapters.UniPostAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
@@ -128,8 +127,7 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         List<Post> posts = DatabaseMethods.GetPosts(whoIsTheUser);
         uniPosts = new ArrayList<>();
 
-        String friendship = DatabaseMethods.CheckFriendship(LoggedInUser.UserId, whoIsTheUser);
-        if (friendship.equals("1"))
+        if (DatabaseMethods.CheckFriendship(LoggedInUser.UserId, whoIsTheUser).equals("False"))
         {
             for (int i = posts.size() - 1 ; i >= 0; i--)
             {

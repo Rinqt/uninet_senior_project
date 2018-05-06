@@ -157,12 +157,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
             loadCurrentUserProfile();
 
 
-
-
-
-
-
-
         setProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,7 +180,11 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         photosButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
+                Intent photosScreen = new Intent(getApplication(), UserPhotosActivity.class);
+                photosScreen.putExtra("FriendId", otherUserId);
+                startActivity(photosScreen);
 
 
 
