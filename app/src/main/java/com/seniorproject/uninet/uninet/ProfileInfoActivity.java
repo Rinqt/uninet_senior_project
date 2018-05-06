@@ -138,7 +138,6 @@ public class ProfileInfoActivity extends AppCompatActivity {
                     removeFriend.setVisibility(View.GONE);
                     blockFriend.setVisibility(View.GONE);
                 }
-
             }
 
         if (otherUserInformation.smallProfilePicture != null)
@@ -242,8 +241,10 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
             public void onClick(DialogInterface dialog, int which) {
 
-                DatabaseMethods.InsertRelation(whoIsTheUser, otherUserId, "0", null);
-                DatabaseMethods.RemoveFriendFollowUponBlock(whoIsTheUser, otherUserId);
+                List<Post> userPosts = DatabaseMethods.GetPosts(userInformation.getUserId());
+                userInformation.setUniPostsNumber(String.valueOf(userPosts.size()));
+
+
                 dialog.dismiss();
                 finish();
             }
@@ -301,6 +302,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
     private void removeUser()
     {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         //builder.setTitle(getString(R.string.unsaved_changes_title));
@@ -311,6 +313,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // Leave the page
                 DatabaseMethods.RemoveFriend(whoIsTheUser, otherUserId);
+                userInformation.setFriendsNumber(String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
                 dialog.dismiss();
                 finish();
             }

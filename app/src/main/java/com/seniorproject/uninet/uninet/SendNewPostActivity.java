@@ -39,6 +39,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.ByteArrayOutputStream;
@@ -141,12 +142,18 @@ public class SendNewPostActivity extends AppCompatActivity {
                     {
                         DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, stringBytes);
                         Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+                        List<Post> userPosts = DatabaseMethods.GetPosts(userInformation.getUserId());
+                        userInformation.setUniPostsNumber(String.valueOf(userPosts.size()));
+
 
                     }
                     else
                         {
                             DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, stringBytes);
                             Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
+                            List<Post> userPosts = DatabaseMethods.GetPosts(userInformation.getUserId());
+                            userInformation.setUniPostsNumber(String.valueOf(userPosts.size()));
+
                         }
 
 

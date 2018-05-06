@@ -21,8 +21,10 @@ import android.widget.Toast;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 import com.seniorproject.uninet.uninet.OtherUserProfileActivity;
 import com.seniorproject.uninet.uninet.R;
+import com.seniorproject.uninet.uninet.StoredUserInformation;
 
 import java.util.List;
 
@@ -36,6 +38,8 @@ public class UniPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<UniPosts> mList;
     private Context mContext;
     private int mType;
+
+    private StoredUserInformation userInformation;
 
     public UniPostAdapter(Context mContext, List<UniPosts> mList, int type) {
         this.mContext = mContext;
@@ -68,6 +72,8 @@ public class UniPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position)
     {
         final UniPosts uniPosts = mList.get(position);
+        userInformation = new StoredUserInformation(mContext);
+        String postWithLocation;
 
         if (uniPosts != null)
         {
@@ -95,7 +101,10 @@ public class UniPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
                     ((FriendUniPost) holder).friendUserName.setText(uniPosts.getUserName());
-                    ((FriendUniPost) holder).friendUniPostTime.setText(uniPosts.getTimeStamp());
+
+                    postWithLocation = uniPosts.getTimeStamp() + " || " + uniPosts.getLocation();
+                    ((FriendUniPost) holder).friendUniPostTime.setText(postWithLocation);
+
                     ((FriendUniPost) holder).friendUniPostDescription.setText(uniPosts.getDescription());
 
                     ((FriendUniPost) holder).friendUniPostContainer.setOnLongClickListener(new View.OnLongClickListener()
@@ -166,7 +175,9 @@ public class UniPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         ((UserUniPost) holder).userUniPostImageView.setImageDrawable(null);
 
                     ((UserUniPost) holder).userUserName.setText(uniPosts.getUserName());
-                    ((UserUniPost) holder).userUniPostTime.setText(uniPosts.getTimeStamp());
+
+                    postWithLocation = uniPosts.getTimeStamp() + " || " + uniPosts.getLocation();
+                    ((UserUniPost) holder).userUniPostTime.setText(postWithLocation);
                     ((UserUniPost) holder).userUniPostDescription.setText(uniPosts.getDescription());
 
                     ((UserUniPost) holder).userUniPostContainer.setOnLongClickListener(new View.OnLongClickListener()
@@ -193,6 +204,9 @@ public class UniPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                         case 1:
                                             DatabaseMethods.RemovePost(uniPosts.getUniPostId());
                                             Toast.makeText(mContext, R.string.post_delete_successful, Toast.LENGTH_LONG).show();
+                                            List<Post> userPosts = DatabaseMethods.GetPosts(uniPosts.getUserID());
+                                            userInformation.setUniPostsNumber(String.valueOf(userPosts.size()));
+
                                             mList.remove(holder.getAdapterPosition());
                                             notifyItemRemoved(position);
                                             notifyItemRangeChanged(position, mList.size());
