@@ -219,6 +219,11 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
+
+        if(getIntent().getStringExtra("startMessageFragment") != null){
+            TabLayout.Tab tab = tabLayout.getTabAt(3);
+            tab.select();
+        }
     }
 
     //New post refresh change
