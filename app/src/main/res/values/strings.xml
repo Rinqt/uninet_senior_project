@@ -71,6 +71,10 @@
 
     <string name="description_block_request">Do you want to block the user?</string>
     <string name="description_block">Block</string>
+    <string name="description_block_remove_request">Do you want to remove the block?</string>
+    <string name="description_remove_block">Remove Block</string>
+    <string name="description_block_list">Block List</string>
+    <string name="description_block_list_empty">Your block list is empty</string>
 
     <string name="snack_bar_total_friends_image" formatted="true">You have %1$s friends.</string>
     <string name="snack_bar_university_progress_image" formatted="true">You are a %1$s Student</string>

@@ -1,5 +1,7 @@
 package com.seniorproject.uninet.uninet.Settings;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,13 +9,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 import com.seniorproject.uninet.uninet.R;
 import com.seniorproject.uninet.uninet.StoredUserInformation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UniPostSettingsFragment extends Fragment{
 
@@ -30,6 +37,7 @@ public class UniPostSettingsFragment extends Fragment{
     Switch mMessagePrivacy;
     Switch mNotifications;
     Switch mBirthdayPrivacy;
+    Button blockedListButton;
 
     public static boolean isThereAChangePrivacy;
 
@@ -56,6 +64,7 @@ public class UniPostSettingsFragment extends Fragment{
         mMessagePrivacy = getActivity().findViewById(R.id.messaging_switch);
         mNotifications = getActivity().findViewById(R.id.notification_switch);
         mBirthdayPrivacy = getActivity().findViewById(R.id.birthday_switch);
+        blockedListButton = getActivity().findViewById(R.id.blocked_list_button);
 
 
         setSwitches();
@@ -174,6 +183,63 @@ public class UniPostSettingsFragment extends Fragment{
                         savePrivacySettingsButton.setImageResource(R.drawable.ic_unsaved_settings);
                         isThereAChangePrivacy = false;
                     }
+                }
+            }
+        });
+
+        blockedListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(getString(R.string.description_block_list));
+
+                final List<UserListingInfo> blockedList = DatabaseMethods.GetBlocks(userInformation.getUserId());
+
+                if(!blockedList.isEmpty()){
+                    CharSequence[] blockedNames = new CharSequence[blockedList.size()];
+
+                    for (int i = 0; i < blockedList.size(); i++){
+                        blockedNames[i] = blockedList.get(i).name;
+                    }
+
+                    builder.setItems(blockedNames, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, final int i) {
+                            ///////////////////////////////////////////////////////
+                            AlertDialog.Builder confirmationBuilder = new AlertDialog.Builder(getContext());
+
+                            confirmationBuilder.setTitle(getString(R.string.description_remove_block));
+                            confirmationBuilder.setMessage(getString(R.string.description_block_remove_request));
+
+                            confirmationBuilder.setPositiveButton(getString(R.string.unsaved_changes_yes), new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    DatabaseMethods.RemoveBlock(userInformation.getUserId(), blockedList.get(i).userId);
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            confirmationBuilder.setNegativeButton(getString(R.string.unsaved_changes_no), new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.dismiss();
+                                }
+                            });
+
+                            AlertDialog confirmationAlert = confirmationBuilder.create();
+                            confirmationAlert.show();
+                            ///////////////////////////////////////////////////////
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                else{
+                    Toast.makeText(getContext(), getString(R.string.description_block_list_empty), Toast.LENGTH_SHORT).show();
                 }
             }
         });
