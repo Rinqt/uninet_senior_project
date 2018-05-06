@@ -4,7 +4,6 @@
     <string name="loading_title">Yükleniyor</string>
     <string name="loading_message">Lütfen Bekleyiniz</string>
 
-
     <string name="navigation_drawer_open">Drawer\'ı Aç</string>
     <string name="navigation_drawer_close">Drawer\'ı Kapat</string>
     <string name="search_title">Kişi ara..</string>
@@ -33,6 +32,7 @@
     <string name="user_phone_number">Telefon:</string>
     <string name="user_relationship_status">İlişki Durumu:</string>
     <string name="user_web_page">İnternet Sayfası:</string>
+    <string name="user_birthday">Doğum Günü:</string>
     <!--Profile Page END-->
 
     <!--Default Info-->
@@ -42,6 +42,7 @@
     <string name="default_user_phone_number">Telefon bilgisi yok</string>
     <string name="default_user_relationship_status">İlişki bilgisi yok</string>
     <string name="default_user_web_page">İnternet sayfası bilgisi yok</string>
+    <string name="default_user_birthday">Doğum Günü bilgisi yok</string>
 
     <string name="default_course_name">İsim Bilgisi Bulunamadı.</string>
     <string name="default_course_time">Saat Bilgisi Bulunamadı.</string>
@@ -55,12 +56,25 @@
     <string name="description_total_posts_button">UniPost</string>
     <string name="description_profile_photo">Profil Fotoğrafı</string>
     <string name="description_total_uploaded_photo_image">Profile Fotoğrafı</string>
+    <string name="description_messages_user_profile_photo">Profile Fotoğrafı</string>
     <string name="description_total_followers_image">Toplam Takipçiler</string>
     <string name="description_total_follows_image">Toplam Takipler</string>
     <string name="description_save_settings">Ayarları Kaydet</string>
     <string name="description_back_arrow">Ana Sayfa</string>
     <string name="description_go_to_lecture">Derse Git</string>
 
+    <string name="description_friendship_request">Arkadaşlık isteği yollamak istiyor musunuz ?</string>
+    <string name="description_friendship_removal">Kullanıcıyı arkadaşlıktan çıkarmak istediğinize emin misiniz?</string>
+    <string name="description_follow_user">Kullanıcıyı takip etmek istediğinize emin misiniz?</string>
+    <string name="description_add_friend">Ekle</string>
+    <string name="description_remove_friend">Sil</string>
+
+    <string name="description_block_request">Kullanıcıyı engellemek istediğinize emin misiniz?</string>
+    <string name="description_block">Engelle</string>
+    <string name="description_block_remove_request">Engeli kaldırmak istediğinize emin misiniz?</string>
+    <string name="description_remove_block">Engeli Kaldır</string>
+    <string name="description_block_list">Engellenenler Listesi</string>
+    <string name="description_block_list_empty">Engellediğiniz bir kullanıcı yok</string>
 
     <string name="snack_bar_total_friends_image" formatted="true">Şu an %1$s kişiyle arkadaşsınız</string>
     <string name="snack_bar_university_progress_image" formatted="true">%1$ssın</string>
@@ -90,6 +104,11 @@
     <string name="tr_summary_title_total_ects">Toplam AKTS</string>
     <string name="tr_summary_title_total_points">Toplam Puan</string>
     <!-- Transcript Titles END -->
+
+    <!-- Permissions -->
+    <string name="title_need_permission">İzin gerekli</string>
+    <string name="description_need_permission">UniNet bu özelliği kullanmak için izne ihtiyaç duyuyor. Lütfen ayarlara gidip gerekli izni veriniz.</string>
+    <!-- Permissions END-->
 
     <!--Login-->
     <string name="user_name">Kullanıcı Adı</string>
@@ -139,6 +158,12 @@
     <string name="post_delete_unsuccessful">UniPost Silinemedi!</string>
     <!--Post END-->
 
+    <!--Message-->
+    <string name="uni_message_copied">UniMesaj kopyalandı!</string>
+    <string name="uni_message_delete_successful">UniMesaj silind!</string>
+    <string name="uni_message_delete_unsuccessful">UniMeSaj silinemedi!</string>
+    <!--Message END-->
+
     <!--Profile-->
     <string name="edit_profile">Profili Düzenle</string>
     <string name="friends">Arkadaşlar</string>
@@ -154,6 +179,13 @@
     <string name="total_follows"> 1 </string>
     <!--Profile END-->
 
+    <!--Lectures Detail-->
+    <string name="course_assignment">Ödevler</string>
+    <string name="lecture_detail_name" formatted="true">%1$s Detayları</string>
+    <string name="course_weeks">Haftalar</string>
+    <string name="course_announcements">Duyurular</string>
+    <!--Lectures Detail END-->
+
     <!--Hidden Drawer-->
     <string name="time_table">Ders Programı</string>
     <string name="transcript">Transkript</string>
@@ -162,8 +194,8 @@
     <string name="logout">Çıkış</string>
     <string name="about">Hakkımızda</string>
     <string name="contact">Bize Ulaşın!</string>
-    <string name="version">earlyDevelopment 0.0.0.2.0.0.0 </string>
-    <string name="version_hidden_drawer">v 1.0 </string>
+    <string name="version">Erken Erişim 0.9 </string>
+    <string name="version_hidden_drawer">v 0.9 </string>
     <!--Hidden Drawer END-->
 
     <!-- Strings related to Settings -->
@@ -183,6 +215,13 @@
     <string name="pref_title_setBirthday">Doğum Günü</string>
     <string name="pref_description_setBirthday">Doğum gününüzü giriniz</string>
 
+    <string name="save_settings">Ayarlar başarı ile kaydedildi</string>
+    <string name="no_changes">Kayıt işlemi için bir ayar değiştiriniz.</string>
+    <string name="unsaved_changes_title">Kaydedilmemiş Değişiklikler</string>
+    <string name="unsaved_changes_description">Kaydedilmemiş ayarlarınız mevcut, sayfayı terketmek istiyor musunuz?</string>
+    <string name="unsaved_changes_yes">Evet</string>
+    <string name="unsaved_changes_no">Hayır</string>
+
     <string-array name="pref_list_relationship_status">
         <item>Bekar</item>
         <item>İlişkisi Var</item>
@@ -200,6 +239,16 @@
 
     <string-array name="uni_post_settings_other_user">
         <item>UniPost içeriğini kopyala</item>
+    </string-array>
+
+    <!-- Settings for UniMessages -->
+    <string-array name="uni_message_settings_user">
+        <item>UniMesaj'ı kopyala</item>
+        <item>UniMesajı Sil</item>
+    </string-array>
+
+    <string-array name="uni_message_settings_friend">
+        <item>Copy UniMessage Text</item>
     </string-array>
 
     <string name="uni_post_settings">UniPost Ayarları</string>
@@ -231,7 +280,6 @@
     <string name="pref_title_birthday">Doğum günü</string>
     <string name="pref_description_birthday">Doğum günümü profilde göster</string>
     <string name="pref_description_notification">Uninet\'e bildirim yollaması için izin ver</string>
-
     <!-- Settings for Safety and Privacy END -->
 
     <!-- Settings for Data & Sync -->
@@ -315,5 +363,13 @@
     <string name="third_year">3. Sınıf</string>
     <string name="fourth_year">4. Sınıf</string>
     <!-- Education Year Names END -->
+
+    <!-- Course Table -->
+    <string name="course_time">Saat</string>
+    <string name="course_code">Ders Kodu</string>
+    <string name="course_name">Ders Adı</string>
+    <string name="course_class">Derslik</string>
+    <string name="course_lecturer">Öğretmen</string>
+    <!-- Course Table END -->
 
 </resources>
