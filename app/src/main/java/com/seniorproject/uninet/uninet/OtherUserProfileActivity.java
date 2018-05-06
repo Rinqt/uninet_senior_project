@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.StringRequest;
 import com.seniorproject.uninet.uninet.Adapters.UniPostAdapter;
 import com.seniorproject.uninet.uninet.ConstructorClasses.LoggedInUser;
 import com.seniorproject.uninet.uninet.ConstructorClasses.UniPosts;
@@ -210,7 +211,13 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         String friendsLabel, photosLabel, followsLabel;
 
         friendsLabel = (String.valueOf(DatabaseMethods.GetFriends(whoIsTheUser).size()));
-        photosLabel = "error";
+
+        int pictureCount = 0;
+        for (int i = 0; i < uniPosts.size(); i++){
+            if(!DatabaseMethods.GetPostPictures(uniPosts.get(i).getUniPostId()).isEmpty())
+                pictureCount++;
+        }
+        photosLabel = String.valueOf(pictureCount);
         followsLabel = (String.valueOf(DatabaseMethods.GetStudentFollowing(whoIsTheUser).size()));
 
         friendPhotosLabel.setText(photosLabel);

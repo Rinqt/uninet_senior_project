@@ -20,9 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.Post;
 import com.seniorproject.uninet.uninet.DatabaseClasses.PrivacySettings;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -106,6 +109,9 @@ public class ProfileInfoActivity extends AppCompatActivity {
         // If profile belongs to current user, hide add/remove buttons
         if (otherUserId.equals(userInformation.getUserId()))
         {
+            List<UserListingInfo> friendRequestsList = DatabaseMethods.GetFriendRequests(userInformation.getUserId());
+            if(friendRequestsList.isEmpty())
+                friendRequestIcon.setVisibility(View.GONE);
             setTitle(userInformation.getUserName());
             addFriend.setVisibility(View.GONE);
             removeFriend.setVisibility(View.GONE);
@@ -517,10 +523,11 @@ public class ProfileInfoActivity extends AppCompatActivity {
         ProfileInfoStudent friendInfo = DatabaseMethods.GetProfileInfoStudent(friendId);
         PrivacySettings privacySettings = DatabaseMethods.GetPrivacySettings(friendId);
 
+        List<Post> friendPosts = DatabaseMethods.GetPosts(friendId);
         name = friendInfo.name;
         department = friendInfo.department;
         year = friendInfo.academicYear;
-        post = (String.valueOf(DatabaseMethods.GetPosts(friendId).size()));
+        post = (String.valueOf(friendPosts.size()));
         friend = (String.valueOf(DatabaseMethods.GetFriends(friendId).size()));
         follow = (String.valueOf(DatabaseMethods.GetStudentFollowing(friendId).size()));
         follower = (String.valueOf(DatabaseMethods.GetStudentFollowers(friendId).size()));
@@ -572,7 +579,13 @@ public class ProfileInfoActivity extends AppCompatActivity {
 
         String postNumber = String.valueOf(post + " " + getResources().getString(R.string.user_total_post_number));
         totalPost.setText(postNumber);
-        totalPictures.setText("error");
+
+        int pictureCount = 0;
+        for (int i = 0; i < friendPosts.size(); i++){
+            if(!DatabaseMethods.GetPostPictures(friendPosts.get(i).postId).isEmpty())
+                pictureCount++;
+        }
+        totalPictures.setText(String.valueOf(pictureCount));
         totalFriend.setText(friend);
         totalFollow.setText(follow);
         totalFollower.setText(follower);
