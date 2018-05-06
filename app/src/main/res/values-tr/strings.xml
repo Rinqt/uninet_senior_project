@@ -252,6 +252,7 @@
     </string-array>
 
     <string name="uni_post_settings">UniPost Ayarları</string>
+    <string name="uni_post_picture_upload">Fotoğraf yüklendi</string>
     <string name="pref_header_uniPost">UniPost</string>
     <string name="pref_title_protectUniPosts">UniPost Gizliliği</string>
     <string name="pref_description_protectUniPosts">Sadece arkadaş listeniz UniPostları görebilir</string>

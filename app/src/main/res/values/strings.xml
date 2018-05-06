@@ -253,6 +253,7 @@
 
     <string name="uni_post_settings">UniPost Settings</string>
     <string name="pref_header_uniPost">UniPost</string>
+    <string name="uni_post_picture_upload">Picture has been uploaded</string>
     <string name="pref_title_protectUniPosts">Protect UniPosts</string>
     <string name="pref_description_protectUniPosts">Show UniPosts only to your friends</string>
     <string name="pref_title_location">Location</string>
