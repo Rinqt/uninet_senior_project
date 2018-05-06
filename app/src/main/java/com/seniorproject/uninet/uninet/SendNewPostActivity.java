@@ -140,7 +140,7 @@ public class SendNewPostActivity extends AppCompatActivity {
 
                     if (userInformation.getLocationPrivacy().equals("False"))
                     {
-                        DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, userLocation, stringBytes);
+                        DatabaseMethods.SendPost(getApplicationContext(), LoggedInUser.UserId, postText, "None", stringBytes);
                         Toast.makeText(SendNewPostActivity.this, R.string.successful_post, Toast.LENGTH_SHORT).show();
                         List<Post> userPosts = DatabaseMethods.GetPosts(userInformation.getUserId());
                         userInformation.setUniPostsNumber(String.valueOf(userPosts.size()));
