@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.seniorproject.uninet.uninet.DatabaseClasses.DatabaseMethods;
+import com.seniorproject.uninet.uninet.DatabaseClasses.PrivacySettings;
 import com.seniorproject.uninet.uninet.DatabaseClasses.ProfileInfoStudent;
 import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 
@@ -513,6 +514,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         friendId = otherUserId;
 
         ProfileInfoStudent friendInfo = DatabaseMethods.GetProfileInfoStudent(friendId);
+        PrivacySettings privacySettings = DatabaseMethods.GetPrivacySettings(friendId);
 
         name = friendInfo.name;
         department = friendInfo.department;
@@ -525,7 +527,7 @@ public class ProfileInfoActivity extends AppCompatActivity {
         phone = friendInfo.phoneNumber;
         relation = friendInfo.relationship;
         webPage = friendInfo.webPage;
-        birthday = friendInfo.birthday;
+        birthday = privacySettings.showBirthdayEveryone.equals("False") ? "" : friendInfo.birthday;
 
         //Button Declarations
         setProfileButton = findViewById(R.id.set_profile_button);

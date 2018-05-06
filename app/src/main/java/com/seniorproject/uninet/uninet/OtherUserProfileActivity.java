@@ -112,7 +112,8 @@ public class OtherUserProfileActivity extends AppCompatActivity {
 
     private void addUserPosts()
     {
-        if (DatabaseMethods.GetPrivacySettings(whoIsTheUser).showPostEveryone.equals("True"))
+        String showEveryone = DatabaseMethods.GetPrivacySettings(whoIsTheUser).showPostEveryone;
+        if (showEveryone.equals("True"))
         {
             loadOpenProfile();
         }
@@ -125,7 +126,8 @@ public class OtherUserProfileActivity extends AppCompatActivity {
         List<Post> posts = DatabaseMethods.GetPosts(whoIsTheUser);
         uniPosts = new ArrayList<>();
 
-        if (DatabaseMethods.CheckFriendship(LoggedInUser.UserId, whoIsTheUser).equals("False"))
+        String friendship = DatabaseMethods.CheckFriendship(LoggedInUser.UserId, whoIsTheUser);
+        if (friendship.equals("1"))
         {
             for (int i = posts.size() - 1 ; i >= 0; i--)
             {
