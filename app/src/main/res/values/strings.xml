@@ -214,6 +214,8 @@
     <string name="pref_description_relationshipStatus">Add your relationship status</string>
     <string name="pref_title_setBirthday">Date of Birth</string>
     <string name="pref_description_setBirthday">Enter your birthday</string>
+    <string name="title_activity_photos">Photos</string>
+
 
     <string name="save_settings">Settings have been saved successfully</string>
     <string name="no_changes">You need to change a value to save</string>

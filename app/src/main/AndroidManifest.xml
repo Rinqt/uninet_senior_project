@@ -197,7 +197,12 @@
             android:label="@string/lecture_detail_name"
             android:launchMode="standard"
             android:parentActivityName=".HomeActivity"/>
-        <activity android:name=".UserPhotosActivity" />
+
+        <activity android:name=".UserPhotosActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_photos"
+            android:launchMode="standard"
+            android:parentActivityName=".HomeActivity"/>
 
     </application>
 

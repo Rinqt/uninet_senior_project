@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // Keyboard hider
     InputMethodManager keyboardHider;
+    TextView forgetPassword;
 
 
     private static final String TAG = "MainActivity";
@@ -68,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         universityNumber = findViewById(R.id.user_name);
         userPassword = findViewById(R.id.user_password);
+        forgetPassword = findViewById(R.id.forget_password);
 
         final Button loginButton = findViewById(R.id.login_button);
 
@@ -118,6 +121,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("loginButton", "Login Button Pressed.");
                 attemptLogin();
+            }
+        });
+
+        forgetPassword.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://obs.yasar.edu.tr/oibs/ogrenci/login.aspx";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
 

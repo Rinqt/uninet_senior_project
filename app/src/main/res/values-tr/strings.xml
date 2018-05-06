@@ -214,6 +214,8 @@
     <string name="pref_description_relationshipStatus">İlişki durumunuzu giriniz</string>
     <string name="pref_title_setBirthday">Doğum Günü</string>
     <string name="pref_description_setBirthday">Doğum gününüzü giriniz</string>
+    <string name="title_activity_photos">Fotoğraflar</string>
+
 
     <string name="save_settings">Ayarlar başarı ile kaydedildi</string>
     <string name="no_changes">Kayıt işlemi için bir ayar değiştiriniz.</string>
