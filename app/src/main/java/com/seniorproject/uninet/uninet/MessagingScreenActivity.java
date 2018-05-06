@@ -188,8 +188,15 @@ public class MessagingScreenActivity extends AppCompatActivity {
         Log.i("SEND", "Message send to the conversation");
 
         messageBox.getText().clear();
+
+        // Scroll view to the last message:
         clearMessages();
         loadMessages();
+
+        final ConversationAdapter messageAdapter = new ConversationAdapter(this, messages);
+        final RecyclerView chatScreen = findViewById(R.id.message_list_recycler_view);
+
+        chatScreen.setAdapter(messageAdapter);
     }
 
     private void startNewConversation()
