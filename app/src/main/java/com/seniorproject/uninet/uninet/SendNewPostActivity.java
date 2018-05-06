@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -51,6 +52,7 @@ public class SendNewPostActivity extends AppCompatActivity {
     Button shareButton;
     Button photoButton;
     EditText uniPostDescription;
+    TextView uploadSuccess;
     Location mLastLocation = null;
     FusedLocationProviderClient fusedLocationClient;
     byte[] imageBytes = null;
@@ -67,6 +69,7 @@ public class SendNewPostActivity extends AppCompatActivity {
         shareButton = findViewById(R.id.share_post_button);
         photoButton = findViewById(R.id.upload_post_picture);
         uniPostDescription = findViewById(R.id.new_post_area);
+        uploadSuccess = findViewById(R.id.picture_upload_result);
         keyboardHider = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -180,6 +183,7 @@ public class SendNewPostActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 30, stream);
                 imageBytes = stream.toByteArray();
+                uploadSuccess.setText(R.string.uni_post_picture_upload);
             }
         }
     }
