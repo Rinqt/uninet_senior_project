@@ -27,11 +27,11 @@
         android:id="@+id/not_friend_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:text=""
-        android:textSize="14sp"
         android:textColor="@color/user_name"
+        android:textSize="14sp"
         app:layout_constraintLeft_toRightOf="@+id/not_friend_profile_photo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,13 +39,12 @@
         android:id="@+id/not_friend_user_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text=""
         android:textColor="@color/user_name"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@+id/not_friend_profile_photo"
+        app:layout_constraintStart_toStartOf="@+id/not_friend_user_name"
         app:layout_constraintTop_toBottomOf="@+id/not_friend_user_name" />
 
 
@@ -79,7 +78,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_add_friend_circle"
+            android:background="@drawable/ic_add_friend"
             app:layout_constraintBottom_toBottomOf="@+id/not_friend_student_send_message"
             app:layout_constraintEnd_toStartOf="@+id/not_friend_student_send_message"
             app:layout_constraintTop_toTopOf="@+id/not_friend_student_send_message" />
@@ -88,14 +87,12 @@
             android:id="@+id/not_friend_student_follow"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
 
+            android:layout_marginEnd="16dp"
             android:background="@drawable/ic_follows_image_black_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/not_friend_student_add_friend"
-            app:layout_constraintEnd_toStartOf="@+id/not_friend_student_add_friend"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/not_friend_student_add_friend" />
+            app:layout_constraintBottom_toBottomOf="@+id/not_friend_student_send_message"
+            app:layout_constraintEnd_toStartOf="@+id/not_friend_student_send_message"
+            app:layout_constraintTop_toTopOf="@+id/not_friend_student_send_message" />
 
     </android.support.constraint.ConstraintLayout>
 

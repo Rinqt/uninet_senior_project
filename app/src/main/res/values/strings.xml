@@ -65,6 +65,7 @@
 
     <string name="description_friendship_request">Do you want to add user as a friend?</string>
     <string name="description_friendship_removal">Do you want to remove the user from friend list?</string>
+    <string name="description_follow_user">Do you want to follow the user?</string>
     <string name="description_add_friend">Add</string>
     <string name="description_remove_friend">Remove</string>
 

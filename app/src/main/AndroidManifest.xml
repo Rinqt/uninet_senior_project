@@ -176,7 +176,7 @@
         </activity>
 
         <activity
-            android:name=".FriendSearch"
+            android:name=".UserSearchActivity"
             android:screenOrientation="portrait"
             android:label="@string/search_user"
             android:launchMode="standard"

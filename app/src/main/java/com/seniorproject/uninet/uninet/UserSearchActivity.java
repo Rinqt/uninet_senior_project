@@ -9,8 +9,10 @@ import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,9 +26,9 @@ import com.seniorproject.uninet.uninet.DatabaseClasses.UserListingInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendSearch extends AppCompatActivity {
+public class UserSearchActivity extends AppCompatActivity {
 
-    private static final String TAG = "FriendSearch";
+    private static final String TAG = "UserSearchActivity";
 
     private String whoIsTheUser;
     StoredUserInformation userInformation;
@@ -42,12 +44,14 @@ public class FriendSearch extends AppCompatActivity {
 
     int textlength = 0;
     private List<UserListingInfo> tempUsers = new ArrayList<>();
+    InputMethodManager keyboardHider;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_friend_search);
+        keyboardHider = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         userInformation = new StoredUserInformation(this);
         whoIsTheUser = userInformation.getUserId();
@@ -75,11 +79,15 @@ public class FriendSearch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "searchButton OnClick");
+                keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 String searchText = searchBox.getText().toString();
                 startUserSearch(searchText);
                 searchBox.setText("");
+
             }
         });
+
+
 
         searchBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -91,6 +99,16 @@ public class FriendSearch extends AppCompatActivity {
                     searchBox.setText("");
                 }
                 return false;
+            }
+        });
+
+
+        findViewById(R.id.search_user_activity_constraint_layout).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                keyboardHider.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                return true;
             }
         });
     }
@@ -121,14 +139,47 @@ public class FriendSearch extends AppCompatActivity {
                      if(DatabaseMethods.CheckFriendship(whoIsTheUser, userListingInfo.get(i).userId).equals("1"))
                      {
                          // Add searched user as a friends to recycler view by using TPYE 0
-                         userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, userListingInfo.get(i).smallProfilePicture, 0));
+                         if (userTypeControl(userListingInfo.get(i).userId))
+                         {
+                             userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, "", userListingInfo.get(i).smallProfilePicture, 0));
+                         }
+                         else
+                             {
+                                 String title = DatabaseMethods.GetProfileInfoTeacher(userListingInfo.get(i).userId).title;
+                                 userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, title, userListingInfo.get(i).smallProfilePicture, 0));
+                             }
                      }
                      else
+                     {
+                         if (userTypeControl(userListingInfo.get(i).userId))
+                         {
+                             userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, "", userListingInfo.get(i).smallProfilePicture, 1));
+                         }
+                         else
+                         {
+                             String title = DatabaseMethods.GetProfileInfoTeacher(userListingInfo.get(i).userId).title;
+                             userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, title, userListingInfo.get(i).smallProfilePicture, 1));
+
+                         }
+                     }
                         // Add searched user as not friends to recycler view by using TPYE 1
-                        userList.add(new User(userListingInfo.get(i).userId, userListingInfo.get(i).name, userListingInfo.get(i).smallProfilePicture, 1));
+
                 }
             }
         }
+    }
+
+    /*
+    Returns true if user is student
+    */
+    private boolean userTypeControl(String friendID)
+    {
+        if (DatabaseMethods.GetUserType(friendID).equals("False"))
+        {
+            return true;
+        }
+        else
+            return false;
     }
 }
 

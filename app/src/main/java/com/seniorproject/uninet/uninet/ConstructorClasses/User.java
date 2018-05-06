@@ -7,12 +7,14 @@ public class User {
 
     private String userId;
     private String userName;
+    private String title;
     private byte[] userPhoto;
     private int type;
 
-    public User(String userId, String userName, byte[] userPhoto, int type) {
+    public User(String userId, String userName, String title, byte[] userPhoto, int type) {
         this.userId = userId;
         this.userName = userName;
+        this.title = title;
         this.userPhoto = userPhoto;
         this.type = type;
     }
@@ -31,6 +33,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public byte[] getUserPhoto() {

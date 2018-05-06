@@ -299,7 +299,7 @@ public class HomeActivity extends AppCompatActivity
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.search:
-                Intent searchUser = new Intent(this, FriendSearch.class);
+                Intent searchUser = new Intent(this, UserSearchActivity.class);
                 startActivity(searchUser);
 
         }
