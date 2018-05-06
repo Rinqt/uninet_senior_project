@@ -108,7 +108,6 @@
     <!-- Permissions -->
     <string name="title_need_permission">Need Permission</string>
     <string name="description_need_permission">UniNet needs permission to use this feature. Please go to phone settings and give the required permission</string>
-
     <!-- Permissions END-->
 
     <!--Login-->
@@ -158,11 +157,12 @@
     <string name="post_delete_successful">UniPost Deleted!</string>
     <string name="post_delete_unsuccessful">UniPost Could Not Deleted!</string>
     <!--Post END-->
+
+    <!--Message-->
     <string name="uni_message_copied">UniMessage Copied!</string>
     <string name="uni_message_delete_successful">UniMessage Deleted!</string>
     <string name="uni_message_delete_unsuccessful">UniMessage Could Not Deleted!</string>
-
-    <!--Message-->
+    <!--Message END-->
 
     <!--Profile-->
     <string name="edit_profile">Edit Profile</string>
@@ -184,7 +184,7 @@
     <string name="lecture_detail_name" formatted="true">%1$s Details</string>
     <string name="course_weeks">Weeks</string>
     <string name="course_announcements">Announcements</string>
-    <!--Lectures Detail  qEND-->
+    <!--Lectures Detail END-->
 
     <!--Hidden Drawer-->
     <string name="time_table">Time Table</string>
@@ -194,8 +194,8 @@
     <string name="logout">Logout</string>
     <string name="about">About UniNet</string>
     <string name="contact">Contact Us</string>
-    <string name="version">earlyDevelopment 0.0.0.2.0.0.0 </string>
-    <string name="version_hidden_drawer">v 1.0 </string>
+    <string name="version">Early Access 0.9 </string>
+    <string name="version_hidden_drawer">v 0.9 </string>
     <!-- Hidden Drawer END -->
 
     <!-- Strings related to Settings -->
@@ -241,7 +241,6 @@
         <item>Copy UniPost Text</item>
     </string-array>
 
-
     <!-- Settings for UniMessages -->
     <string-array name="uni_message_settings_user">
         <item>Copy UniMessage Text</item>
@@ -254,6 +253,7 @@
 
     <string name="uni_post_settings">UniPost Settings</string>
     <string name="pref_header_uniPost">UniPost</string>
+    <string name="uni_post_picture_upload">Picture has been uploaded</string>
     <string name="pref_title_protectUniPosts">Protect UniPosts</string>
     <string name="pref_description_protectUniPosts">Show UniPosts only to your friends</string>
     <string name="pref_title_location">Location</string>
@@ -371,56 +371,6 @@
     <string name="course_name">Course Name</string>
     <string name="course_class">Classroom</string>
     <string name="course_lecturer">Lecturer</string>
-
     <!-- Course Table END -->
-
-    <!-- BURAYA KADAR TR XML İLE BİREBİR AYNI -->
-
-
-    <!-- Settings for Security -->
-    <string-array name="pref_list_blocked_users">
-        <item>strings.xml</item>
-        <item>DB'den</item>
-        <item>buraya</item>
-        <item>isimleri</item>
-        <item>çekmek</item>
-        <item>lazım</item>
-    </string-array>
-    <string-array name="pref_list_blocked_users_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_blocked_users_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_blocked_users_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <!-- Settings for Security END -->
-
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_profile_info">ProfileInfoActivity</string>
-
 
 </resources>

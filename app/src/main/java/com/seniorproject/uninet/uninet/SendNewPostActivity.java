@@ -124,7 +124,6 @@ public class SendNewPostActivity extends AppCompatActivity {
 
                 if (userLocation.equals("") || userLocation.equals(null))
                     userLocation = "None";
-                //TODO: Server kapalıyken post atılırsa uygulama yanıt vermiyor.
                 if (haveNetworkConnection()) {
                     String stringBytes = "";
                     if(imageBytes != null)
