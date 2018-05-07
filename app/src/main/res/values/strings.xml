@@ -215,6 +215,8 @@
     <string name="pref_title_setBirthday">Date of Birth</string>
     <string name="pref_description_setBirthday">Enter your birthday</string>
     <string name="title_activity_photos">Photos</string>
+    <string name="title_send_new_post">New UniPost</string>
+    <string name="title_other_user_profile">Profile</string>
 
 
     <string name="save_settings">Settings have been saved successfully</string>

@@ -215,6 +215,8 @@
     <string name="pref_title_setBirthday">Doğum Günü</string>
     <string name="pref_description_setBirthday">Doğum gününüzü giriniz</string>
     <string name="title_activity_photos">Fotoğraflar</string>
+    <string name="title_send_new_post">Yeni UniPost</string>
+    <string name="title_other_user_profile">Profil</string>
 
 
     <string name="save_settings">Ayarlar başarı ile kaydedildi</string>

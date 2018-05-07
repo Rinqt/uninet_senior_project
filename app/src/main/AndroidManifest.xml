@@ -115,7 +115,7 @@
 
         <activity
             android:name=".OtherUserProfileActivity"
-            android:label="Other User Profile"
+            android:label="@string/title_other_user_profile"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait">
             <meta-data
@@ -125,7 +125,7 @@
 
         <activity
             android:name=".SendNewPostActivity"
-            android:label="New UniPost"
+            android:label="@string/title_send_new_post"
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait">

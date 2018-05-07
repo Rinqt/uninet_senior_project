@@ -1,14 +1,14 @@
 ----------------------------------------------------------------------------
-3.12.2017 - v 0.0.0.0.0.0.1
+3.12.2017 - v 0.0.1 - Early Development
     1. İngilizce ve Türkçe string.xml lerinin bir kısmı yazıldı.
     2. TO-DO list güncellendi.
 
 
-24.01.2018 - v 0.0.0.0.0.0.2
+24.01.2018 - v 0.0.2 Early Development
     1. Hidden Drawer iconları güncellendi ve son haline getirildi.
     2. Yuvarlak profil fotoğrafının olduğu yerin arka planı mavi renk ile güncellendi.
 
-30.01.2018 - v 0.0.0.0.0.0.8
+30.01.2018 - v 0.0.3 Early Development
     1. Settings kısmına 'UniPost', 'Notifications', 'Safety and Privacy', 'Data & Sync' ayarları eklendi.
     2. pref_data_sync eklendi.
     3. pref_notifications eklendi.
@@ -18,7 +18,7 @@
     7. Oluşturulan stringler TR.xml'e de eklendi.
 
 
-12.02.2018 - v 0.0.0.0.0.0.9
+12.02.2018 - v 0.0.4 Early Development
     1. pref_profile eklendi.
     2. pref_profile XML içindeki android:key kısımları karmaşa olmasın diye silindi.Veri tutmak için onları düzgün keyler ile güncellemek lazım.   (KEYLER EKLENDİ)
     3. Change profile picture kısmı şuan nasıl yapılması gerektiği bilinmediğinden dolayı SwitchPreference olarak bırakıldı.
@@ -31,7 +31,7 @@
     8. Oluşturulan stringler TR.xml'e de eklendi.
 
 
-19.02.2018 - v 0.0.0.0.0.1.0
+19.02.2018 - v 0.0.5 Early Development
     1. Ayarlar içindeki; Profil, Unipost ve Güvenlik simgeleri güncellendi.
     2. Fragmentlar için yazılan kod komple değişti.
     3. FeedFragment, ProfileFragment, LecturesFragment ve MessagesFragmentlar eklendi ve PagerAdapter ile birbirine bağlandı.
@@ -39,34 +39,34 @@
     5. Versiyon kısmı fragment yerine activity'e dönüştürüldü.
     6. Artık 4 ana fragment arasında swipe yapılabiliyor.
 
-1.04.2018 v 0.0.0.0.0.1.4
+1.04.2018 v 0.0.6 Early Development
     1. Çıkış yaptıktan sonra geri butonu ile anasayfaya gelme sorunu giderildi. (loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);)
     2. kullanıcı adı ve şifre " admin ", " admin " olarak güncellendi.
     3. Profil Fragmentdaki butonlardan direkt olarak istenilen ayarlara gidilebiliyor. (Intent ve putExtra Kullanıldı.)
     4. Kullanıcı Profil kısmında attığı postlara uzun basarak post menüsüne ulaşabilir.
 
-4.04.2018 v 0.0.0.0.1.0.0
+4.04.2018 v 0.0.7 Early Development
     1. Swipe to Refresh özelliği Profil Kısmı için eklendi.
     2. Gradle güncellemesi ve kullanım dışı kodların yenilenmesi
     3. Database fonksiyonları eklendi.
 
-10.04.2018
+10.04.2018 - 0.0.8 Early Development
     1. Server bağlantılı Login check eklendi.
     2. Girilen key valuelar stringValue içinde
 
-11.04.2018 v 0.0.0.0.1.5.0
+11.04.2018 v 0.0.9 Early Development
     1. string xml dosyaları düzenlendi.
     2. Login check güncellendi.
     3. Post template güncellendi.
     4. Profile ve Feed Screen'a dinamik post eklendi
 
-14.04.2018 v 0.0.0.0.1.5.1
+14.04.2018 v 0.1.1 Early Development
     1. Relationship Status Fixed
     2. Login Fixed.
     3. New Post Design Added.
     4. Users can see other users profile. (Still in development)
 
-14.04.2018 v 0.0.0.0.1.5.5
+14.04.2018 v 0.1.3 Early Development
     1. Users can send new posts now.
     2. Dining List Added.
     3. Messages List Added.
@@ -74,16 +74,16 @@
     5. Turkish character problem solved.
     6. Other performance updates :D
 
-16.04.2018 v 0.0.0.0.1.5.8
+16.04.2018 v 0.1.5 Early Development
     1. UniPost Copy Added.
     2. UniPost Deletion Added ??.
     3. Lists go up when user click the tab layout.
 
-18.04.2018 v 0.0.0.0.2.0.0
+18.04.2018 v 0.1.6 Early Development
     1. New Profile Page Designed
     2. Detailed Design Page added.
 
-20.04.2018 v 0.0.0.0.2.5.9
+20.04.2018 v 0.2.0 Early Development
     1. Detailed Design Page design is done.
     2. Messaging design added. (sender, receiver templates).
     3. Turkish translation has been fixed in detail profiled page.
@@ -92,44 +92,71 @@
     6. New thread added to login process. User is able to see loading screen while app retrieving data from Database.
     7. Detail profile page gets information from shared preferences now.
 
-23.04.2018 v 0.0.0.0.3.0.0
+23.04.2018 v 0.2.2 Early Development
     1. Time table added. (with dummy data)
     2. Portrait mode is forced for all screens of application. **Except time table activity and Transcript activity
     3. TargetSdkVersion upgraded to sdk 27 along with all implementations
 
-23.04.2018 v 0.0.0.0.3.4.0
+23.04.2018 v 0.2.4 Early Development
     1. Dummy data of time table swapped with correct database data.
     2. Lab sessions are blue like in original time table in SIS.
 
-25.04.2018 v 0.0.0.0.3.9.0
+25.04.2018 v 0.2.6 Early Development
     1. Picture Problem is solved ?
     2. Messaging functionality added.
 
-26.04.2018 v 0.0.0.0.4.4.4
+26.04.2018 v 0.2.8 Early Development
     1. User Friend List Added to New Message Button
 
-27.04.2018 v 0.0.0.1.6.6.6
+27.04.2018 v 0.3.0 Early Development
     1. Settings re-designed with fragments.
     2. User is able to change profile picture inside the app but cannot save yet.
 
-29.04.2018 v 0.0.0.2.0.0.0
+29.04.2018 v 0.3.6 Early Development
     1. UniNet asks permission dynamically now.
     2. Transcript added.
     3. Photo Crop is available now.
 
-30.04.2018 v 0.0.0.2.0.0.0
+30.04.2018 v 0.3.9 Early Development
     1. UserID added to SharedPreferences for better loading performance
     2. Users can navigate to other user profile now.
 
-01.05.2018 v 0.0.0.2.0.0.0
+01.05.2018 v 0.4 Early Development
     1. Messages keyboard starts with capital letter now.
     2. User can change profile settings.
     3. User can update profile information. textChanged control is done.
 
+02.05.2018 v 0.5 Early Access
+    1. Permissions are fully functional
+    2. Send New Post functionality has upload picture now
+    3. Last messages screen has been improved
+    4. Activity names updated.
+    5. Some code changes to prevent database connections again and again
 
+03.05.2018 v 0.6 Early Access
+    1. Photo Crop has been updated and optimized
+    2. User settings are fully functional
+    3. Missing translations added.
 
-    // TODO: değişiklikler başarılı olarak kayıt edildi mi diye kontol edicez mi ?
-    // TODO: Mesajlaşma ekranında conversation yoksa kısmına bi kontor lazım.
+04.05.2018 v 0.7 Early Access
+    1. Azure Notification Hub added to project
+    2. Friend add, remove, follow functionalities implemented with design layouts
+    3. Code Optimization
+    4. Shared Preferences updated with new values.
+
+05.05.2018 v 0.8 Early Access
+    1. Search design and function is implemented
+    2. Custom notifications are available
+    3. Lectures page design updated
+    4. Lectures List Added
+    5. UniPosts that appear in HomeScreen and Profile Screen has been switched to recycler view from list view
+    6. Code Optimizations
+
+06.05.2018 v 0.9 Early Access
+    1. Missing parts added.
+    2. Minor bug fixes
+    3. String xml files has been updated
+
 
 
 ----------------------------------------------------------------------------
